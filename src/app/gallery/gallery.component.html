@@ -1,0 +1,18 @@
+<div class="gallery-wrapper" [ngClass]="{'loaded': Photos}">
+  <div class="search">
+    <form class="search-form">
+      <div class="form-field">
+        <div class="search-input"><input type='text' placeholder='i.e. Minimal' [(ngModel)]='searchQuery' name='searchQuery'></div>
+        <button type="button" (click)="getSearchResult(searchQuery)"><i class="icon icon-search"></i></button>
+      </div>
+    </form>
+  </div>
+  <div class="masonry">   
+    <ng-container *ngIf="!Photos.results">
+        <span class="masonry-image" *ngFor="let photo of Photos"><a href="{{photo.links.self}}"><img src="{{photo.urls.small}}"/></a></span>       
+    </ng-container>   
+    <ng-container *ngIf="Photos.results">
+        <span class="masonry-image" *ngFor="let photo of Photos.results"><a href="{{photo.links.self}}"><img src="{{photo.urls.small}}"/></a></span>       
+    </ng-container>   
+  </div>
+</div>
