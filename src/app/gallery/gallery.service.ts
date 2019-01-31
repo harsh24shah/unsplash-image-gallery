@@ -15,7 +15,7 @@ export class GalleryServices {
   unsplashUrl = 'https://api.unsplash.com';
   search = '/search/photos';
   searchQuery = "&query="
-  size = '&per_page=30';
+  size = '&per_page=10';
 
   constructor(private http: HttpClient) {
     let today = new Date();
@@ -30,7 +30,7 @@ export class GalleryServices {
     //console.log(this.unsplashUrl + this.photos + this.apiKey);
     let randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size;
     return this.http.get(randomImageUrl)
-    .pipe(map(this.extractData));    
+    .pipe(map(this.extractData));   
   }
   
   getCollectionService() : Observable<any>{   
@@ -41,8 +41,20 @@ export class GalleryServices {
 
   getSearchedImages(query : string) : Observable<any>{ 
     let searchedUrl =  this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size;
-    //console.log(searchedUrl);
+   
     return this.http.get(searchedUrl)
+    .pipe(map(this.extractData));
+  }
+
+  getLoadMoreImages(pageNo : string, query : string) : Observable<any>{
+    let loadmoreUrl;
+    if(!query){ 
+      loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo;
+    }else{
+      loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + "&page=" + pageNo;
+    }
+    console.log(loadmoreUrl);
+    return this.http.get(loadmoreUrl)
     .pipe(map(this.extractData));
   }
 } 

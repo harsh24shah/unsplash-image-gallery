@@ -7,12 +7,10 @@
       </div>
     </form>
   </div>
-  <div class="masonry">   
-    <ng-container *ngIf="!Photos.results">
-        <span class="masonry-image" *ngFor="let photo of Photos"><a href="{{photo.links.self}}"><img src="{{photo.urls.small}}"/></a></span>       
+  <div class="masonry" id="masonry">   
+    <ng-container >
+        <span class="masonry-image" *ngFor="let photo of Photos, let i = index" ><a href="{{photo.urls.full}}" target="_blank" ><img src="{{photo.urls.small}}"/></a></span>       
     </ng-container>   
-    <ng-container *ngIf="Photos.results">
-        <span class="masonry-image" *ngFor="let photo of Photos.results"><a href="{{photo.links.self}}"><img src="{{photo.urls.small}}"/></a></span>       
-    </ng-container>   
+ 
   </div>
 </div>
