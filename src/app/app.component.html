@@ -1,1 +1,13 @@
-<gallery-grid></gallery-grid>
+<header>
+    <div class="app-name">
+        <h1>Wallie</h1>
+    </div>
+    <nav>
+        <ul>
+            <li routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}"><a routerLink="/" >Latest</a></li>
+            <li routerLinkActive="active"><a routerLink="collections" >Collection</a></li>
+        </ul>
+    </nav> 
+</header>
+<router-outlet></router-outlet>
+

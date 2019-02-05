@@ -3,7 +3,7 @@ import {GalleryServices} from './gallery.service';
 
 
 @Component({
-  selector: 'gallery-grid',
+  selector: 'gallery-grid, date-pipe',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
@@ -47,8 +47,8 @@ export class GalleryComponent implements OnInit {
     let mesonaryDiv = document.getElementById('masonry');
     let pos = window.innerHeight + window.scrollY;
     let max = document.body.offsetHeight;
-    
-     if(pos == max) {
+    console.log(pos +"----"+ max);
+     if(pos >= max) {
         this.loadMore(this.pageNo,this.searchQuery);
      }
   }
@@ -61,8 +61,7 @@ export class GalleryComponent implements OnInit {
       }
       else{
         this.Photos =this.Photos.concat(this.temp.results);
-      }
-     
+      }    
       this.pageNo++;
     }); 
   }

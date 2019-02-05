@@ -53,7 +53,6 @@ export class GalleryServices {
     }else{
       loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + "&page=" + pageNo;
     }
-    console.log(loadmoreUrl);
     return this.http.get(loadmoreUrl)
     .pipe(map(this.extractData));
   }

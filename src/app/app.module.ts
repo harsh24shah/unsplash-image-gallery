@@ -1,22 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-rounting.module';
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FormsModule } from '@angular/forms';
-import { PopupComponent } from './popup/popup.component';
+import {RouterModule, Routes} from '@angular/router';
+import { CollectionComponent } from './collection/collection.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
-    PopupComponent
+    CollectionComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    AppRoutingModule,
+    FormsModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

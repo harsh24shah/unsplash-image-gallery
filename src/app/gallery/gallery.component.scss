@@ -1,7 +1,11 @@
 .gallery-wrapper {
     padding: 1.5em;
 
-    .masonry{
+    @media (max-width: 768px){
+        padding: 1em;
+    }
+    
+    .masonry{ 
         font-size: .85em;
         -webkit-column-count: 4;
         column-count: 4;
@@ -13,12 +17,14 @@
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.18);
+            position: relative;
+            overflow-y: hidden;
 
             img {
                 max-width: 100%;
                 height: auto;
                 display: block;
+                box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.18);
             }
         }
 
@@ -41,66 +47,121 @@
         }
 
     }
-    .search {
-        margin: 0 auto;
-        display: flex;
-        padding: 20px;
-
-        .search-form {
-            width: 50%;
-            margin: 0 auto;
-            position: relative;
-
-            .search-input {
-                border-bottom: 2px solid rgba(0,0,0,0.2);
-                overflow: hidden;
-
-                input[type="text"] {
-                    width: 100%;
-                    border: none;
-                    padding: 0.5em 1.5em;
-                    outline: none;
-                    font-size: 1.3rem;               
-                }            
-            } 
-            
-            button {
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 1em;
-                background: transparent;
-                cursor: pointer;
-                border: none;
-
-                .icon-search {
-                    font-size: 1.3rem;
-                }
-            }
-
-            @media (max-width: 768px){
-                width: 100%;
-            }
-               
-        }
-        
-    }
-
+   
     .masonry-image {
-        transform: translateY(100px);
+       
         transition: all .5s ease;
-        opacity: 0;
+     
+
+        .image-wrapper > a {
+            overflow: hidden;
+           text-decoration: none;
+           color:white;
+        }
+
+        &:hover .image-info{
+            transform: translateY(0);
+            transition: all .3s ease;
+        }
     }
 
     &.loaded {
         .masonry-image {
             transform: translateY(0);
             transition: all .5s ease;
-            opacity: 1;
+          
         }
     }
 
-    @media (max-width: 768px){
-        padding: 1em;
+    .user-info {
+        position: absolute;
+        top: 0;
+        display: flex;
+        align-items: center;
+        width: -webkit-fill-available;
+        background: linear-gradient(rgba(0,0,0,0.38), rgba(255,255,255,.0));
+        padding: 10px;
+
+        span {
+            color: white;
+        }
+
+        .user-profile-image img {
+            border-radius: 50%;
+            width: 25px;
+            margin-right: 6px;
+        }
+
+        .created-date {
+            flex: 1;
+            text-align: right;
+        }
     }
+
+    .image-info{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        width: -webkit-fill-available;
+        background: linear-gradient(rgba(255, 255, 255, 0),rgba(0, 0, 0, 0.38));
+        padding: 10px;
+        bottom: 0;
+        color: white;
+        transform: translateY(100%);
+        transition: all .3s ease;
+
+        .image-like {
+            flex: 1;
+            text-align: right;
+        }
+    }
+}
+
+.material-icons{
+    font-size: 1rem;
+}
+
+.search {
+    margin: 0 auto;
+    display: flex;
+    padding: 0 1.5rem 1.5rem;
+
+    .search-form {
+        width: 50%;
+        margin: 0 auto;
+        position: relative;
+
+        .search-input {
+            border-bottom: 2px solid rgba(0,0,0,0.2);
+            overflow: hidden;
+
+            input[type="text"] {
+                width: 100%;
+                border: none;
+                padding: 0.5em 1.5em;
+                outline: none;
+                font-size: 1.3rem;               
+            }            
+        } 
+        
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 1em;
+            background: transparent;
+            cursor: pointer;
+            border: none;
+
+            .icon-search {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px){
+            width: 100%;
+        }
+           
+    }
+    
 }

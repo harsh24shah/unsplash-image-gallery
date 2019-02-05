@@ -1,5 +1,5 @@
-<div class="gallery-wrapper" [ngClass]="{'loaded': Photos}">
-  <div class="search">
+<div class="gallery-wrapper" >
+  <div class="search"> 
     <form class="search-form">
       <div class="form-field">
         <div class="search-input"><input type='text' placeholder='i.e. Minimal' [(ngModel)]='searchQuery' name='searchQuery'></div>
@@ -7,10 +7,26 @@
       </div>
     </form>
   </div>
-  <div class="masonry" id="masonry">   
-    <ng-container >
-        <span class="masonry-image" *ngFor="let photo of Photos, let i = index" ><a href="{{photo.urls.full}}" target="_blank" ><img src="{{photo.urls.small}}"/></a></span>       
-    </ng-container>   
- 
+  <div class="main-content">
+      <div class="masonry" id="masonry">   
+          <ng-container >
+              <span class="masonry-image" *ngFor="let photo of Photos, let i = index" >
+                <div class="image-wrapper">
+                  <a href="{{photo.urls.full}}" target="_blank" >
+                    <img src="{{photo.urls.small}}"/>              
+                  </a>
+                  <a class="user-info" href="{{photo.user.links.html}}" target="_blank" >             
+                      <span class="user-profile-image"><img alt="" src="{{photo.user.profile_image.small}}"/></span>
+                      <span class="user-name">{{photo.user.first_name}}</span>                 
+                      
+                  </a>
+                  <div class="image-info">
+                      <span class="created-date">{{photo.updated_at | date}}</span>
+                      <span class="image-like"><i class="material-icons">favorite_border</i></span>
+                  </div>
+                </div>
+              </span>       
+          </ng-container>    
+        </div>
   </div>
 </div>

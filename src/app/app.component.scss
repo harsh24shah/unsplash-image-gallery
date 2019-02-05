@@ -1,0 +1,43 @@
+.app-name{
+    padding: 0 1.5rem;
+
+    h1{
+        padding: 10px 0;
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 600;
+    }
+}
+
+nav {
+    padding: 0 1.5em;   
+
+        ul {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+          
+
+            li{
+                list-style: none;
+                flex: auto;
+                text-align: center;
+
+                a {
+                    padding: 10px;                 
+                    display: inline-block;
+                    text-align: center;
+                    text-decoration: none;
+                    color: black;
+                    letter-spacing: 1px;
+                }
+
+                &.active{
+                    border-bottom: 1px solid black;
+                }
+            }
+        }
+}
