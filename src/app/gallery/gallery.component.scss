@@ -165,3 +165,43 @@
     }
     
 }
+
+.text-center{
+    text-align: center;
+}
+
+strong,
+h1,
+h2,
+h3,
+h4{
+    font-weight: 600;
+}
+
+h1,.h1{
+    font-size: 3.0rem;
+}
+h2,.h2{
+    font-size: 2.6rem;
+}
+h3,.h3{
+    font-size: 2.0rem;
+}
+h4,.h4{
+    font-size: 1.6rem;
+}
+
+@media (max-width:768px){
+    h1,.h1{
+        font-size: 2.0rem;
+    }
+    h2,.h2{
+        font-size: 2.0rem;
+    }
+    h3,.h3{
+        font-size: 1.8rem;
+    }
+    h4,.h4{
+        font-size: 1.6rem;
+    }
+}

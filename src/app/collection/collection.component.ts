@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {GalleryServices} from './collection.services';
+import { GalleryServices } from '../gallery/gallery.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-collection',
@@ -9,8 +10,7 @@ import {GalleryServices} from './collection.services';
 
 export class CollectionComponent implements OnInit {
   private collections : any = [];
-  
-  constructor( private collectionServices : GalleryServices ) { }
+  constructor( private collectionServices : GalleryServices, activatedRoute: ActivatedRoute ) { }
 
   ngOnInit() {
     this.getCollections();

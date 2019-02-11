@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 import {GalleryServices} from './gallery.service';
 
 
@@ -8,13 +8,10 @@ import {GalleryServices} from './gallery.service';
   styleUrls: ['./gallery.component.scss']
 })
 
-
-
 export class GalleryComponent implements OnInit {
-  
+  private showSearch : boolean = true;
   private Photos : any = [];
-  private results : any =[];
-  private temp : any = [];
+  private buffer : any = [];
   searchQuery : '';
   private pageNo : number = 2;
 
@@ -47,20 +44,20 @@ export class GalleryComponent implements OnInit {
     let mesonaryDiv = document.getElementById('masonry');
     let pos = window.innerHeight + window.scrollY;
     let max = document.body.offsetHeight;
-    console.log(pos +"----"+ max);
+    //console.log(pos +"----"+ max);
      if(pos >= max) {
-        this.loadMore(this.pageNo,this.searchQuery);
+        this.loadMoreImages(this.pageNo,this.searchQuery);
      }
   }
 
-  loadMore(pages, search:string){
+  loadMoreImages(pages, search:string){
     this.galleryServices.getLoadMoreImages(pages,search).subscribe((data:{})=>{   
-       this.temp = data;
-      if(!this.temp.results){
+       this.buffer = data;
+      if(!this.buffer.results){
         this.Photos = this.Photos.concat(data);
       }
       else{
-        this.Photos =this.Photos.concat(this.temp.results);
+        this.Photos =this.Photos.concat(this.buffer.results);
       }    
       this.pageNo++;
     }); 

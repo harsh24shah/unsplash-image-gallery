@@ -5,6 +5,7 @@
       <span>{{collection.total_photos}}</span>
       <span>{{collection.title}}</span>
     </span>
-    <a href="{{collection.links.html}}"></a>
-  </div>
+    <a [routerLink]="['/collection-details', collection.id]"></a>
+  </div> 
 </div>
+ 

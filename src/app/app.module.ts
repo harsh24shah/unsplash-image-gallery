@@ -7,13 +7,15 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { FormsModule } from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { CollectionComponent } from './collection/collection.component';
+import { DetailpageComponent } from './collection/detailpage/detailpage.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
-    CollectionComponent
+    CollectionComponent,
+    DetailpageComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,7 @@ import { CollectionComponent } from './collection/collection.component';
     RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [GalleryComponent]
 })
 export class AppModule { }
