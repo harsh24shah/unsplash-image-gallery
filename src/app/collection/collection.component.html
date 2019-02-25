@@ -1,11 +1,14 @@
+<router-outlet></router-outlet>
 <div class="collection-wrapper" >
-  <div class="collection-item" *ngFor="let collection of collections, let i = index">
-    <img src="{{collection.cover_photo.urls.small}}"/>
-    <span class="collection-text">
-      <span>{{collection.total_photos}}</span>
-      <span>{{collection.title}}</span>
-    </span>
-    <a [routerLink]="['/collection-details', collection.id]"></a>
-  </div> 
+   <div class="collection-item" *ngFor="let collection of collections, let i = index">
+      <a [routerLink]="['./collectiondetails/', collection.id]">
+        <span>
+          <img src="{{collection.cover_photo.urls.small}}"/>
+          <span class="collection-text">
+            <span>{{collection.total_photos}}</span>
+            <span>{{collection.title}}</span>
+          </span>
+        </span>
+     </a>
+   </div> 
 </div>
- 

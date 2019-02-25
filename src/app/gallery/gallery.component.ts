@@ -1,5 +1,7 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import {GalleryServices} from './gallery.service';
+import { ImageDetails } from '../Models/image-detail.model';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -9,13 +11,15 @@ import {GalleryServices} from './gallery.service';
 })
 
 export class GalleryComponent implements OnInit {
-  private showSearch : boolean = true;
   private Photos : any = [];
   private buffer : any = [];
   searchQuery : '';
   private pageNo : number = 2;
-
-  constructor(private galleryServices : GalleryServices) { }
+  showSearch : boolean = true;
+  favoriteImagesBucket : any = [];
+  constructor(private galleryServices : GalleryServices,public favImage : ImageDetails) { 
+    
+  }
   
   ngOnInit() {
     this.getRandomImages();
@@ -37,6 +41,17 @@ export class GalleryComponent implements OnInit {
       this.Photos = data; 
       this.Photos = this.Photos.results
      });
+  }
+
+  addFavorite(photo){  
+    var favImage = new ImageDetails;
+  
+      favImage.imageURL = photo.urls.small;
+      favImage.imageDownloadPath = photo.links.download;
+      favImage.imageAlt = photo.user.username;
+      favImage.imageId = photo.id;
+      this.favoriteImagesBucket.push(favImage);   
+     favImage = null; 
   }
   
   @HostListener("window:scroll", ['$event'])

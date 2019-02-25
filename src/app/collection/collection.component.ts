@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , OnDestroy } from '@angular/core';
 import { GalleryServices } from '../gallery/gallery.service';
 import { ActivatedRoute } from "@angular/router";
 
@@ -8,10 +8,11 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./collection.component.scss']
 })
 
-export class CollectionComponent implements OnInit {
+export class CollectionComponent implements OnInit, OnDestroy {
   private collections : any = [];
   constructor( private collectionServices : GalleryServices, activatedRoute: ActivatedRoute ) { }
-
+  showSearch : boolean = false;
+  
   ngOnInit() {
     this.getCollections();
   }
@@ -20,6 +21,10 @@ export class CollectionComponent implements OnInit {
     this.collectionServices.getCollection().subscribe((data:{}) =>{
       this.collections = data;
     });
+  }
+
+  ngOnDestroy(){
+
   }
 
 }

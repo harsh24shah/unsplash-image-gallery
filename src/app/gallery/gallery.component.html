@@ -10,7 +10,9 @@
   <div class="search" *ngIf="!showSearch"> 
     <div class="search-form">
       <div class="form-field">
-        <h1 class="text-center"><strong>{{collection.title}}</strong></h1>
+        <div class="collection-banner">
+          <h1 class="text-center"><strong>{{collection.title}}</strong></h1>
+        </div>
       </div>
     </div>
   </div>
@@ -26,9 +28,9 @@
                       <span class="user-profile-image"><img alt="" src="{{photo.user.profile_image.small}}"/></span>
                       <span class="user-name">{{photo.user.first_name}}</span>                                      
                   </a>
-                  <div class="image-info">
+                  <div class="image-info" >
                       <span class="created-date">{{photo.updated_at | date}}</span>
-                      <span class="image-like"><i class="material-icons">favorite_border</i></span>
+                      <span class="image-like" (click)="addFavorite(photo)"><i class="material-icons">favorite_border</i></span>
                   </div>
                 </div>
               </span>       

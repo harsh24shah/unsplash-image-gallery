@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-rounting.module';
 import { AppComponent } from './app.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FormsModule } from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import { CollectionComponent } from './collection/collection.component';
 import { DetailpageComponent } from './collection/detailpage/detailpage.component';
-
+import { ImageDetails } from './Models/image-detail.model';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { DetailpageComponent } from './collection/detailpage/detailpage.componen
     FormsModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [ImageDetails],
   bootstrap: [AppComponent],
   exports: [GalleryComponent]
 })

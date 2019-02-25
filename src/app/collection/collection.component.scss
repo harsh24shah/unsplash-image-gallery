@@ -17,8 +17,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%) scale(1);
             max-width: inherit;
+            transition: all .3s ease;
         }
 
         @media all and (max-width:991px) {
@@ -33,16 +34,29 @@
             flex: 0 0 100%;
         }
 
-        &:after {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: rgba(0,0,0,0.5);
-            display: -webkit-box;
-            content: '';
+        & > a{
+            & > span{
+                &:after {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    background: rgba(0,0,0,0.5);
+                    display: -webkit-box;
+                    content: '';
+                }
+            }
+
+            &:hover{
+                img {
+                    transform: translate(-50%,-50%) scale(.8);
+                    transform-origin: center center;
+                    transition: all .3s ease;
+                }
+            }
         }
+       
 
         .collection-text {
             display: flex;

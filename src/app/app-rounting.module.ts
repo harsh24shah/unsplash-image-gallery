@@ -6,9 +6,11 @@ import { DetailpageComponent } from './collection/detailpage/detailpage.componen
 
 const routes: Routes = [
   { path:'', component: GalleryComponent },
-  { path:'collections', component: CollectionComponent},
-  { path:'collection-details/:id', component: DetailpageComponent }  
-];   
+  { path:'collections', component: CollectionComponent,
+  children:[
+    { path:'collectiondetails/:id', component: DetailpageComponent }  
+  ]}, 
+];     
  
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
