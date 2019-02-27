@@ -1,5 +1,7 @@
 # Unsplashgallery
 
+![image](https://user-images.githubusercontent.com/45845300/53484091-fee92e00-3a50-11e9-8c56-23efebdf4f51.png)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
 ## Development server
