@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, from } from 'rxjs';
+import { Observable, BehaviorSubject} from 'rxjs';
 import { map } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +17,9 @@ export class GalleryServices {
   searchQuery = "&query=";
   size = '&per_page=30';
 
+  private hasfav = new BehaviorSubject(false);
+  favStatus = this.hasfav.asObservable();
+
   constructor(private http: HttpClient) {
     let today = new Date();
   }
@@ -31,7 +33,6 @@ export class GalleryServices {
     used to get random photos by date
   */
   getRandomImagesService() : Observable<any>{
-    //console.log(this.unsplashUrl + this.photos + this.apiKey);
     let randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size;
     return this.http.get(randomImageUrl)
     .pipe(map(this.extractData));   
@@ -41,8 +42,7 @@ export class GalleryServices {
     used to get searched images from search input
   */
   getSearchedImages(query : string) : Observable<any>{ 
-    let searchedUrl =  this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size;
-   
+    let searchedUrl =  this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size;   
     return this.http.get(searchedUrl)
     .pipe(map(this.extractData));
   }
@@ -66,7 +66,6 @@ export class GalleryServices {
   */
   getCollection() : Observable<any>{   
     let CollectionUrl = this.unsplashUrl +  this.collections + this.apiKey + this.size;   
-   // console.log(CollectionUrl);
     return this.http.get(CollectionUrl)
     .pipe(map(this.extractData));       
   }  
@@ -88,6 +87,28 @@ export class GalleryServices {
     let collectionInfoUrl =  this.unsplashUrl + this.collections + "/" + collectionId + this.apiKey;
     return this.http.get(collectionInfoUrl)
     .pipe(map(this.extractData));
+  }
+
+  addTofavouriteService(favoriteImage){
+    this.addToLocalStorage(favoriteImage); 
+  }
+
+  addToLocalStorage(data){
+    var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
+    oldItems.push(data);    
+    localStorage.setItem('favImages', JSON.stringify(oldItems));
+  }
+
+  getFromLocalStorage(){
+   return localStorage.getItem('favImages');
+  }
+
+  checkStrorageIsEmpty(){
+    if (localStorage.getItem("favImages") === null) {
+      this.hasfav.next(false)
+    }else{
+      this.hasfav.next(true)
+    } 
   }
 } 
  

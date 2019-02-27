@@ -8,14 +8,18 @@ import { FormsModule } from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { CollectionComponent } from './collection/collection.component';
 import { DetailpageComponent } from './collection/detailpage/detailpage.component';
-import { ImageDetails } from './Models/image-detail.model';
+import { ImageDetails } from './models/image-detail.model';
+import { FavoriteComponent } from './favorite/favorite.component';
+import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GalleryComponent,
     CollectionComponent,
-    DetailpageComponent
+    DetailpageComponent,
+    FavoriteComponent,
+    DummydetailComponent
   ],
   imports: [
     BrowserModule,

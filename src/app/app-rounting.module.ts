@@ -3,14 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { GalleryComponent } from './gallery/gallery.component';
 import { CollectionComponent } from './collection/collection.component';
 import { DetailpageComponent } from './collection/detailpage/detailpage.component';
+import { FavoriteComponent } from './favorite/favorite.component';
+import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 
 const routes: Routes = [
   { path:'', component: GalleryComponent },
-  { path:'collections', component: CollectionComponent,
-  children:[
-    { path:'collectiondetails/:id', component: DetailpageComponent }  
-  ]}, 
-];     
+  { path:'favorite', component: FavoriteComponent },
+  { path:'collections', component: DummydetailComponent,
+      children:[    
+        { path:'', component: CollectionComponent},
+        { path:':id', component: DetailpageComponent }   
+      ]}, 
+];      
  
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

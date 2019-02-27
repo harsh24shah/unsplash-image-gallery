@@ -1,14 +1,14 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
 import {GalleryServices} from './gallery.service';
-import { ImageDetails } from '../Models/image-detail.model';
-import { forEach } from '@angular/router/src/utils/collection';
-
+import { ImageDetails } from '../models/image-detail.model';
 
 @Component({
   selector: 'gallery-grid, date-pipe',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['../../app/app.component.scss']
 })
+
+
 
 export class GalleryComponent implements OnInit {
   private Photos : any = [];
@@ -17,7 +17,8 @@ export class GalleryComponent implements OnInit {
   private pageNo : number = 2;
   showSearch : boolean = true;
   favoriteImagesBucket : any = [];
-  constructor(private galleryServices : GalleryServices,public favImage : ImageDetails) { 
+ 
+  constructor(private galleryServices : GalleryServices) { 
     
   }
   
@@ -44,14 +45,18 @@ export class GalleryComponent implements OnInit {
   }
 
   addFavorite(photo){  
+
     var favImage = new ImageDetails;
-  
-      favImage.imageURL = photo.urls.small;
-      favImage.imageDownloadPath = photo.links.download;
-      favImage.imageAlt = photo.user.username;
-      favImage.imageId = photo.id;
-      this.favoriteImagesBucket.push(favImage);   
-     favImage = null; 
+    favImage.imageURL = photo.urls.small;
+    favImage.imageDownloadPath = photo.links.download;
+    favImage.imageAlt = photo.user.username;
+    favImage.imageId = photo.id;
+    favImage.ImageOwnerProfile = photo.user.profile_image.small;
+    favImage.ImageOwnerName = photo.user.first_name;
+
+    this.galleryServices.addTofavouriteService(favImage);   
+    this.galleryServices.checkStrorageIsEmpty();
+    favImage = null;    
   }
   
   @HostListener("window:scroll", ['$event'])

@@ -5,7 +5,7 @@ import { GalleryServices } from '../../gallery/gallery.service';
 @Component({
   selector: 'app-detailpage', 
   templateUrl: '../../gallery/gallery.component.html',
-  styleUrls: ['../../gallery/gallery.component.scss'] 
+  styleUrls: ['../../../app/app.component.scss'] 
 }) 
 
 export class DetailpageComponent implements OnInit {
