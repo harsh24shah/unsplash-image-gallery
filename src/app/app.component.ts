@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {GalleryServices} from './gallery/gallery.service';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,14 @@ import { from } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'unsplashgallery';
-
+  hasFav : boolean;
+  
   constructor(private galleryServices : GalleryServices){}
 
+  ngOnInit() {
+    this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);
+    this.galleryServices.changeStatus();
+  }
 }

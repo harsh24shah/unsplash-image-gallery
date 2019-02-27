@@ -17,13 +17,14 @@ export class GalleryComponent implements OnInit {
   private pageNo : number = 2;
   showSearch : boolean = true;
   favoriteImagesBucket : any = [];
- 
+  hasFav : boolean;
   constructor(private galleryServices : GalleryServices) { 
     
   }
   
   ngOnInit() {
     this.getRandomImages();
+    this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);
   }
 
   getRandomImages(){
@@ -45,7 +46,6 @@ export class GalleryComponent implements OnInit {
   }
 
   addFavorite(photo){  
-
     var favImage = new ImageDetails;
     favImage.imageURL = photo.urls.small;
     favImage.imageDownloadPath = photo.links.download;
@@ -55,7 +55,7 @@ export class GalleryComponent implements OnInit {
     favImage.ImageOwnerName = photo.user.first_name;
 
     this.galleryServices.addTofavouriteService(favImage);   
-    this.galleryServices.checkStrorageIsEmpty();
+    this.galleryServices.changeStatus();
     favImage = null;    
   }
   

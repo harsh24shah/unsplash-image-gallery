@@ -11,7 +11,7 @@ const routes: Routes = [
   { path:'favorite', component: FavoriteComponent },
   { path:'collections', component: DummydetailComponent,
       children:[    
-        { path:'', component: CollectionComponent},
+        { path:'', component: CollectionComponent },
         { path:':id', component: DetailpageComponent }   
       ]}, 
 ];      

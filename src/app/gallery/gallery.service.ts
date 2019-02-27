@@ -18,7 +18,7 @@ export class GalleryServices {
   size = '&per_page=30';
 
   private hasfav = new BehaviorSubject(false);
-  favStatus = this.hasfav.asObservable();
+  currentStatus = this.hasfav.asObservable();
 
   constructor(private http: HttpClient) {
     let today = new Date();
@@ -103,11 +103,11 @@ export class GalleryServices {
    return localStorage.getItem('favImages');
   }
 
-  checkStrorageIsEmpty(){
+  changeStatus(){
     if (localStorage.getItem("favImages") === null) {
-      this.hasfav.next(false)
+      this.hasfav.next(false);
     }else{
-      this.hasfav.next(true)
+      this.hasfav.next(true);
     } 
   }
 } 

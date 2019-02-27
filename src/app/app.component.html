@@ -4,9 +4,9 @@
     </div>
     <nav>
         <ul>
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/" >Latest</a></li>
-            <li routerLinkActive="active" ><a routerLink="collections" >Collection</a></li>
-            <li routerLinkActive="active"><a routerLink="favorite" >Favorites {{hasFav}}</a></li>
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Latest</a></li>
+            <li routerLinkActive="active"><a routerLink="collections">Collection</a></li>
+            <li routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites</a></li>
         </ul> 
     </nav> 
 </header>
