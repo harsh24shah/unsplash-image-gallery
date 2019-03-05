@@ -1,5 +1,5 @@
 <router-outlet></router-outlet>
-<div class="collection-wrapper" > 
+<div class="collection-wrapper" id="collection-wrapper"> 
    <div class="collection-item" *ngFor="let collection of collections, let i = index">
       <a [routerLink]="['./', collection.id]">
         <span>

@@ -54,17 +54,15 @@ export class GalleryComponent implements OnInit {
     favImage.ImageOwnerProfile = photo.user.profile_image.small;
     favImage.ImageOwnerName = photo.user.first_name;
 
-    this.galleryServices.addTofavouriteService(favImage);   
+    this.galleryServices.addToLocalStorage(favImage);   
     this.galleryServices.changeStatus();
     favImage = null;    
   }
   
   @HostListener("window:scroll", ['$event'])
   onWindowScroll() {
-    let mesonaryDiv = document.getElementById('masonry');
     let pos = window.innerHeight + window.scrollY;
     let max = document.body.offsetHeight;
-    //console.log(pos +"----"+ max);
      if(pos >= max) {
         this.loadMoreImages(this.pageNo,this.searchQuery);
      }

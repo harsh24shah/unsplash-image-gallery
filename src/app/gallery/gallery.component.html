@@ -2,7 +2,7 @@
   <div class="search" *ngIf="showSearch"> 
     <form class="search-form">
       <div class="form-field">
-        <div class="search-input"><input type='text' placeholder='i.e. Minimal' [(ngModel)]='searchQuery' name='searchQuery'></div>
+        <div class="search-input"><input type='text' placeholder='i.e. Dogs' [(ngModel)]='searchQuery' name='searchQuery'></div>
         <button type="button" (click)="getSearchResult(searchQuery)"><i class="icon icon-search"></i></button>
       </div>
     </form>

@@ -16,6 +16,6 @@ export class FavoriteComponent implements OnInit {
 
   showFavorites(){
    this.favImages = JSON.parse( this.galleryServices.getFromLocalStorage() );
-    console.log(this.favImages);
+    //console.log(this.favImages);
   }
 }

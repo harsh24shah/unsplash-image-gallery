@@ -12,14 +12,16 @@ import { GalleryComponent } from '../../gallery/gallery.component';
 
 export class DetailpageComponent implements OnInit {
   private Photo : any = [];
+  private buffer : any = [];
   private Photos : any = []; 
+  private pageNo : number = 2;
   private collection : any = [];
-
+  private id : Number;
   constructor(private route: ActivatedRoute, private galleryServices : GalleryServices, private galleryComponent : GalleryComponent) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.params["id"];
-    this.getCollectionPhotos(id);
+    this.id = +this.route.snapshot.params["id"];
+    this.getCollectionPhotos(this.id);
   }
 
   getCollectionPhotos(collectionId : Number){
@@ -30,6 +32,23 @@ export class DetailpageComponent implements OnInit {
     this.galleryServices.getCollectionInfo(collectionId).subscribe((data:{})=>{
       this.collection = data;
     })
+  }
+
+  @HostListener("window:scroll", ['$event'])
+  onWindowScroll() {
+    let pos = window.innerHeight + window.scrollY;
+    let max = document.body.offsetHeight;
+     if(pos >= max) {
+        this.loadMoreCollections(this.pageNo, this.id);
+     }
+  }
+
+  loadMoreCollections(pages,id){
+    this.galleryServices.getLoadMoreCollectionDetailImages(pages,id).subscribe((data:{})=>{   
+      this.buffer = data;     
+      this.Photos = this.Photos.concat(data);
+      this.pageNo++;
+    });
   }
 
   addFavorite(photo){

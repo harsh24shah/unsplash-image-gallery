@@ -62,10 +62,21 @@ export class GalleryServices {
   }
 
   /*
+    for Loadmore collections on scroll
+  */
+  getLoadMoreCollections(pageNo : string) : Observable<any>{
+    let loadmoreUrl;  
+    loadmoreUrl = this.unsplashUrl + this.collections + this.apiKey + this.size + "&page=" + pageNo;
+    return this.http.get(loadmoreUrl)
+    .pipe(map(this.extractData));
+  }
+
+  /*
     get latest collections on comopnent init
   */
   getCollection() : Observable<any>{   
     let CollectionUrl = this.unsplashUrl +  this.collections + this.apiKey + this.size;   
+    //console.log(CollectionUrl);
     return this.http.get(CollectionUrl)
     .pipe(map(this.extractData));       
   }  
@@ -75,13 +86,12 @@ export class GalleryServices {
   */
   getCollectionDetails(collectionId : Number) : Observable<any>{  
     let collectionDetailUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size; 
-    console.log(collectionDetailUrl);   
     return this.http.get(collectionDetailUrl)
     .pipe(map(this.extractData));
   }
 
   /*
-    get collection info from collection id
+    get collection info on landing page from collection id
   */
   getCollectionInfo(collectionId : Number) : Observable<any>{
     let collectionInfoUrl =  this.unsplashUrl + this.collections + "/" + collectionId + this.apiKey;
@@ -89,20 +99,36 @@ export class GalleryServices {
     .pipe(map(this.extractData));
   }
 
-  addTofavouriteService(favoriteImage){
-    this.addToLocalStorage(favoriteImage); 
+  /*
+    for Loadmore images from collection id on scroll
+  */
+  getLoadMoreCollectionDetailImages(pageNo : string, collectionId : Number) : Observable<any>{
+    let loadmoreUrl;
+    loadmoreUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size + "&page=" + pageNo; 
+    //console.log(loadmoreUrl);   
+    return this.http.get(loadmoreUrl)
+    .pipe(map(this.extractData));
   }
 
+  /*
+    Add favourite items on local storage
+  */
   addToLocalStorage(data){
     var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
     oldItems.push(data);    
     localStorage.setItem('favImages', JSON.stringify(oldItems));
   }
 
+  /*
+    To get favourite items on local storage
+  */
   getFromLocalStorage(){
    return localStorage.getItem('favImages');
   }
 
+  /*
+    To get favourite items on local storage
+  */
   changeStatus(){
     if (localStorage.getItem("favImages") === null) {
       this.hasfav.next(false);
