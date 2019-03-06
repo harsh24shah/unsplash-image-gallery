@@ -114,9 +114,15 @@ export class GalleryServices {
     Add favourite items on local storage
   */
   addToLocalStorage(data){
-    var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
-    oldItems.push(data);    
-    localStorage.setItem('favImages', JSON.stringify(oldItems));
+    var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];   
+
+     if(oldItems.some(item => item.imageId == data.imageId)){
+      oldItems.splice(data.imageId,1);
+      localStorage.setItem('favImages', JSON.stringify(oldItems));
+     }else{
+      oldItems.push(data);    
+      localStorage.setItem('favImages', JSON.stringify(oldItems));
+     } 
   }
 
   /*
@@ -125,6 +131,7 @@ export class GalleryServices {
   getFromLocalStorage(){
    return localStorage.getItem('favImages');
   }
+
 
   /*
     To get favourite items on local storage

@@ -34,8 +34,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
     favImage.imageDownloadPath = photo.links.download;
     favImage.imageAlt = photo.user.username;
     favImage.imageId = photo.id;
-    favImage.ImageOwnerProfile = photo.user.profile_image.small;
-    favImage.ImageOwnerName = photo.user.first_name;
+    favImage.imageOwnerProfile = photo.user.profile_image.small;
+    favImage.imageOwnerName = photo.user.first_name;
 
     this.collectionServices.addToLocalStorage(favImage);      
     favImage = null;    

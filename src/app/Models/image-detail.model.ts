@@ -3,6 +3,7 @@ export class ImageDetails{
     public imageDownloadPath : string;
     public imageAlt : string;
     public imageId : number;
-    public ImageOwnerName : string; 
-    public ImageOwnerProfile : string; 
+    public imageOwnerName : string; 
+    public imageOwnerProfile : string; 
+    public imageIsActive : boolean;
 }

@@ -118,7 +118,6 @@ nav {
             top: 15px;
 
             span:last-child{
-                font-weight: 700;
                 margin-top: 5px;
                 display: block;
             }
@@ -218,8 +217,7 @@ nav {
     &.loaded {
         .masonry-image {
             transform: translateY(0);
-            transition: all .5s ease;
-          
+            transition: all .5s ease;       
         }
     }
 
@@ -268,6 +266,7 @@ nav {
         }
     }
 }
+
 
 
 

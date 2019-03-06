@@ -18,6 +18,8 @@ export class GalleryComponent implements OnInit {
   showSearch : boolean = true;
   favoriteImagesBucket : any = [];
   hasFav : boolean;
+  active : boolean;
+
   constructor(private galleryServices : GalleryServices) { 
     
   }
@@ -35,7 +37,6 @@ export class GalleryComponent implements OnInit {
 
   getSearchResult(searchQuery){
     this.pageNo = 2;
-
     this.galleryServices.getSearchedImages(searchQuery).subscribe((data:{})=>{ 
       if(this.Photos.length < 0){
         this.Photos = [];
@@ -46,18 +47,24 @@ export class GalleryComponent implements OnInit {
   }
 
   addFavorite(photo){  
-    var favImage = new ImageDetails;
-    favImage.imageURL = photo.urls.small;
-    favImage.imageDownloadPath = photo.links.download;
-    favImage.imageAlt = photo.user.username;
-    favImage.imageId = photo.id;
-    favImage.ImageOwnerProfile = photo.user.profile_image.small;
-    favImage.ImageOwnerName = photo.user.first_name;
+    
+    this.active = !this.active;
+   
+      var favImage = new ImageDetails;
+      favImage.imageURL = photo.urls.small;
+      favImage.imageDownloadPath = photo.links.download;
+      favImage.imageAlt = photo.user.username;
+      favImage.imageId = photo.id;
+      favImage.imageOwnerProfile = photo.user.profile_image.small;
+      favImage.imageOwnerName = photo.user.first_name;
+      favImage.imageIsActive = this.active;
+      
+      this.galleryServices.addToLocalStorage(favImage);   
+      this.galleryServices.changeStatus();
+      favImage = null;    
+    }
+   
 
-    this.galleryServices.addToLocalStorage(favImage);   
-    this.galleryServices.changeStatus();
-    favImage = null;    
-  }
   
   @HostListener("window:scroll", ['$event'])
   onWindowScroll() {
