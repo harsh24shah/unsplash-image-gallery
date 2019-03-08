@@ -1,13 +1,14 @@
 <div class="gallery-wrapper">
-  <div class="search" *ngIf="showSearch"> 
+  <div class="search" *ngIf="showSearch">
     <form class="search-form">
       <div class="form-field">
-        <div class="search-input"><input type='text' placeholder='i.e. Dogs' [(ngModel)]='searchQuery' name='searchQuery'></div>
+        <div class="search-input"><input type='text' placeholder='i.e. Dogs' [(ngModel)]='searchQuery'
+            name='searchQuery'></div>
         <button type="button" (click)="getSearchResult(searchQuery)"><i class="icon icon-search"></i></button>
       </div>
     </form>
   </div>
-  <div class="search" *ngIf="!showSearch"> 
+  <div class="search" *ngIf="!showSearch">
     <div class="search-form">
       <div class="form-field">
         <div class="collection-banner">
@@ -17,27 +18,27 @@
     </div>
   </div>
   <div class="main-content">
-      <div class="loader"></div>   
-      <div class="masonry" id="masonry">                    
-          <span class="masonry-image"  *ngFor="let photo of Photos, let i = index" >
-            <div class="image-wrapper">
-              <a href="{{photo.urls.full}}" target="_blank" >
-                <img src="{{photo.urls.small}}"/>              
-              </a>
-              <a class="user-info" href="{{photo.user.links.html}}" target="_blank" >             
-                  <span class="user-profile-image"><img alt="" src="{{photo.user.profile_image.small}}"/></span>
-                  <span class="user-name">{{photo.user.first_name}}</span>                                      
-              </a>
-              <div class="image-info" >
-                  <span class="created-date">{{photo.updated_at | date}}</span>
-                  <a href="javascript:void(0);" class="image-like" (click)="addFavorite(photo)" >
-                    <i class="material-icons" *ngIf="!active">favorite_border</i>
-                    <i class="material-icons" *ngIf="active">favorite</i>
-                  </a>
-              </div>
-            </div>
-          </span>
-                  
-      </div>
+    <div class="loader"></div>
+    <div class="masonry" id="masonry">
+      <span class="masonry-image" *ngFor="let photo of Photos, let i = index">
+        <div class="image-wrapper">
+          <a href="{{photo.urls.full}}" target="_blank">
+            <img src="{{photo.urls.small}}" />
+          </a>
+          <a class="user-info" href="{{photo.user.links.html}}" target="_blank">
+            <span class="user-profile-image"><img alt="" src="{{photo.user.profile_image.small}}" /></span>
+            <span class="user-name">{{photo.user.first_name}}</span>
+          </a>
+          <div class="image-info">
+            <span class="created-date">{{photo.updated_at | date}}</span>
+            <a href="javascript:void(0);" class="image-like" (click)="addFavorite(photo)">
+              <i class="material-icons" *ngIf="!active">favorite_border</i>
+              <i class="material-icons" *ngIf="active">favorite</i>
+            </a>
+          </div>
+        </div>
+      </span>
+
+    </div>
   </div>
 </div>

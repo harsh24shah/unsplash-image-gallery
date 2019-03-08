@@ -7,15 +7,17 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 
 const routes: Routes = [
-  { path:'', component: GalleryComponent },
-  { path:'favorite', component: FavoriteComponent },
-  { path:'collections', component: DummydetailComponent,
-      children:[    
-        { path:'', component: CollectionComponent },
-        { path:':id', component: DetailpageComponent }   
-      ]}, 
-];      
- 
+  { path: '', component: GalleryComponent },
+  { path: 'favorite', component: FavoriteComponent },
+  {
+    path: 'collections', component: DummydetailComponent,
+    children: [
+      { path: '', component: CollectionComponent },
+      { path: ':id', component: DetailpageComponent }
+    ]
+  },
+];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

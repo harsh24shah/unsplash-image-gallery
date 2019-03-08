@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GalleryServices} from '../gallery/gallery.service';
+import { GalleryServices } from '../gallery/gallery.service';
 
 @Component({
   selector: 'app-favorite',
@@ -7,15 +7,15 @@ import {GalleryServices} from '../gallery/gallery.service';
   styleUrls: ['../../app/app.component.scss']
 })
 export class FavoriteComponent implements OnInit {
-  private favImages : [];
-  constructor(private galleryServices : GalleryServices) { }
+  private favImages: [];
+  constructor(private galleryServices: GalleryServices) { }
 
   ngOnInit() {
     this.showFavorites();
   }
 
-  showFavorites(){
-   this.favImages = JSON.parse( this.galleryServices.getFromLocalStorage() );
+  showFavorites() {
+    this.favImages = JSON.parse(this.galleryServices.getFromLocalStorage());
     //console.log(this.favImages);
   }
 }

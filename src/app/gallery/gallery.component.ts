@@ -18,7 +18,6 @@ export class GalleryComponent implements OnInit {
   showSearch : boolean = true;
   favoriteImagesBucket : any = [];
   hasFav : boolean;
-  active : boolean;
 
   constructor(private galleryServices : GalleryServices) { 
     
@@ -46,10 +45,9 @@ export class GalleryComponent implements OnInit {
      });
   }
 
+
   addFavorite(photo){  
-    
-    this.active = !this.active;
-   
+
       var favImage = new ImageDetails;
       favImage.imageURL = photo.urls.small;
       favImage.imageDownloadPath = photo.links.download;
@@ -57,7 +55,6 @@ export class GalleryComponent implements OnInit {
       favImage.imageId = photo.id;
       favImage.imageOwnerProfile = photo.user.profile_image.small;
       favImage.imageOwnerName = photo.user.first_name;
-      favImage.imageIsActive = this.active;
       
       this.galleryServices.addToLocalStorage(favImage);   
       this.galleryServices.changeStatus();

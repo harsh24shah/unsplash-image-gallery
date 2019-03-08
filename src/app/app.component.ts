@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GalleryServices} from './gallery/gallery.service';
+import { GalleryServices } from './gallery/gallery.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,9 @@ import {GalleryServices} from './gallery/gallery.service';
 
 export class AppComponent implements OnInit {
   title = 'unsplashgallery';
-  hasFav : boolean;
-  
-  constructor(private galleryServices : GalleryServices){}
+  hasFav: boolean;
+
+  constructor(private galleryServices: GalleryServices) { }
 
   ngOnInit() {
     this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);

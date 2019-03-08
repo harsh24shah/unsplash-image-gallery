@@ -1,19 +1,19 @@
 <div class="gallery-wrapper">
   <div class="main-content">
-      <div class="masonry" id="masonry">   
-          <ng-container *ngIf="favImages">
-              <span class="masonry-image" *ngFor="let photoset of favImages, let i = index" >
-                <div class="image-wrapper">
-                  <a href="{{photoset.imageDownloadPath}}" target="_blank" >
-                    <img src="{{photoset.imageURL}}"/>              
-                  </a>
-                  <a class="user-info" href="{{photoset.imageDownloadPath}}" target="_blank" >             
-                      <span class="user-profile-image"><img alt="" src="{{photoset.ImageOwnerProfile}}"/></span>
-                      <span class="user-name">{{photoset.ImageOwnerName}}</span>                                      
-                  </a>              
-                </div>
-              </span>       
-          </ng-container>    
-        </div>
+    <div class="masonry" id="masonry">
+      <ng-container *ngIf="favImages">
+        <span class="masonry-image" *ngFor="let photoset of favImages, let i = index">
+          <div class="image-wrapper">
+            <a href="{{photoset.imageDownloadPath}}" target="_blank">
+              <img src="{{photoset.imageURL}}" />
+            </a>
+            <a class="user-info" href="{{photoset.imageDownloadPath}}" target="_blank">
+              <span class="user-profile-image"><img alt="" src="{{photoset.ImageOwnerProfile}}" /></span>
+              <span class="user-name">{{photoset.ImageOwnerName}}</span>
+            </a>
+          </div>
+        </span>
+      </ng-container>
+    </div>
   </div>
 </div>
