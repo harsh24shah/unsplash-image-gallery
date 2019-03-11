@@ -202,13 +202,13 @@ nav {
         }
  
         &:hover .image-info{
-            transform: translateY(0);
+           // transform: translateY(0);
             transition: all .3s ease;
         }
 
         @media all and(max-width: 991px){
             .image-info{
-                transform: translateY(0);
+                //transform: translateY(0);
                 transition: all .3s ease;
             }
         }
@@ -216,7 +216,7 @@ nav {
 
     &.loaded {
         .masonry-image {
-            transform: translateY(0);
+            //transform: translateY(0);
             transition: all .5s ease;       
         }
     }
@@ -255,14 +255,14 @@ nav {
         padding: 10px;
         bottom: 0;
         color: white;
-        transform: translateY(100%);
+      //  transform: translateY(100%);
         transition: all .3s ease;
 
         .image-like {
             flex: 1;
             text-align: right;
             z-index: 2;
-            color: white;
+            color:white;
         }
     }
 }

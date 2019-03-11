@@ -114,18 +114,15 @@ export class GalleryServices {
     Add favourite items on local storage
   */
   addToLocalStorage(data) {
-    
     var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
-
     if (this.checkInStorage(data, 'favImages')) {
-      
       oldItems.push(data);
-      
     } else {
-      console.log(oldItems.indexOf(data.imageId));
+      oldItems = oldItems.filter(oldItems => {
+        return oldItems.imageId !== data.imageId;
+      });
     }
     localStorage.setItem('favImages', JSON.stringify(oldItems));
-
   }
 
   /*

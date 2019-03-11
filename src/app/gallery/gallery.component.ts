@@ -46,8 +46,7 @@ export class GalleryComponent implements OnInit {
   }
 
 
-  addFavorite(photo){  
-
+  addFavorite(photo){       
       var favImage = new ImageDetails;
       favImage.imageURL = photo.urls.small;
       favImage.imageDownloadPath = photo.links.download;
