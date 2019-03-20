@@ -1,13 +1,18 @@
 <header>
     <div class="app-name">
-        <h1><a href="/">Wallie</a></h1>
+        <div class="main-container">
+            <h1><a href="/">Wallperex</a></h1>
+        </div>
     </div>
-    <nav>
-        <ul>
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Latest</a></li>
-            <li routerLinkActive="active"><a routerLink="collections">Collection</a></li>
-            <li routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites</a></li>
-        </ul>
-    </nav>
+    <div class="main-container">
+        <nav>
+            <ul>
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Latest</a>
+                </li>
+                <li routerLinkActive="active"><a routerLink="collections">Collection</a></li>
+                <li routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 <router-outlet></router-outlet>

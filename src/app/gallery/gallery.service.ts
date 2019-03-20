@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,11 +17,12 @@ export class GalleryServices {
   search = '/search/photos';
   searchQuery = "&query=";
   size = '&per_page=30';
+  fileUrl;
 
   private hasfav = new BehaviorSubject(false);
   currentStatus = this.hasfav.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
     let today = new Date();
   }
 
@@ -154,4 +156,7 @@ export class GalleryServices {
       this.hasfav.next(true);
     }
   }
+
+
+
 }

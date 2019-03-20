@@ -1,4 +1,4 @@
-<div class="gallery-wrapper">
+<div class="gallery-wrapper main-container">
   <div class="search" *ngIf="showSearch">
     <form class="search-form">
       <div class="form-field">
@@ -19,8 +19,8 @@
   </div>
   <div class="main-content">
     <div class="loader"></div>
-    <div class="masonry" id="masonry">
-      <span class="masonry-image" *ngFor="let photo of Photos, let i = index">
+    <div class="masonry masonry--h" id="masonry">
+      <span class="masonry-brick masonry-brick--h" *ngFor="let photo of Photos, let i = index">
         <div class="image-wrapper">
           <a href="{{photo.urls.full}}" target="_blank">
             <img src="{{photo.urls.small}}" />
@@ -32,13 +32,12 @@
           <div class="image-info">
             <span class="created-date">{{photo.updated_at | date}}</span>
             <a href="javascript:void(0);" class="image-like" (click)="addFavorite(photo)">
-              <i class="material-icons"  >favorite_border</i>
-              <!--<i class="material-icons"  >favorite</i>-->
+              <i class="material-icons">favorite_border</i>
+              <i class="material-icons">favorite</i>
             </a>
           </div>
         </div>
       </span>
-
     </div>
   </div>
 </div>
