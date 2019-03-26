@@ -17,7 +17,6 @@ export class GalleryServices {
   search = '/search/photos';
   searchQuery = "&query=";
   size = '&per_page=30';
-  fileUrl;
 
   private hasfav = new BehaviorSubject(false);
   currentStatus = this.hasfav.asObservable();
@@ -52,7 +51,7 @@ export class GalleryServices {
   /*
     for Loadmore images on scroll
   */
-  getLoadMoreImages(pageNo: string, query: string): Observable<any> {
+  getLoadMoreImages(pageNo: number, query: string): Observable<any> {
     let loadmoreUrl;
     if (!query) {
       loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo;
@@ -67,7 +66,7 @@ export class GalleryServices {
     for Loadmore collections on scroll
   */
   getLoadMoreCollections(pageNo: string): Observable<any> {
-    let loadmoreUrl;
+    let loadmoreUrl : string;
     loadmoreUrl = this.unsplashUrl + this.collections + this.apiKey + this.size + "&page=" + pageNo;
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
@@ -105,7 +104,7 @@ export class GalleryServices {
     for Loadmore images from collection id on scroll
   */
   getLoadMoreCollectionDetailImages(pageNo: string, collectionId: Number): Observable<any> {
-    let loadmoreUrl;
+    let loadmoreUrl : string;
     loadmoreUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size + "&page=" + pageNo;
     //console.log(loadmoreUrl);   
     return this.http.get(loadmoreUrl)
@@ -115,7 +114,7 @@ export class GalleryServices {
   /*
     Add favourite items on local storage
   */
-  addToLocalStorage(data) {
+  addToLocalStorage(data : any) {
     var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
     if (this.checkInStorage(data, 'favImages')) {
       oldItems.push(data);
@@ -130,7 +129,7 @@ export class GalleryServices {
   /*
     will return true if image id found in local storage otherwise false
   */
-  checkInStorage(data, storageKey: string) {
+  checkInStorage(data : any, storageKey: string) {
     var oldItems = JSON.parse(localStorage.getItem(storageKey)) || [];
     if (oldItems.some(item => item.imageId == data.imageId)) {
       return false;

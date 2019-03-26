@@ -11,7 +11,8 @@ import { DetailpageComponent } from './collection/detailpage/detailpage.componen
 import { ImageDetails } from './models/image-detail.model';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
-
+import { PopupComponent } from './popup/popup.component';
+import {PopupService} from './popup/popup.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { DummydetailComponent } from './collection/dummydetail/dummydetail.compo
     CollectionComponent,
     DetailpageComponent,
     FavoriteComponent,
-    DummydetailComponent
+    DummydetailComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,7 @@ import { DummydetailComponent } from './collection/dummydetail/dummydetail.compo
     FormsModule,
     RouterModule,
   ],
-  providers: [ImageDetails],
+  providers: [ImageDetails, PopupService],
   bootstrap: [AppComponent],
   exports: [GalleryComponent]
 })

@@ -7,7 +7,7 @@
 }
 
 %absoulteImage {
-  min-width: 100%;
+  min-width: 101%;
   height: auto;
   position: absolute;
   top: 50%;
@@ -25,7 +25,7 @@
   h1,
   h1 a {
     display: inline-block;
-    padding: 10px 0;
+    padding: 12px;
     margin: 0;
     font-size: 2rem;
     font-weight: 600;
@@ -41,7 +41,7 @@ nav {
     align-items: center;
     justify-content: flex-start;
     margin: 0;
-    padding: 0;
+    padding: 0 12px;
 
     li {
       list-style: none;
@@ -125,7 +125,7 @@ nav {
       color: white;
       left: 15px;
       top: 15px;
-      line-height: normal;
+      font-size: 14px;
 
       span:last-child {
         margin-top: 5px;
@@ -349,16 +349,17 @@ nav {
     display: flex;
     align-items: center;
     width: -webkit-fill-available;
-    background: linear-gradient(rgba(0, 0, 0, 0.38), rgba(255, 255, 255, 0));
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0));
     padding: 10px;
 
     span {
       color: white;
+      font-size: 12px;
     }
 
     .user-profile-image img {
       border-radius: 50%;
-      width: 25px;
+      width: 20px;
       margin-right: 6px;
     }
 
@@ -371,18 +372,19 @@ nav {
   .image-info {
     position: absolute;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: -webkit-fill-available;
-    background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.38));
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5));
     padding: 10px;
     bottom: 0;
     color: white;
     //  transform: translateY(100%);
     transition: all 0.3s ease;
+    font-size: 14px;
 
     .image-like {
       flex: 1;
-      text-align: right;
       z-index: 2;
       color: white;
     }
@@ -428,6 +430,165 @@ nav {
 
     @media (max-width: 768px) {
       width: 100%;
+    }
+  }
+}
+
+popup {
+  &.active {
+    .modal {
+      transform: translateX(0);
+      transition: all 0.3s ease;
+    }
+  }
+
+  .close {
+    display: inline-block;
+    position: absolute;
+    z-index: 1111;
+    top: 20px;
+    left: 20px;
+
+    > i {
+      background: white;
+      color: black;
+      font-size: 26px;
+      border-radius: 50%;
+      padding: 5px;
+      box-shadow: 1px 2px 11px 0px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    height: 100vh;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    transform: translateX(102%);
+    transition: all 0.3s ease;
+    font-size: 14px;
+
+    @media (max-width: 991px) {
+      overflow-y: auto;
+    }
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 900;
+  }
+
+  .image-popup-wrap {
+    display: flex;
+
+    .image-popup-image {
+      width: 66.666%;
+      flex: 2;
+      text-align: center;
+      position: relative;
+
+      > span {
+        display: block;
+        width: 100%;
+        height: 100vh;
+        position: relative;
+
+        img {
+          min-height: 300px;
+          display: inline-block;
+          margin: 0 auto;
+          float: none;
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+
+          @media (max-width: 991px) {
+            position: static;
+            float: left;
+            top: auto;
+            left: auto;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 991px) {
+          height: auto;
+        }
+      }
+
+      @media (max-width: 991px) {
+        width: 100%;
+        flex: 0;
+      }
+    }
+
+    .image-popup-description {
+      position: relative;
+      width: 33.33%;
+      padding: 25px 30px 30px 30px;
+      flex: 1;
+      -webkit-flex: 1;
+      background: whitesmoke;
+
+      span:first-child {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+
+        img {
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0 20px;
+      }
+
+      .image-detail {
+        label {
+          margin-right: 10px;
+        }
+
+        > div {
+          margin: 12px 0;
+          display: flex;
+          align-items: center;
+        }
+
+        .color-box > span {
+          width: 40px;
+          height: 20px;
+          display: inline-block;
+        }
+      }
+
+      @media (max-width: 991px) {
+        width: auto;
+        flex: auto;
+      }
+    }
+
+    @media (max-width: 991px) {
+      flex-direction: column;
+      height: 100vh;
     }
   }
 }

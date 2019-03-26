@@ -1,44 +1,75 @@
-
-.text-center{
-    text-align: center;
+.text-center {
+  text-align: center;
 }
 
-.material-icons{
-    font-size: 1.3rem;
+.material-icons {
+  font-size: 1.3rem;
 }
+
+.modal-open {
+  overflow: hidden;
+}
+
+.pull-right {
+  float: right;
+}
+.pull-left {
+  float: left;
+}
+
+// Alignment
+.text-left           { text-align: left; }
+.text-right          { text-align: right; }
+.text-center         { text-align: center; }
+.text-justify        { text-align: justify; }
+.text-nowrap         { white-space: nowrap; }
+
+// Transformation
+.text-lowercase      { text-transform: lowercase; }
+.text-uppercase      { text-transform: uppercase; }
+.text-capitalize     { text-transform: capitalize; }
 
 strong,
 h1,
 h2,
 h3,
-h4{
-    font-weight: 600;
+h4 {
+  font-weight: 600;
 }
 
-h1,.h1{
-    font-size: 3.0rem;
+h1,
+.h1 {
+  font-size: 3rem;
 }
-h2,.h2{
-    font-size: 2.6rem;
+h2,
+.h2 {
+  font-size: 2.6rem;
 }
-h3,.h3{
-    font-size: 2.0rem;
+h3,
+.h3 {
+  font-size: 2rem;
 }
-h4,.h4{
+h4,
+.h4 {
+  font-size: 1.6rem;
+  line-height: normal;
+}
+
+@media (max-width: 768px) {
+  h1,
+  .h1 {
+    font-size: 2rem;
+  }
+  h2,
+  .h2 {
+    font-size: 2rem;
+  }
+  h3,
+  .h3 {
+    font-size: 1.8rem;
+  }
+  h4,
+  .h4 {
     font-size: 1.6rem;
-}
-
-@media (max-width:768px){
-    h1,.h1{
-        font-size: 2.0rem;
-    }
-    h2,.h2{
-        font-size: 2.0rem;
-    }
-    h3,.h3{
-        font-size: 1.8rem;
-    }
-    h4,.h4{
-        font-size: 1.6rem;
-    }
+  }
 }

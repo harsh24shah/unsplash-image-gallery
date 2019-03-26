@@ -1,15 +1,14 @@
-import { Component, OnInit, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { GalleryServices } from './gallery.service';
 import { ImageDetails } from '../models/image-detail.model';
-
+import { PopupService } from '../popup/popup.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'gallery-grid, date-pipe',
   templateUrl: './gallery.component.html',
   styleUrls: ['../../app/app.component.scss']
 })
-
-
 
 export class GalleryComponent implements OnInit {
   private Photos: any = [];
@@ -19,9 +18,19 @@ export class GalleryComponent implements OnInit {
   showSearch: boolean = true;
   favoriteImagesBucket: any = [];
   hasFav: boolean;
+  sharePhoto: Observable<any>;
 
+  constructor(private galleryServices: GalleryServices, private popupService: PopupService) { }
 
-  constructor(private galleryServices: GalleryServices) { }
+  openShareModal(id: string, image: any) {
+    this.popupService.open(id);
+    this.sharePhoto = image;
+    console.log(this.sharePhoto);
+  }
+
+  closeModal(id: string) {
+    this.popupService.close(id);
+  }
 
   ngOnInit() {
     this.getRandomImages();
@@ -34,7 +43,7 @@ export class GalleryComponent implements OnInit {
     });
   }
 
-  getSearchResult(searchQuery) {
+  getSearchResult(searchQuery: string) {
     this.pageNo = 2;
     this.galleryServices.getSearchedImages(searchQuery).subscribe((data: {}) => {
       if (this.Photos.length < 0) {
@@ -45,7 +54,7 @@ export class GalleryComponent implements OnInit {
     });
   }
 
-  addFavorite(photo) {
+  addFavorite(photo: any) {
     var favImage = new ImageDetails;
 
     favImage.imageURL = photo.urls.small;
@@ -69,7 +78,7 @@ export class GalleryComponent implements OnInit {
     }
   }
 
-  loadMoreImages(pages, search: string) {
+  loadMoreImages(pages: number, search: string) {
     this.galleryServices.getLoadMoreImages(pages, search).subscribe((data: {}) => {
       this.buffer = data;
       if (!this.buffer.results) {

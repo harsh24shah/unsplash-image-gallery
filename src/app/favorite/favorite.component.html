@@ -4,13 +4,14 @@
       <div class="masonry masonry--h" id="masonry">
         <ng-container *ngIf="favImages">
           <span class="masonry-brick masonry-brick--h" *ngFor="let photoset of favImages, let i = index">
+            <span>{{photoset.imageOwnerName}}</span>
             <div class="image-wrapper">
-              <a href="{{photoset.imageDownloadPath}}" target="_blank">
-                <img src="{{photoset.imageURL}}" />
+              <a [href]="photoset.imageDownloadPath" target="_blank">
+                <img alt="{{photoset.imageAlt}}" [src]="photoset.imageURL" />
               </a>
-              <a class="user-info" href="{{photoset.imageDownloadPath}}" target="_blank">
-                <span class="user-profile-image"><img alt="" src="{{photoset.ImageOwnerProfile}}" /></span>
-                <span class="user-name">{{photoset.ImageOwnerName}}</span>
+              <a class="user-info" href="javascript:void(0);" target="_blank">
+                <span class="user-profile-image"><img alt="" [src]="photoset.imageOwnerProfile" /></span>
+                <span class="user-name">{{photoset.imageOwnerName}}</span>
               </a>
             </div>
           </span>

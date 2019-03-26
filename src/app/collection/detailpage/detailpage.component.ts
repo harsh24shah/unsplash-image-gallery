@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { GalleryServices } from '../../gallery/gallery.service';
 import { GalleryComponent } from '../../gallery/gallery.component';
