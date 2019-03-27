@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
 import { GalleryServices } from './gallery.service';
 import { ImageDetails } from '../models/image-detail.model';
 import { PopupService } from '../popup/popup.service';
@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'gallery-grid, date-pipe',
   templateUrl: './gallery.component.html',
-  styleUrls: ['../../app/app.component.scss']
+  styleUrls: ['../../app/app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class GalleryComponent implements OnInit {

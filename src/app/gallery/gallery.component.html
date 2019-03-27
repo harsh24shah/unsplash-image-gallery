@@ -22,7 +22,7 @@
     <div class="masonry masonry--h" id="masonry">
       <span class="masonry-brick masonry-brick--h" *ngFor="let photo of Photos, let i = index">
         <div class="image-wrapper">
-          <a [href]="photo.urls.full" target="_blank">
+          <a (click)="openShareModal('sharePopup',photo)" href="javascipt:void(0);">
             <img alt="photo.alt_description" [src]="photo.urls.small" />
           </a>
           <a class="user-info" [href]="photo.user.links.html" target="_blank">
@@ -32,9 +32,6 @@
           <div class="image-info">
             <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)">
               <i class="material-icons">favorite_border</i>
-            </a>
-            <a href="javascript:void(0);" class="image-like text-right" (click)="openShareModal('sharePopup',photo)">
-              <i class="material-icons">zoom_out_map</i>
             </a>
           </div>
         </div>
@@ -66,9 +63,23 @@
             </span>
           </div>
           <div class="image-detail">
-            <div><label>Size:</label><strong>{{sharePhoto.width}} x {{sharePhoto.height}}</strong></div>
+            <div><label>Dimention:</label><strong>{{sharePhoto.width}} x {{sharePhoto.height}}</strong></div>
             <div><label>Likes:</label><strong>{{sharePhoto.likes}}</strong></div>
             <div class="color-box"><label>Color:</label><span [style.background]="sharePhoto.color"></span></div>
+          </div>
+          <div class="buttons-wrapper">
+            <div class="button">
+              <a [href]="sharePhoto.links.download + '?force=true'" download rel="nofollow" >Download</a>
+            </div>
+            <div class="button-share">
+              <span><i class="material-icons">share</i>             
+              <ul>
+                <li><a href="javascript:void(0);">Facebook</a></li>
+                <li><a href="javascript:void(0);">Twitter</a></li>
+                <li><a href="javascript:void(0);">Copy Link</a></li>
+              </ul>
+            </span>
+            </div>
           </div>
         </div>
       </div>

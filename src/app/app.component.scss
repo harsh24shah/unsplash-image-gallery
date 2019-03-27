@@ -17,12 +17,28 @@
   transition: all 0.3s ease;
 }
 
+%button-round {
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  color: black;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: white;
+    background: black;
+    box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+    transition: all 0.2s ease;
+  }
+}
+
 .app-name {
-  padding: 0 1.5rem;
   margin-bottom: 1.5rem;
   background: black;
 
-  h1,
   h1 a {
     display: inline-block;
     padding: 12px;
@@ -31,6 +47,10 @@
     font-weight: 600;
     color: white;
     text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.8rem;
   }
 }
 
@@ -195,6 +215,10 @@ nav {
   .masonry--v {
     margin-left: -8px; /* Adjustment for the gutter */
     counter-reset: brick;
+
+    @media (max-width: 768px) {
+      margin-left: -4px;
+    }
   }
 
   .masonry-brick {
@@ -204,6 +228,10 @@ nav {
     background-color: #333;
     color: white;
     position: relative;
+
+    @media (max-width: 768px) {
+      margin: 0 0 10px 10px;
+    }
   }
 
   .masonry-brick:hover:after {
@@ -394,7 +422,11 @@ nav {
 .search {
   margin: 0 auto;
   display: flex;
-  padding: 0 1.5rem 2.5rem;
+  padding: 0 1.5rem 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 0 0 0.8rem 0;
+  }
 
   .search-form {
     width: 50%;
@@ -434,6 +466,10 @@ nav {
   }
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 popup {
   &.active {
     .modal {
@@ -449,13 +485,22 @@ popup {
     top: 20px;
     left: 20px;
 
+    @media (max-width: 768px) {
+      top: 10px;
+      left: 10px;
+    }
+
     > i {
-      background: white;
-      color: black;
+      background: rgba(black, 0.5);
+      color: white;
       font-size: 26px;
       border-radius: 50%;
       padding: 5px;
-      box-shadow: 1px 2px 11px 0px rgba(0, 0, 0, 0.3);
+      box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+
+      @media (max-width: 768px) {
+        font-size: 26px;
+      }
     }
   }
 
@@ -560,6 +605,10 @@ popup {
         align-items: center;
         justify-content: space-between;
         margin: 10px 0 20px;
+
+        @media (max-width: 768px) {
+          margin: 0 0 20px;
+        }
       }
 
       .image-detail {
@@ -583,12 +632,67 @@ popup {
       @media (max-width: 991px) {
         width: auto;
         flex: auto;
+        padding: 16px;
       }
     }
 
     @media (max-width: 991px) {
       flex-direction: column;
       height: 100vh;
+    }
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    margin-top: 20px;
+
+    .button {
+      display: inline-block;
+
+      > a {
+        @extend %button-round;
+        font-size: 12px;
+      }
+    }
+
+    .button-share {
+      position: relative;
+
+      > span {
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+
+        > i {
+          @extend %button-round;
+          font-size: 14px;
+          margin-left: 10px;
+        }
+
+        &:hover ul {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      ul {
+        position: absolute;
+        display: none;
+        width: 100px;
+        height: 100%;
+        left: 0;
+        bottom: -50px;
+
+        > li {
+          display: inline-block;
+
+          > a {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: black;
+          }
+        }
+      }
     }
   }
 }

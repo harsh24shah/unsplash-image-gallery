@@ -10,7 +10,7 @@ gulp.task('iconfont', function(){
       fontName: fontName, // The name that the generated font will have
      // path: 'src/assets/fonts/scss/_icons.scss', // The path to the template that will be used to create the SASS/LESS/CSS file
       targetPath: '../iconcss/_icons.css', // The path where the file will be generated
-      fontPath: '../../src/assets/fonts/icons/' // The path to the icon font file
+      fontPath: '../fonts/' // The path to the icon font file
     }))
     .pipe(iconfont({
       prependUnicode: false, // Recommended option 

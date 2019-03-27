@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewEncapsulation } from '@angular/core';
 import { PopupService } from './popup.service'
 
 @Component({
   selector: 'popup',
   template: `<ng-content></ng-content>`,
-  styleUrls: ['../../app/app.component.scss']
+  styleUrls: ['../../app/app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PopupComponent implements OnInit {
   @Input() id: string;

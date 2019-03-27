@@ -4,7 +4,7 @@
 	src: url('../fonts/Icons.eot?#iefix') format('eot'),
 		url('../fonts/Icons.woff2') format('woff2'),
 		url('../fonts/Icons.woff') format('woff'),
-		url('../fonts/Icons.ttf') format('truetype')
+		url('../fonts/Icons.ttf') format('truetype');
 }
 
 .icon:before {
