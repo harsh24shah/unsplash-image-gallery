@@ -35,6 +35,25 @@
   }
 }
 
+%button-round-invert {
+  text-decoration: none;
+  border: 1px solid black;
+  background: black;
+  border-radius: 25px;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  color: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: black;
+    background: transparent;
+    box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+    transition: all 0.2s ease;
+  }
+}
+
 .app-name {
   margin-bottom: 1.5rem;
   background: black;
@@ -352,13 +371,11 @@ nav {
     transition: all 0.5s ease;
 
     &:hover .image-info {
-      // transform: translateY(0);
       transition: all 0.3s ease;
     }
 
     @media all and(max-width: 991px) {
       .image-info {
-        //transform: translateY(0);
         transition: all 0.3s ease;
       }
     }
@@ -366,7 +383,6 @@ nav {
 
   &.loaded {
     .masonry-image {
-      //transform: translateY(0);
       transition: all 0.5s ease;
     }
   }
@@ -450,7 +466,7 @@ nav {
       position: absolute;
       top: 0;
       right: 0;
-      padding: 1em;
+      padding: 1em 1em 0 1em;
       background: transparent;
       cursor: pointer;
       border: none;
@@ -652,6 +668,7 @@ popup {
       > a {
         @extend %button-round;
         font-size: 12px;
+        font-weight: 600;
       }
     }
 
@@ -669,27 +686,32 @@ popup {
           margin-left: 10px;
         }
 
-        &:hover ul {
-          display: flex;
-          flex-direction: column;
+        &.active ul {
+          visibility: visible;
+          opacity: 1;
+          width: 100%;
+          transition: all 0.3s ease;
         }
       }
 
       ul {
+        display: flex;
+        flex-direction: row;
         position: absolute;
-        display: none;
-        width: 100px;
+        visibility: hidden;
+        opacity: 0;
+        width: 0;
         height: 100%;
-        left: 0;
-        bottom: -50px;
+        left: 53px;
+        bottom: 0;
+        transition: all 0.2s ease;
 
         > li {
           display: inline-block;
 
           > a {
-            display: inline-block;
-            margin-bottom: 10px;
-            color: black;
+            @extend %button-round-invert;
+            margin-right: 2px;
           }
         }
       }

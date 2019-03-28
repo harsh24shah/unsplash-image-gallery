@@ -20,17 +20,28 @@ export class GalleryComponent implements OnInit {
   favoriteImagesBucket: any = [];
   hasFav: boolean;
   sharePhoto: Observable<any>;
+  isShareActive : boolean = false;
 
   constructor(private galleryServices: GalleryServices, private popupService: PopupService) { }
+
+  shareToggle(){
+    this.isShareActive = !this.isShareActive;
+  }
 
   openShareModal(id: string, image: any) {
     this.popupService.open(id);
     this.sharePhoto = image;
-    console.log(this.sharePhoto);
   }
 
   closeModal(id: string) {
     this.popupService.close(id);
+    this.shareToggle();
+  }
+
+  copyText(selector : string) {
+    var copyText = document.getElementById(selector);
+    copyText.onselect;
+    document.execCommand("copy");
   }
 
   ngOnInit() {

@@ -8,7 +8,7 @@ import { GalleryServices } from './gallery/gallery.service';
 })
 
 export class AppComponent implements OnInit {
-  title = 'unsplashgallery';
+  title = 'Wallperex';
   hasFav: boolean;
 
   constructor(private galleryServices: GalleryServices) { }

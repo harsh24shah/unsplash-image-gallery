@@ -4,7 +4,7 @@
       <div class="form-field">
         <div class="search-input"><input type='text' placeholder='i.e. Dogs' [(ngModel)]='searchQuery'
             name='searchQuery'></div>
-        <button type="button" (click)="getSearchResult(searchQuery)"><i class="icon icon-search"></i></button>
+        <button type="button" [disabled]="!searchQuery" (click)="getSearchResult(searchQuery)"><i class="icon icon-search"></i></button>
       </div>
     </form>
   </div>
@@ -71,12 +71,13 @@
             <div class="button">
               <a [href]="sharePhoto.links.download + '?force=true'" download rel="nofollow" >Download</a>
             </div>
-            <div class="button-share">
-              <span><i class="material-icons">share</i>             
+            <div class="button-share" >
+              <span (click)="shareToggle()"  [ngClass]="isShareActive ? 'active' : ''"><i class="material-icons">share</i>             
               <ul>
-                <li><a href="javascript:void(0);">Facebook</a></li>
-                <li><a href="javascript:void(0);">Twitter</a></li>
-                <li><a href="javascript:void(0);">Copy Link</a></li>
+                <li><a [href]="'https://www.facebook.com/sharer/sharer.php?u=' + sharePhoto.links.html + '&t=' + sharePhoto.description"  ><i class="icon icon-facebook"></i></a></li>
+                <li><a [href]="'http://twitter.com/share?text='+ sharePhoto.description + '&url=' + sharePhoto.links.html"><i class="icon icon-twitter"></i></a></li>
+                <li><a [href]="'https://wa.me/?text='+ sharePhoto.links.html"><i class="icon icon-whatsapp"></i></a></li>
+                <li><input type="text" [value]="sharePhoto.links.html" id="copyToClip" hidden><a href="javascript:void(0);" (click)="copyText(copyToClip)"><i class="icon icon-link"></i></a></li>
               </ul>
             </span>
             </div>

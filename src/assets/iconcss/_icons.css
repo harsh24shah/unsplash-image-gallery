@@ -28,14 +28,30 @@
 	content: "\E002";
 }
 
-.icon-left-arrow:before {
+.icon-facebook:before {
 	content: "\E003";
 }
 
-.icon-right-arrow:before {
+.icon-left-arrow:before {
 	content: "\E004";
 }
 
-.icon-search:before {
+.icon-link:before {
 	content: "\E005";
+}
+
+.icon-right-arrow:before {
+	content: "\E006";
+}
+
+.icon-search:before {
+	content: "\E007";
+}
+
+.icon-twitter:before {
+	content: "\E008";
+}
+
+.icon-whatsapp:before {
+	content: "\E009";
 }
