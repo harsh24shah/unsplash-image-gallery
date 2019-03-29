@@ -17,6 +17,7 @@ export class GalleryServices {
   search = '/search/photos';
   searchQuery = "&query=";
   size = '&per_page=30';
+  oredrBy = "&order_by="
 
   private hasfav = new BehaviorSubject(false);
   currentStatus = this.hasfav.asObservable();
@@ -30,11 +31,26 @@ export class GalleryServices {
     return body || {};
   }
 
+  copyMessage(val: string) {
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    alert("Copied");
+  }
   /*
     used to get random photos by date
   */
-  getRandomImagesService(): Observable<any> {
-    let randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size;
+  getRandomImagesService(orderBy : string): Observable<any> {
+    let randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + this.oredrBy + orderBy;
+    console.log(randomImageUrl);
     return this.http.get(randomImageUrl)
       .pipe(map(this.extractData));
   }
@@ -51,12 +67,12 @@ export class GalleryServices {
   /*
     for Loadmore images on scroll
   */
-  getLoadMoreImages(pageNo: number, query: string): Observable<any> {
+  getLoadMoreImages(pageNo: number, query: string , orderBy : string): Observable<any> {
     let loadmoreUrl;
     if (!query) {
-      loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo;
+      loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo + this.oredrBy + orderBy;
     } else {
-      loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + "&page=" + pageNo;
+      loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + "&page=" + pageNo + this.oredrBy + orderBy;
     }
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
@@ -66,7 +82,7 @@ export class GalleryServices {
     for Loadmore collections on scroll
   */
   getLoadMoreCollections(pageNo: string): Observable<any> {
-    let loadmoreUrl : string;
+    let loadmoreUrl: string;
     loadmoreUrl = this.unsplashUrl + this.collections + this.apiKey + this.size + "&page=" + pageNo;
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
@@ -104,7 +120,7 @@ export class GalleryServices {
     for Loadmore images from collection id on scroll
   */
   getLoadMoreCollectionDetailImages(pageNo: string, collectionId: Number): Observable<any> {
-    let loadmoreUrl : string;
+    let loadmoreUrl: string;
     loadmoreUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size + "&page=" + pageNo;
     //console.log(loadmoreUrl);   
     return this.http.get(loadmoreUrl)
@@ -114,7 +130,7 @@ export class GalleryServices {
   /*
     Add favourite items on local storage
   */
-  addToLocalStorage(data : any) {
+  addToLocalStorage(data: any) {
     var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
     if (this.checkInStorage(data, 'favImages')) {
       oldItems.push(data);
@@ -129,7 +145,7 @@ export class GalleryServices {
   /*
     will return true if image id found in local storage otherwise false
   */
-  checkInStorage(data : any, storageKey: string) {
+  checkInStorage(data: any, storageKey: string) {
     var oldItems = JSON.parse(localStorage.getItem(storageKey)) || [];
     if (oldItems.some(item => item.imageId == data.imageId)) {
       return false;

@@ -1,16 +1,17 @@
 <header>
-    <div class="app-name">
+    <div class="app-name sticky" id="header-main">
         <div class="main-container">
             <h1><a href="/">Wallperex</a></h1>
         </div>
     </div>
     <div class="main-container">
         <nav>
-            <ul>
-                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Latest</a>
+            <ul class="flex">
+                <li class="text-center" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
+                        routerLink="/">Latest</a></li>
+                <li class="text-center" routerLinkActive="active"><a routerLink="collections">Collection</a></li>
+                <li class="text-center" routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites</a>
                 </li>
-                <li routerLinkActive="active"><a routerLink="collections">Collection</a></li>
-                <li routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites</a></li>
             </ul>
         </nav>
     </div>

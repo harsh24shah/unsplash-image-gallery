@@ -18,14 +18,13 @@
 }
 
 %button-round {
-  text-decoration: none;
   border: 1px solid black;
   border-radius: 25px;
   padding: 10px;
-  text-align: center;
   display: flex;
   color: black;
   transition: all 0.2s ease;
+  background: transparent;
 
   &:hover {
     color: white;
@@ -41,7 +40,6 @@
   background: black;
   border-radius: 25px;
   padding: 10px;
-  text-align: center;
   display: flex;
   color: white;
   transition: all 0.2s ease;
@@ -57,6 +55,16 @@
 .app-name {
   margin-bottom: 1.5rem;
   background: black;
+  padding: 10px 0;
+  transition: all 0.2s ease;
+
+  &.sticky {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.85);
+    transition: all 0.2s ease;
+  }
 
   h1 a {
     display: inline-block;
@@ -65,7 +73,11 @@
     font-size: 2rem;
     font-weight: 600;
     color: white;
-    text-decoration: none;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      padding: 0;
+    }
   }
 
   @media (max-width: 768px) {
@@ -74,23 +86,33 @@
 }
 
 nav {
+  padding: 100px 0 0;
+
   ul {
-    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     margin: 0;
     padding: 0 12px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+
+    @media (max-width: 768px) {
+      padding: 0;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
 
     li {
       list-style: none;
-      text-align: center;
 
       a {
         padding: 12px 20px;
         display: inline-block;
-        text-align: center;
-        text-decoration: none;
         color: black;
         letter-spacing: 1px;
       }
@@ -103,8 +125,6 @@ nav {
 }
 
 .collection-wrapper {
-  display: flex;
-  flex-wrap: wrap;
   padding: 1.5em 0;
   justify-content: center;
 
@@ -157,7 +177,6 @@ nav {
     }
 
     .collection-text {
-      display: flex;
       flex-direction: column;
       position: absolute;
       z-index: 1;
@@ -207,13 +226,11 @@ nav {
     }
     > a {
       overflow: hidden;
-      text-decoration: none;
       color: white;
     }
   }
 
   .masonry {
-    display: flex;
     width: 100%;
   }
 
@@ -390,9 +407,8 @@ nav {
   .user-info {
     position: absolute;
     top: 0;
-    display: flex;
     align-items: center;
-    width: -webkit-fill-available;
+    width: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0));
     padding: 10px;
 
@@ -406,19 +422,13 @@ nav {
       width: 20px;
       margin-right: 6px;
     }
-
-    .created-date {
-      flex: 1;
-      text-align: right;
-    }
   }
 
   .image-info {
     position: absolute;
-    display: flex;
     justify-content: space-between;
     align-items: center;
-    width: -webkit-fill-available;
+    width: 100%;
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5));
     padding: 10px;
     bottom: 0;
@@ -437,8 +447,24 @@ nav {
 
 .search {
   margin: 0 auto;
-  display: flex;
-  padding: 0 1.5rem 1.5rem;
+  padding: 1.5rem 0.5rem;
+  justify-content: space-between;
+
+  .sorting {
+    align-content: center;
+
+    button {
+      @extend %button-round;
+      border-radius: 0;
+
+      &:disabled {
+        background: #ddd;
+        box-shadow: none;
+        border: none;
+        color: white;
+      }
+    }
+  }
 
   @media (max-width: 768px) {
     padding: 0 0 0.8rem 0;
@@ -446,7 +472,6 @@ nav {
 
   .search-form {
     width: 50%;
-    margin: 0 auto;
     position: relative;
 
     .search-input {
@@ -456,7 +481,7 @@ nav {
       input[type="text"] {
         width: 100%;
         border: none;
-        padding: 0.5em 1.5em;
+        padding: 0.5em;
         outline: none;
         font-size: 1.3rem;
       }
@@ -477,7 +502,7 @@ nav {
     }
 
     @media (max-width: 768px) {
-      width: 100%;
+      width: 60%;
     }
   }
 }
@@ -552,12 +577,9 @@ popup {
   }
 
   .image-popup-wrap {
-    display: flex;
-
     .image-popup-image {
       width: 66.666%;
       flex: 2;
-      text-align: center;
       position: relative;
 
       > span {
@@ -606,8 +628,6 @@ popup {
       background: whitesmoke;
 
       span:first-child {
-        display: flex;
-        align-items: center;
         flex-wrap: nowrap;
 
         img {
@@ -617,10 +637,17 @@ popup {
       }
 
       .user-info {
-        display: flex;
         align-items: center;
         justify-content: space-between;
         margin: 10px 0 20px;
+
+        .user-name {
+          flex-direction: column;
+
+          a {
+            color: rgba(black, 0.9);
+          }
+        }
 
         @media (max-width: 768px) {
           margin: 0 0 20px;
@@ -634,7 +661,6 @@ popup {
 
         > div {
           margin: 12px 0;
-          display: flex;
           align-items: center;
         }
 
@@ -655,11 +681,11 @@ popup {
     @media (max-width: 991px) {
       flex-direction: column;
       height: 100vh;
+      flex-wrap: nowrap;
     }
   }
 
   .buttons-wrapper {
-    display: flex;
     margin-top: 20px;
 
     .button {
@@ -676,7 +702,6 @@ popup {
       position: relative;
 
       > span {
-        text-decoration: none;
         display: block;
         cursor: pointer;
 
@@ -695,7 +720,7 @@ popup {
       }
 
       ul {
-        display: flex;
+        flex-wrap: nowrap;
         flex-direction: row;
         position: absolute;
         visibility: hidden;

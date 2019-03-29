@@ -1,6 +1,3 @@
-.text-center {
-  text-align: center;
-}
 .material-icons {
   font-size: 1.3rem;
 }
@@ -39,8 +36,24 @@
 .text-capitalize {
   text-transform: capitalize;
 }
-.hidden {
-  display: none;
+.hidethis {
+  height: 0;
+  width: 0;
+  opacity: 0;
+
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+a {
+  text-decoration: none;
+}
+
+.small {
+  font-size: 10px;
 }
 
 strong,

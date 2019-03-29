@@ -1,15 +1,15 @@
 <div class="main-container">
   <div class="gallery-wrapper">
     <div class="main-content">
-      <div class="masonry masonry--h" id="masonry">
+      <div class="masonry flex masonry--h" id="masonry">
         <ng-container *ngIf="favImages">
           <span class="masonry-brick masonry-brick--h" *ngFor="let photoset of favImages, let i = index">
             <span>{{photoset.imageOwnerName}}</span>
             <div class="image-wrapper">
-              <a [href]="photoset.imageDownloadPath" target="_blank">
+              <a (click)="openShareModal('sharePopup',photoset)" target="_blank">
                 <img alt="{{photoset.imageAlt}}" [src]="photoset.imageURL" />
               </a>
-              <a class="user-info" href="javascript:void(0);" target="_blank">
+              <a class="user-info flex" href="javascript:void(0);" target="_blank">
                 <span class="user-profile-image"><img alt="" [src]="photoset.imageOwnerProfile" /></span>
                 <span class="user-name">{{photoset.imageOwnerName}}</span>
               </a>
@@ -20,3 +20,31 @@
     </div>
   </div>
 </div>
+<popup id="sharePopup">
+  <div class="modal">
+    <ng-container *ngIf="sharePhoto">
+      <a class="close" href="javascript:void(0);" (click)="closeModal('sharePopup');">
+        <i class="material-icons">arrow_back</i>
+      </a>
+      <div class="modal-body image-popup-wrap flex">
+        <div class="modal-image image-popup-image text-center">
+          <span><img [src]="sharePhoto.imageURL" /></span>
+        </div>
+        <div class="modal-description image-popup-description">
+          <div class="user-info flex">
+            <span class="flex">
+              <span class="user-profile-image"><img alt="" [src]="sharePhoto.imageOwnerProfile" /></span>
+              <span class="user-name"><strong>{{sharePhoto.imageOwnerName}}</strong></span>
+              <span class="small"><a [href]="sharePhoto.user.links.html" target="_blank" title="{{sharePhoto.user.first_name}}"><strong>@{{sharePhoto.user.username}}</strong></a></span>
+            </span>
+          </div>
+          <div class="buttons-wrapper flex">
+            <div class="button text-center">
+              <a [href]="sharePhoto.imageDownloadPath+ '?force=true'" download rel="nofollow">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</popup>

@@ -1,5 +1,22 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable()
 export class PopupService {
+
     private modals: any[] = [];
+    sharePhoto: Observable<any>;
+    isShareActive: boolean = false;
+
+    openShareModal(id: string, image: any) {
+        this.open(id);       
+        return this.sharePhoto = image;
+    }
+
+    closeModal(id: string) {
+        this.close(id);       
+        return this.isShareActive = false;
+    }
 
     add(modal: any) {
         // add modal to array of active modals

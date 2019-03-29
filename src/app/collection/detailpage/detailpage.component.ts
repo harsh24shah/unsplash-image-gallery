@@ -1,7 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { GalleryServices } from '../../gallery/gallery.service';
+import { PopupService } from '../../popup/popup.service';
 import { GalleryComponent } from '../../gallery/gallery.component';
+import { Observable } from 'rxjs';
 
 @Component({
   providers: [GalleryComponent],
@@ -17,11 +19,30 @@ export class DetailpageComponent implements OnInit {
   private pageNo: number = 2;
   private collection: any = [];
   private id: Number;
-  constructor(private route: ActivatedRoute, private galleryServices: GalleryServices, private galleryComponent: GalleryComponent) { }
+  private sharePhoto: Observable<any>;
+  private isShareActive : boolean = false;
+
+  constructor(private route: ActivatedRoute, private galleryServices: GalleryServices, private galleryComponent: GalleryComponent, private popupService : PopupService) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
     this.getCollectionPhotos(this.id);
+  }
+
+  shareToggle(isShareActive : boolean){
+    this.isShareActive = !this.isShareActive;
+  }
+
+  openShareModal(id: string, image: any) {
+    this.sharePhoto = this.popupService.openShareModal(id,image);
+  }
+
+  closeModal(id: string) {    
+    this.isShareActive = this.popupService.closeModal(id);
+  }
+
+  copyText(value: string) {
+    this.galleryServices.copyMessage(value);
   }
 
   getCollectionPhotos(collectionId: Number) {

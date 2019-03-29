@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { GalleryServices } from './gallery/gallery.service';
 
 @Component({
@@ -17,4 +17,6 @@ export class AppComponent implements OnInit {
     this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);
     this.galleryServices.changeStatus();
   }
+
+ 
 }

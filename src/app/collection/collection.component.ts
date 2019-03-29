@@ -28,6 +28,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
     });
   }
 
+  
+
   addFavorite(photo) {
     var favImage = new ImageDetails;
     favImage.imageURL = photo.urls.small;

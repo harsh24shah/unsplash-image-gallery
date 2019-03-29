@@ -20,37 +20,53 @@ export class GalleryComponent implements OnInit {
   favoriteImagesBucket: any = [];
   hasFav: boolean;
   sharePhoto: Observable<any>;
-  isShareActive : boolean = false;
+  isShareActive: boolean = false;
+  openedPopupId: string;
+  orderBy: string = '';
 
-  constructor(private galleryServices: GalleryServices, private popupService: PopupService) { }
+  constructor(
+    private galleryServices: GalleryServices,
+    private popupService: PopupService) {
+  }
 
-  shareToggle(){
+  ngOnInit() {
+    this.getRandomImages(this.orderBy);
+    this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);
+  }
+
+  setSort() {
+    this.toggleSortBy();
+    this.getRandomImages(this.orderBy);
+  }
+
+  toggleSortBy() {
+    if (this.orderBy == "") {
+      this.orderBy = "oldest";
+    } else {
+      this.orderBy = "";
+    }
+  }
+
+  shareToggle() {
     this.isShareActive = !this.isShareActive;
   }
 
   openShareModal(id: string, image: any) {
-    this.popupService.open(id);
-    this.sharePhoto = image;
+    this.sharePhoto = this.popupService.openShareModal(id, image);
+    this.openedPopupId = id;
   }
 
   closeModal(id: string) {
-    this.popupService.close(id);
-    this.shareToggle();
+    this.isShareActive = this.popupService.closeModal(id);
+    this.openedPopupId = '';
   }
 
-  copyText(selector : string) {
-    var copyText = document.getElementById(selector);
-    copyText.onselect;
-    document.execCommand("copy");
+  copyText(value: string) {
+    this.galleryServices.copyMessage(value);
   }
 
-  ngOnInit() {
-    this.getRandomImages();
-    this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);
-  }
-
-  getRandomImages() {
-    this.galleryServices.getRandomImagesService().subscribe((data: {}) => {
+  getRandomImages(orderBy: string) {
+    this.galleryServices.getRandomImagesService(orderBy).subscribe((data: {}) => {
       this.Photos = data;
     });
   }
@@ -86,12 +102,12 @@ export class GalleryComponent implements OnInit {
     let pos = window.innerHeight + window.scrollY;
     let max = document.body.offsetHeight;
     if (pos >= max) {
-      this.loadMoreImages(this.pageNo, this.searchQuery);
+      this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
     }
   }
 
-  loadMoreImages(pages: number, search: string) {
-    this.galleryServices.getLoadMoreImages(pages, search).subscribe((data: {}) => {
+  loadMoreImages(pages: number, search: string, orderBy: string) {
+    this.galleryServices.getLoadMoreImages(pages, search, orderBy).subscribe((data: {}) => {
       this.buffer = data;
       if (!this.buffer.results) {
         this.Photos = this.Photos.concat(data);

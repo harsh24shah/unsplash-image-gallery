@@ -5,6 +5,7 @@ import { CollectionComponent } from './collection/collection.component';
 import { DetailpageComponent } from './collection/detailpage/detailpage.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
+import { PopupComponent } from './popup/popup.component';
 
 const routes: Routes = [
   { path: '', component: GalleryComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
       { path: '', component: CollectionComponent },
       { path: ':id', component: DetailpageComponent }
     ]
-  },
+  }
 ];
 
 @NgModule({
