@@ -13,8 +13,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
   private collections: any = [];
   private buffer: any = [];
   private pageNo: number = 2;
-  searchQuery: '';
-  showSearch: boolean = false;
+  private searchQuery: '';
+  private showSearch: boolean = false;
 
   constructor(private collectionServices: GalleryServices, activatedRoute: ActivatedRoute) { }
 

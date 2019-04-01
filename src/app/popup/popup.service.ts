@@ -3,10 +3,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class PopupService {
-
     private modals: any[] = [];
-    sharePhoto: Observable<any>;
-    isShareActive: boolean = false;
+    private sharePhoto: Observable<any>;
+    private isShareActive: boolean = false;
 
     openShareModal(id: string, image: any) {
         this.open(id);       

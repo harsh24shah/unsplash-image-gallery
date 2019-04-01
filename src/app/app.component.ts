@@ -8,8 +8,8 @@ import { GalleryServices } from './gallery/gallery.service';
 })
 
 export class AppComponent implements OnInit {
-  title = 'Wallperex';
-  hasFav: boolean;
+  private title = 'Wallperex';
+  private hasFav: number;
 
   constructor(private galleryServices: GalleryServices) { }
 

@@ -5,11 +5,12 @@ import { CollectionComponent } from './collection/collection.component';
 import { DetailpageComponent } from './collection/detailpage/detailpage.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
-import { PopupComponent } from './popup/popup.component';
+import { TrendingComponent } from './trending/trending.component';
 
 const routes: Routes = [
   { path: '', component: GalleryComponent },
   { path: 'favorite', component: FavoriteComponent },
+  { path: 'trending', component: TrendingComponent },
   {
     path: 'collections', component: DummydetailComponent,
     children: [

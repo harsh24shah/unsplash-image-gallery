@@ -10,36 +10,33 @@
       </div>
     </form>
     <div class="sorting flex">
-      <button href="javascript:void(0);" (click)="setSort()" [disabled]="searchQuery"><i class="material-icons">sort</i></button>
+      <button class="sort" [ngClass]="isSortActive? 'active':''" href="javascript:void(0);"
+        (click)="setSort('popuplar')" [disabled]="searchQuery"><i class="material-icons">sort</i></button>
     </div>
   </div>
 
-  <div class="search flex" *ngIf="!showSearch">
-    <div class="search-form">
-      <div class="form-field">
-        <div class="collection-banner">
-          <h1 class="text-center"><strong>{{collection.title}}</strong></h1>
-        </div>
-      </div>
+  <div class="search flex" *ngIf="!showSearch && collection">
+    <div class="w100 collection-banner">
+      <h1 class="text-center"><strong>{{collection.title}}</strong></h1>
     </div>
   </div>
 
   <div class="main-content">
     <div class="loader"></div>
     <div class="masonry flex masonry--h" id="masonry">
-      <span class="masonry-brick masonry-brick--h" *ngFor="let photo of Photos, let i = index">
+      <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index">
         <div class="image-wrapper">
           <a (click)="openShareModal('sharePopup',photo)" href="javascipt:void(0);">
             <img alt="photo.alt_description" [src]="photo.urls.small" />
           </a>
-          <a class="user-info flex" [href]="photo.user.links.html" target="_blank">
+          <a class="user-info flex align-items-center" [href]="photo.user.links.html" target="_blank">
             <span class="user-profile-image"><img alt="{{photo.user.first_name}}"
                 [src]="photo.user.profile_image.small" /></span>
             <span class="user-name">{{photo.user.first_name}}</span>
           </a>
-          <div class="image-info flex">
+          <div class="image-info flex align-items-center">
             <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)">
-              <i class="material-icons">favorite_border</i>
+              <i class="material-icons-outlined">thumb_up</i>
             </a>
           </div>
         </div>
@@ -51,7 +48,6 @@
 
 <popup id="sharePopup">
   <div class="modal">
-
     <ng-container *ngIf="sharePhoto">
       <a class="close" href="javascript:void(0);" (click)="closeModal('sharePopup');">
         <i class="material-icons">arrow_back</i>
@@ -67,12 +63,13 @@
             <ng-container *ngIf="sharePhoto.description">{{sharePhoto.description | slice:0:18}}</ng-container>
           </h4>
 
-          <div class="user-info flex">
-            <span class="flex">
+          <div class="user-info flex align-items-center">
+            <span class="flex align-items-center">
               <span class="user-profile-image"><img alt="" [src]="sharePhoto.user.profile_image.small" /></span>
               <span class="user-name flex">
                 <strong>{{sharePhoto.user.first_name}}</strong>
-                <span class="small"><a [href]="sharePhoto.user.links.html" target="_blank"
+                <span class="small" *ngIf="sharePhoto.user.username"><a [href]="sharePhoto.user.links.html"
+                    target="_blank"
                     title="{{sharePhoto.user.first_name}}"><strong>@{{sharePhoto.user.username}}</strong></a></span>
               </span>
             </span>
@@ -82,10 +79,12 @@
           </div>
 
           <div class="image-detail">
-            <div class="flex"><label>Dimention:</label><strong>{{sharePhoto.width}} x {{sharePhoto.height}}</strong>
+            <div class="flex align-items-center"><label>Dimention:</label><strong>{{sharePhoto.width}} x
+                {{sharePhoto.height}}</strong>
             </div>
-            <div class="flex"><label>Likes:</label><strong>{{sharePhoto.likes}}</strong></div>
-            <div class="color-box flex"><label>Color:</label><span [style.background]="sharePhoto.color"></span></div>
+            <div class="flex align-items-center"><label>Likes:</label><strong>{{sharePhoto.likes}}</strong></div>
+            <div class="color-box flex align-items-center"><label>Color:</label><span
+                [style.background]="sharePhoto.color"></span></div>
           </div>
 
           <div class="buttons-wrapper flex">

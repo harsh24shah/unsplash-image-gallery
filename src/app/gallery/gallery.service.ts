@@ -19,7 +19,7 @@ export class GalleryServices {
   size = '&per_page=30';
   oredrBy = "&order_by="
 
-  private hasfav = new BehaviorSubject(false);
+  private hasfav = new BehaviorSubject(0);
   currentStatus = this.hasfav.asObservable();
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
@@ -48,9 +48,8 @@ export class GalleryServices {
   /*
     used to get random photos by date
   */
-  getRandomImagesService(orderBy : string): Observable<any> {
+  getRandomImagesService(orderBy: string): Observable<any> {
     let randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + this.oredrBy + orderBy;
-    console.log(randomImageUrl);
     return this.http.get(randomImageUrl)
       .pipe(map(this.extractData));
   }
@@ -67,7 +66,7 @@ export class GalleryServices {
   /*
     for Loadmore images on scroll
   */
-  getLoadMoreImages(pageNo: number, query: string , orderBy : string): Observable<any> {
+  getLoadMoreImages(pageNo: number, query: string, orderBy: string): Observable<any> {
     let loadmoreUrl;
     if (!query) {
       loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo + this.oredrBy + orderBy;
@@ -165,10 +164,12 @@ export class GalleryServices {
     To get favourite items on local storage
   */
   changeStatus() {
-    if (localStorage.getItem("favImages") === null) {
-      this.hasfav.next(false);
+
+    if (localStorage.getItem('favImages') === null) {
+      this.hasfav.next(0);
     } else {
-      this.hasfav.next(true);
+      var storage = JSON.parse(localStorage.getItem('favImages')).length;
+      this.hasfav.next(storage);
     }
   }
 

@@ -26,7 +26,8 @@
   transition: all 0.2s ease;
   background: transparent;
 
-  &:hover {
+  &:hover,
+  &.active {
     color: white;
     background: black;
     box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
@@ -44,7 +45,8 @@
   color: white;
   transition: all 0.2s ease;
 
-  &:hover {
+  &:hover,
+  &.active {
     color: black;
     background: transparent;
     box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
@@ -52,6 +54,7 @@
   }
 }
 
+// -- Header --
 .app-name {
   margin-bottom: 1.5rem;
   background: black;
@@ -66,17 +69,17 @@
     transition: all 0.2s ease;
   }
 
-  h1 a {
-    display: inline-block;
-    padding: 12px;
+  .header-title {
     margin: 0;
-    font-size: 2rem;
-    font-weight: 600;
-    color: white;
+    > a {
+      color: white;
+      display: inline-block;
+      font-size: 40px;
+    }
 
-    @media (max-width: 768px) {
-      font-size: 1.5rem;
-      padding: 0;
+    span{
+      font-size: 11px;
+      display: block;
     }
   }
 
@@ -85,12 +88,12 @@
   }
 }
 
+// -- Navigation tabs --
 nav {
   padding: 100px 0 0;
 
   ul {
     flex-direction: row;
-    align-items: center;
     justify-content: flex-start;
     margin: 0;
     padding: 0 12px;
@@ -111,7 +114,7 @@ nav {
       list-style: none;
 
       a {
-        padding: 12px 20px;
+        padding: 12px 12px;
         display: inline-block;
         color: black;
         letter-spacing: 1px;
@@ -124,6 +127,7 @@ nav {
   }
 }
 
+// -- Collection page box --
 .collection-wrapper {
   padding: 1.5em 0;
   justify-content: center;
@@ -207,8 +211,9 @@ nav {
   }
 }
 
+// -- Global gallery & mesonry layout --
 .gallery-wrapper {
-  padding: 1.5em 0;
+  padding: 1.5em 1.5em;
 
   @media (max-width: 768px) {
     padding: 1em;
@@ -407,7 +412,6 @@ nav {
   .user-info {
     position: absolute;
     top: 0;
-    align-items: center;
     width: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0));
     padding: 10px;
@@ -427,7 +431,6 @@ nav {
   .image-info {
     position: absolute;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5));
     padding: 10px;
@@ -445,6 +448,7 @@ nav {
   }
 }
 
+// -- Search bar style on home --
 .search {
   margin: 0 auto;
   padding: 1.5rem 0.5rem;
@@ -455,7 +459,13 @@ nav {
 
     button {
       @extend %button-round;
-      border-radius: 0;
+      border-radius: 4px;
+      border: none;
+
+      &.sort {
+        transform: rotatez(180deg);
+        margin-right: 4px;
+      }
 
       &:disabled {
         background: #ddd;
@@ -507,11 +517,12 @@ nav {
   }
 }
 
-body.modal-open {
-  overflow: hidden;
-}
-
+// -- collection page box --
 popup {
+  body.modal-open & {
+    overflow: hidden;
+  }
+
   &.active {
     .modal {
       transform: translateX(0);
@@ -637,7 +648,6 @@ popup {
       }
 
       .user-info {
-        align-items: center;
         justify-content: space-between;
         margin: 10px 0 20px;
 

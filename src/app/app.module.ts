@@ -13,6 +13,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 import { PopupComponent } from './popup/popup.component';
 import {PopupService} from './popup/popup.service';
+import { TrendingComponent } from './trending/trending.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import {PopupService} from './popup/popup.service';
     DetailpageComponent,
     FavoriteComponent,
     DummydetailComponent,
-    PopupComponent
+    PopupComponent,
+    TrendingComponent
   ],
   imports: [
     BrowserModule,
@@ -34,4 +37,5 @@ import {PopupService} from './popup/popup.service';
   bootstrap: [AppComponent],
   exports: [GalleryComponent]
 })
+
 export class AppModule { }

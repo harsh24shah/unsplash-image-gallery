@@ -52,6 +52,10 @@
 	content: "\E008";
 }
 
-.icon-whatsapp:before {
+.icon-wallperex-icon:before {
 	content: "\E009";
+}
+
+.icon-whatsapp:before {
+	content: "\E00A";
 }

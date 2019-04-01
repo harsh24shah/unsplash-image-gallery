@@ -1,22 +1,22 @@
-import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
-import { GalleryServices } from './gallery.service';
-import { ImageDetails } from '../models/image-detail.model';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { GalleryServices } from '../gallery/gallery.service';
 import { PopupService } from '../popup/popup.service';
+import { ImageDetails } from '../models/image-detail.model';
 import { Observable } from 'rxjs';
+import { GalleryComponent } from '../gallery/gallery.component';
 
 @Component({
-  selector: 'gallery-grid, date-pipe',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['../../app/app.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  providers: [GalleryComponent],
+  selector: 'app-trending',
+  templateUrl: '../gallery/gallery.component.html',
+  styleUrls: ['../../app/app.component.scss']
 })
-
-export class GalleryComponent implements OnInit {
+export class TrendingComponent implements OnInit {
   private photos: any = [];
   private buffer: any = [];
   private searchQuery: '';
   private pageNo: number = 2;
-  private showSearch: boolean = true;
+  private showSearch: boolean = false;
   private favoriteImagesBucket: any = [];
   private hasFav: number;
   private sharePhoto: Observable<any>;
@@ -25,31 +25,22 @@ export class GalleryComponent implements OnInit {
   private openedPopupId: string;
   private orderBy: string = '';
 
-
   constructor(
     private galleryServices: GalleryServices,
-    private popupService: PopupService) {
-  }
+    private popupService: PopupService,
+    private galleryComponent: GalleryComponent) { }
 
   ngOnInit() {
-    this.getRandomImages(this.orderBy);
+    this.getRandomImages("popular");
     this.galleryServices.currentStatus.subscribe(hasFav => {
       this.hasFav = hasFav;
     });
   }
 
-  setSort() {
-    this.toggleSortBy();
-    this.getRandomImages(this.orderBy);
-  }
-
-  toggleSortBy() {
-    this.isSortActive = !this.isSortActive;
-    if (this.orderBy == "") {
-      this.orderBy = "oldest";
-    } else {
-      this.orderBy = "";
-    }
+  getRandomImages(orderBy: string) {
+    this.galleryServices.getRandomImagesService(orderBy).subscribe((data: {}) => {
+      this.photos = data;
+    });
   }
 
   shareToggle() {
@@ -70,31 +61,7 @@ export class GalleryComponent implements OnInit {
     this.galleryServices.copyMessage(value);
   }
 
-  @HostListener('document:keyup', ['$event']) handleKeyUp(event) {
-    if (event.keyCode === 27) {
-      this.closeModal(this.openedPopupId);
-    }
-  }
-
-  getRandomImages(orderBy: string) {
-    this.galleryServices.getRandomImagesService(orderBy).subscribe((data: {}) => {
-      this.photos = data;
-    });
-  }
-
-  getSearchResult(searchQuery: string) {
-    this.pageNo = 2;
-    this.galleryServices.getSearchedImages(searchQuery).subscribe((data: {}) => {
-      if (this.photos.length < 0) {
-        this.photos = [];
-      }
-      this.photos = data;
-      this.photos = this.photos.results
-    });
-  }
-
   addFavorite(photo: any) {
-
     var favImage = new ImageDetails;
 
     favImage.imageURL = photo.urls.small;
@@ -130,5 +97,4 @@ export class GalleryComponent implements OnInit {
       this.pageNo++;
     });
   }
-
-} 
+}

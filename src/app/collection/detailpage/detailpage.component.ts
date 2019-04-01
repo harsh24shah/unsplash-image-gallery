@@ -13,31 +13,32 @@ import { Observable } from 'rxjs';
 })
 
 export class DetailpageComponent implements OnInit {
-  private Photo: any = [];
   private buffer: any = [];
-  private Photos: any = [];
+  private photos: any = [];
   private pageNo: number = 2;
   private collection: any = [];
   private id: Number;
   private sharePhoto: Observable<any>;
-  private isShareActive : boolean = false;
+  private isShareActive: boolean = false;
+  private openedPopupId: string;
 
-  constructor(private route: ActivatedRoute, private galleryServices: GalleryServices, private galleryComponent: GalleryComponent, private popupService : PopupService) { }
+  constructor(private route: ActivatedRoute, private galleryServices: GalleryServices, private galleryComponent: GalleryComponent, private popupService: PopupService) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
     this.getCollectionPhotos(this.id);
   }
 
-  shareToggle(isShareActive : boolean){
+  shareToggle(isShareActive: boolean) {
     this.isShareActive = !this.isShareActive;
   }
 
   openShareModal(id: string, image: any) {
-    this.sharePhoto = this.popupService.openShareModal(id,image);
+    this.sharePhoto = this.popupService.openShareModal(id, image);
+    this.openedPopupId = id
   }
 
-  closeModal(id: string) {    
+  closeModal(id: string) {
     this.isShareActive = this.popupService.closeModal(id);
   }
 
@@ -45,9 +46,15 @@ export class DetailpageComponent implements OnInit {
     this.galleryServices.copyMessage(value);
   }
 
+  @HostListener('document:keyup', ['$event']) handleKeyUp(event) {
+    if (event.keyCode === 27) {
+      this.closeModal(this.openedPopupId);
+    }
+  }
+
   getCollectionPhotos(collectionId: Number) {
     this.galleryServices.getCollectionDetails(collectionId).subscribe((data: {}) => {
-      this.Photos = data;
+      this.photos = data;
     })
 
     this.galleryServices.getCollectionInfo(collectionId).subscribe((data: {}) => {
@@ -67,7 +74,7 @@ export class DetailpageComponent implements OnInit {
   loadMoreCollections(pages, id) {
     this.galleryServices.getLoadMoreCollectionDetailImages(pages, id).subscribe((data: {}) => {
       this.buffer = data;
-      this.Photos = this.Photos.concat(data);
+      this.photos = this.photos.concat(data);
       this.pageNo++;
     });
   }

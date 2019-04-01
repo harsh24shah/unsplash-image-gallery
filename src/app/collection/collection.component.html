@@ -5,9 +5,9 @@
       <a [routerLink]="['./', collection.id]">
         <span>
           <img src="{{collection.cover_photo.urls.small}}" />
-          <span class="collection-text flex">
-            <span>{{collection.total_photos}}</span>
+          <span class="collection-text flex">           
             <span>{{collection.title}}</span>
+            <span class="small">{{collection.total_photos}} Photos</span>
           </span>
         </span>
       </a>
