@@ -3,6 +3,7 @@
     <div class="main-content">
       <div class="masonry flex masonry--h" id="masonry">
         <ng-container *ngIf="favImages">
+          <div class="loader" *ngIf="!favImages.length>0"></div>
           <span class="masonry-brick masonry-brick--h" *ngFor="let photoset of favImages, let i = index">
             <span>{{photoset.imageOwnerName}}</span>
             <div class="image-wrapper">
@@ -22,6 +23,7 @@
 </div>
 <popup id="sharePopup">
   <div class="modal">
+    <div class="loader" *ngIf="!sharePhoto"></div>
     <ng-container *ngIf="sharePhoto">
       <a class="close" href="javascript:void(0);" (click)="closeModal('sharePopup');">
         <i class="material-icons">arrow_back</i>

@@ -56,7 +56,6 @@
 
 // -- Header --
 .app-name {
-  margin-bottom: 1.5rem;
   background: black;
   padding: 10px 0;
   transition: all 0.2s ease;
@@ -71,20 +70,22 @@
 
   .header-title {
     margin: 0;
+
     > a {
       color: white;
       display: inline-block;
       font-size: 40px;
+
+      @media (max-width: 768px) {
+        font-size: 30px;
+      }
     }
 
-    span{
-      font-size: 11px;
-      display: block;
+    span {
+      font-size: 20px;
+      display: inline;
+      margin-left: 2px;
     }
-  }
-
-  @media (max-width: 768px) {
-    margin-bottom: 0.8rem;
   }
 }
 
@@ -124,6 +125,10 @@ nav {
         border-bottom: 2px solid black;
       }
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 70px 0 0;
   }
 }
 
@@ -451,7 +456,7 @@ nav {
 // -- Search bar style on home --
 .search {
   margin: 0 auto;
-  padding: 1.5rem 0.5rem;
+  padding: 0 8px 1.5rem;
   justify-content: space-between;
 
   .sorting {

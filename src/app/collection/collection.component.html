@@ -1,11 +1,12 @@
 <router-outlet></router-outlet>
 <div class="main-container">
   <div class="collection-wrapper flex" id="collection-wrapper">
+    <div class="loader" *ngIf="!collections.length>0"></div>
     <div class="collection-item" *ngFor="let collection of collections, let i = index">
       <a [routerLink]="['./', collection.id]">
         <span>
           <img src="{{collection.cover_photo.urls.small}}" />
-          <span class="collection-text flex">           
+          <span class="collection-text flex">
             <span>{{collection.title}}</span>
             <span class="small">{{collection.total_photos}} Photos</span>
           </span>

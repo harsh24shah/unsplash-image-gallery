@@ -24,6 +24,8 @@ export class TrendingComponent implements OnInit {
   private isSortActive: boolean = false;
   private openedPopupId: string;
   private orderBy: string = '';
+  loadmore = false;
+  loading = false;
 
   constructor(
     private galleryServices: GalleryServices,
@@ -38,8 +40,10 @@ export class TrendingComponent implements OnInit {
   }
 
   getRandomImages(orderBy: string) {
+    this.loading = true;
     this.galleryServices.getRandomImagesService(orderBy).subscribe((data: {}) => {
       this.photos = data;
+      this.loading = false;
     });
   }
 
@@ -86,6 +90,7 @@ export class TrendingComponent implements OnInit {
   }
 
   loadMoreImages(pages: number, search: string, orderBy: string) {
+    this.loadmore = true;
     this.galleryServices.getLoadMoreImages(pages, search, orderBy).subscribe((data: {}) => {
       this.buffer = data;
       if (!this.buffer.results) {
@@ -96,5 +101,6 @@ export class TrendingComponent implements OnInit {
       }
       this.pageNo++;
     });
+    this.loadmore = false;
   }
 }

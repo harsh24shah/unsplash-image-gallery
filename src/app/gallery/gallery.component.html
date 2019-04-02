@@ -1,7 +1,6 @@
 <div class="gallery-wrapper main-container">
-
   <div class="search flex" *ngIf="showSearch">
-    <form class="search-form">
+    <form class="search-form" (keydown)="triggerEnter($event)">
       <div class="form-field">
         <div class="search-input"><input type='text' placeholder='i.e. Dogs' [(ngModel)]='searchQuery'
             name='searchQuery'></div>
@@ -22,9 +21,10 @@
   </div>
 
   <div class="main-content">
-    <div class="loader"></div>
     <div class="masonry flex masonry--h" id="masonry">
-      <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index">
+      <div class="loader" *ngIf="loading"></div>
+      <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
+        [style.background]="photo.color">
         <div class="image-wrapper">
           <a (click)="openShareModal('sharePopup',photo)" href="javascipt:void(0);">
             <img alt="photo.alt_description" [src]="photo.urls.small" />
@@ -42,6 +42,7 @@
         </div>
       </span>
     </div>
+    <div class="loader relative" *ngIf="loadmore"></div>
   </div>
 
 </div>

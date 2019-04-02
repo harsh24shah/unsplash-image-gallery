@@ -24,7 +24,8 @@ export class GalleryComponent implements OnInit {
   private isSortActive: boolean = false;
   private openedPopupId: string;
   private orderBy: string = '';
-
+  loadmore : boolean = false;
+  loading : boolean = false;
 
   constructor(
     private galleryServices: GalleryServices,
@@ -41,6 +42,12 @@ export class GalleryComponent implements OnInit {
   setSort() {
     this.toggleSortBy();
     this.getRandomImages(this.orderBy);
+  }
+
+  triggerEnter(event){
+    if(event.keyCode == 13) {
+      this.getSearchResult(this.searchQuery);
+    }
   }
 
   toggleSortBy() {
@@ -77,24 +84,28 @@ export class GalleryComponent implements OnInit {
   }
 
   getRandomImages(orderBy: string) {
+    this.loading = true;
     this.galleryServices.getRandomImagesService(orderBy).subscribe((data: {}) => {
       this.photos = data;
-    });
+      this.loading = false;
+    }); 
   }
 
   getSearchResult(searchQuery: string) {
+    this.loading = true;
     this.pageNo = 2;
     this.galleryServices.getSearchedImages(searchQuery).subscribe((data: {}) => {
       if (this.photos.length < 0) {
         this.photos = [];
       }
       this.photos = data;
-      this.photos = this.photos.results
+      this.photos = this.photos.results;
+      this.loading = false;
     });
+
   }
 
   addFavorite(photo: any) {
-
     var favImage = new ImageDetails;
 
     favImage.imageURL = photo.urls.small;
@@ -119,6 +130,7 @@ export class GalleryComponent implements OnInit {
   }
 
   loadMoreImages(pages: number, search: string, orderBy: string) {
+    this.loadmore = true;
     this.galleryServices.getLoadMoreImages(pages, search, orderBy).subscribe((data: {}) => {
       this.buffer = data;
       if (!this.buffer.results) {
@@ -129,6 +141,7 @@ export class GalleryComponent implements OnInit {
       }
       this.pageNo++;
     });
+    this.loadmore = false;
   }
 
 } 
