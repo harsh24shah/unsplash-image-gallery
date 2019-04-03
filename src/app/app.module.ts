@@ -12,8 +12,9 @@ import { ImageDetails } from './models/image-detail.model';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 import { PopupComponent } from './popup/popup.component';
-import {PopupService} from './popup/popup.service';
+import { PopupService } from './popup/popup.service';
 import { TrendingComponent } from './trending/trending.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TrendingComponent } from './trending/trending.component';
     FavoriteComponent,
     DummydetailComponent,
     PopupComponent,
-    TrendingComponent
+    TrendingComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -7,17 +7,18 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-
+//80c4c536403e65bc0651d0b3b116904ff9da875406e68a509c2d65346b418d65
 @Injectable()
 export class GalleryServices {
   unsplashUrl = 'https://api.unsplash.com';
-  apiKey = '?client_id=80c4c536403e65bc0651d0b3b116904ff9da875406e68a509c2d65346b418d65';
+  apiKey = '?client_id=061c51148e8b602c992064482ba158499083625ae7139aee5d6bda6e2c895c96';
   photos = '/photos';
   collections = '/collections';
   search = '/search/photos';
   searchQuery = "&query=";
   size = '&per_page=30';
-  oredrBy = "&order_by="
+  oredrBy = "&order_by=";
+  localStrorage = "favImages";
 
   private hasfav = new BehaviorSubject(0);
   currentStatus = this.hasfav.asObservable();
@@ -31,6 +32,9 @@ export class GalleryServices {
     return body || {};
   }
 
+  /*
+    Copy to clipboard menthod for string
+  */
   copyMessage(val: string) {
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -45,6 +49,7 @@ export class GalleryServices {
     document.body.removeChild(selBox);
     alert("Copied");
   }
+
   /*
     used to get random photos by date
   */
@@ -67,7 +72,7 @@ export class GalleryServices {
     for Loadmore images on scroll
   */
   getLoadMoreImages(pageNo: number, query: string, orderBy: string): Observable<any> {
-    let loadmoreUrl;
+    let loadmoreUrl: string;
     if (!query) {
       loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo + this.oredrBy + orderBy;
     } else {
@@ -121,7 +126,7 @@ export class GalleryServices {
   getLoadMoreCollectionDetailImages(pageNo: string, collectionId: Number): Observable<any> {
     let loadmoreUrl: string;
     loadmoreUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size + "&page=" + pageNo;
-    //console.log(loadmoreUrl);   
+    console.log(loadmoreUrl);
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
   }
@@ -130,15 +135,15 @@ export class GalleryServices {
     Add favourite items on local storage
   */
   addToLocalStorage(data: any) {
-    var oldItems = JSON.parse(localStorage.getItem('favImages')) || [];
-    if (this.checkInStorage(data, 'favImages')) {
+    var oldItems = JSON.parse(localStorage.getItem(this.localStrorage)) || [];
+    if (this.checkInStorage(data, this.localStrorage)) {
       oldItems.push(data);
     } else {
       oldItems = oldItems.filter(oldItems => {
         return oldItems.imageId !== data.imageId;
       });
     }
-    localStorage.setItem('favImages', JSON.stringify(oldItems));
+    localStorage.setItem(this.localStrorage, JSON.stringify(oldItems));
   }
 
   /*
@@ -157,22 +162,19 @@ export class GalleryServices {
     To get favourite items on local storage
   */
   getFromLocalStorage() {
-    return localStorage.getItem('favImages');
+    return localStorage.getItem(this.localStrorage);
   }
 
   /*
     To get favourite items on local storage
   */
   changeStatus() {
-
-    if (localStorage.getItem('favImages') === null) {
+    if (localStorage.getItem(this.localStrorage) === null) {
       this.hasfav.next(0);
     } else {
-      var storage = JSON.parse(localStorage.getItem('favImages')).length;
+      var storage = JSON.parse(localStorage.getItem(this.localStrorage)).length;
       this.hasfav.next(storage);
     }
   }
-
-
 
 }

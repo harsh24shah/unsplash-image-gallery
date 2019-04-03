@@ -1,39 +1,54 @@
-import { Component, OnInit, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, HostListener, ViewEncapsulation, Input } from '@angular/core';
 import { GalleryServices } from './gallery.service';
+import { ActivatedRoute } from "@angular/router";
 import { ImageDetails } from '../models/image-detail.model';
 import { PopupService } from '../popup/popup.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'gallery-grid, date-pipe',
+  selector: 'gallery-grid',
   templateUrl: './gallery.component.html',
   styleUrls: ['../../app/app.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 
 export class GalleryComponent implements OnInit {
+  @Input() orderBy: string = '';
+  @Input() id: number;
+  @Input() showCollectionTitle: boolean = false;
+  @Input() showSearch: boolean = false;
+  @Input() isHomePage: boolean = false;
+  @Input() isCollectionDetailPage: boolean = false;
+  @Input() isTrendingPage: boolean = false;
   private photos: any = [];
   private buffer: any = [];
+  private collection: any = [];
   private searchQuery: '';
   private pageNo: number = 2;
-  private showSearch: boolean = true;
-  private favoriteImagesBucket: any = [];
   private hasFav: number;
-  private sharePhoto: Observable<any>;
   private isShareActive: boolean = false;
   private isSortActive: boolean = false;
   private openedPopupId: string;
-  private orderBy: string = '';
-  loadmore : boolean = false;
-  loading : boolean = false;
+  private loadmore: boolean = false;
+  private loading: boolean = false;
+  private sharePhoto: Observable<any>;
+
 
   constructor(
+    private route: ActivatedRoute,
     private galleryServices: GalleryServices,
     private popupService: PopupService) {
   }
 
   ngOnInit() {
-    this.getRandomImages(this.orderBy);
+    if (this.isHomePage || this.isTrendingPage) {
+      this.getRandomImages(this.orderBy);
+    }
+    else if (this.isCollectionDetailPage) {
+      this.id = +this.route.snapshot.params["id"];
+      this.getCollectionPhotos(this.id);
+    }
+
     this.galleryServices.currentStatus.subscribe(hasFav => {
       this.hasFav = hasFav;
     });
@@ -44,8 +59,8 @@ export class GalleryComponent implements OnInit {
     this.getRandomImages(this.orderBy);
   }
 
-  triggerEnter(event){
-    if(event.keyCode == 13) {
+  triggerEnter(event: any) {
+    if (event.keyCode == 13) {
       this.getSearchResult(this.searchQuery);
     }
   }
@@ -83,12 +98,28 @@ export class GalleryComponent implements OnInit {
     }
   }
 
+  getCollectionPhotos(collectionId: number) {
+    this.loading = true;
+    //this will fetch collection photos and other details
+    this.galleryServices.getCollectionDetails(collectionId).subscribe((data: {}) => {
+      this.photos = data;
+      this.loading = false;
+    })
+
+    //this will fetch collection info but not photos i.e collection name, number of pics etc
+    this.galleryServices.getCollectionInfo(collectionId).subscribe((data: {}) => {
+      this.collection = data;
+      this.loading = false;
+    })
+
+  }
+
   getRandomImages(orderBy: string) {
     this.loading = true;
     this.galleryServices.getRandomImagesService(orderBy).subscribe((data: {}) => {
       this.photos = data;
       this.loading = false;
-    }); 
+    });
   }
 
   getSearchResult(searchQuery: string) {
@@ -102,7 +133,6 @@ export class GalleryComponent implements OnInit {
       this.photos = this.photos.results;
       this.loading = false;
     });
-
   }
 
   addFavorite(photo: any) {
@@ -124,8 +154,14 @@ export class GalleryComponent implements OnInit {
   onWindowScroll() {
     let pos = window.innerHeight + window.scrollY;
     let max = document.body.offsetHeight;
+
     if (pos >= max) {
-      this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
+      if (this.isHomePage || this.isTrendingPage) {
+        this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
+      }
+      else if (this.isCollectionDetailPage) {
+        this.loadMoreCollections(this.pageNo, this.id);
+      }
     }
   }
 
@@ -140,8 +176,17 @@ export class GalleryComponent implements OnInit {
         this.photos = this.photos.concat(this.buffer.results);
       }
       this.pageNo++;
+      this.loadmore = false;
     });
-    this.loadmore = false;
   }
 
+  loadMoreCollections(pages: any, id: number) {
+    this.loadmore = true;
+    this.galleryServices.getLoadMoreCollectionDetailImages(pages, id).subscribe((data: {}) => {
+      this.buffer = data;
+      this.photos = this.photos.concat(data);
+      this.pageNo++;
+      this.loadmore = false;
+    });
+  }
 } 

@@ -8,13 +8,14 @@ import { Observable } from 'rxjs';
   templateUrl: './favorite.component.html',
   styleUrls: ['../../app/app.component.scss']
 })
+
 export class FavoriteComponent implements OnInit {
   private favImages: [];
   private sharePhoto: Observable<any>;
-  private isShareActive : boolean = false;
-  private openedPopupId :string;
+  private isShareActive: boolean = false;
+  private openedPopupId: string;
 
-  constructor(private galleryServices: GalleryServices, private popupService : PopupService ) { }
+  constructor(private galleryServices: GalleryServices, private popupService: PopupService) { }
 
   ngOnInit() {
     this.showFavorites();
@@ -25,16 +26,16 @@ export class FavoriteComponent implements OnInit {
     //console.log(this.favImages);
   }
 
-  shareToggle(isShareActive : boolean){
+  shareToggle(isShareActive: boolean) {
     this.isShareActive = !this.isShareActive;
   }
 
   openShareModal(id: string, image: any) {
-    this.sharePhoto = this.popupService.openShareModal(id,image);
+    this.sharePhoto = this.popupService.openShareModal(id, image);
     this.openedPopupId = id;
   }
 
-  closeModal(id: string) {    
+  closeModal(id: string) {
     this.isShareActive = this.popupService.closeModal(id);
   }
 

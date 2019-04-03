@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div class="search flex" *ngIf="!showSearch && collection">
+  <div class="search flex" *ngIf="showCollectionTitle">
     <div class="w100 collection-banner">
       <h1 class="text-center"><strong>{{collection.title}}</strong></h1>
     </div>
@@ -23,6 +23,7 @@
   <div class="main-content">
     <div class="masonry flex masonry--h" id="masonry">
       <div class="loader" *ngIf="loading"></div>
+      <ng-container *ngIf="photos$ | async as photos"></ng-container>
       <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
         [style.background]="photo.color">
         <div class="image-wrapper">
@@ -44,7 +45,6 @@
     </div>
     <div class="loader relative" *ngIf="loadmore"></div>
   </div>
-
 </div>
 
 <popup id="sharePopup">

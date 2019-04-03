@@ -2,8 +2,8 @@
   <div class="gallery-wrapper">
     <div class="main-content">
       <div class="masonry flex masonry--h" id="masonry">
+        <div class="loader" *ngIf="!favImages.length>0"></div>
         <ng-container *ngIf="favImages">
-          <div class="loader" *ngIf="!favImages.length>0"></div>
           <span class="masonry-brick masonry-brick--h" *ngFor="let photoset of favImages, let i = index">
             <span>{{photoset.imageOwnerName}}</span>
             <div class="image-wrapper">

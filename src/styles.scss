@@ -134,6 +134,7 @@ table {
   border-spacing: 0;
 }
 
+//Loader spinner global
 .loader {
   margin: 0 auto;
   font-size: 10px;
@@ -163,11 +164,11 @@ table {
     border-radius: 50%;
     width: 6em;
     height: 6em;
-	}
-	
-	@media (max-width: 768px) {
-		left: 40%;
-	}
+  }
+
+  @media (max-width: 768px) {
+    left: 40%;
+  }
 }
 
 @-webkit-keyframes load8 {

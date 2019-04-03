@@ -8,12 +8,12 @@ export class PopupService {
     private isShareActive: boolean = false;
 
     openShareModal(id: string, image: any) {
-        this.open(id);       
+        this.open(id);
         return this.sharePhoto = image;
     }
 
     closeModal(id: string) {
-        this.close(id);       
+        this.close(id);
         return this.isShareActive = false;
     }
 
