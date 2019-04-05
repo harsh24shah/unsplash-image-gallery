@@ -1,4 +1,4 @@
-# Unsplashgallery
+# Wallperex
 
 ![image](https://user-images.githubusercontent.com/45845300/55419563-aac2f380-5592-11e9-965d-ebe8655a80e9.png)
 
