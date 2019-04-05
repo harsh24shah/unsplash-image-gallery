@@ -19,7 +19,6 @@ export class GalleryServices {
   size = '&per_page=30';
   oredrBy = "&order_by=";
   localStrorage = "favImages";
-
   private hasfav = new BehaviorSubject(0);
   currentStatus = this.hasfav.asObservable();
 
@@ -30,24 +29,6 @@ export class GalleryServices {
   private extractData(res: Response) {
     let body = res;
     return body || {};
-  }
-
-  /*
-    Copy to clipboard menthod for string
-  */
-  copyMessage(val: string) {
-    let selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    alert("Copied");
   }
 
   /*

@@ -1,21 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class PopupService {
     private modals: any[] = [];
-    private sharePhoto: Observable<any>;
-    private isShareActive: boolean = false;
-
-    openShareModal(id: string, image: any) {
-        this.open(id);
-        return this.sharePhoto = image;
-    }
-
-    closeModal(id: string) {
-        this.close(id);
-        return this.isShareActive = false;
-    }
 
     add(modal: any) {
         // add modal to array of active modals
@@ -37,5 +24,24 @@ export class PopupService {
         // close modal specified by id
         let modal: any = this.modals.filter(x => x.id === id)[0];
         modal.close();
+        return false;
+    }
+
+    /*
+      Copy to clipboard menthod for string
+    */
+    copyMessage(val: string) {
+        let selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = val;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+        alert("Copied");
     }
 }

@@ -1,0 +1,81 @@
+<div class="modal">
+    <a class="close" href="javascript:void(0);" (click)="closeModal('sharePopup');">
+        <i class="material-icons">arrow_back</i>
+    </a>
+
+    <ng-container *ngIf="sharePhoto">
+        <div class="modal-body image-popup-wrap flex">
+            <div class="modal-image image-popup-image text-center" [style.background]="sharePhoto.color">
+                <span><img [src]="sharePhoto.urls.regular" /></span>
+            </div>
+
+            <div class="modal-description image-popup-description">
+                <h4>
+                    <ng-container *ngIf="sharePhoto.description">{{sharePhoto.description | slice:0:18}}
+                    </ng-container>
+                </h4>
+                <div class="user-info flex align-items-center">
+                    <span class="flex align-items-center">
+                        <span class="user-profile-image"><img alt=""
+                                [src]="sharePhoto.user.profile_image.small" /></span>
+                        <span class="user-name flex">
+                            <strong>{{sharePhoto.user.first_name}}</strong>
+                            <span class="small" *ngIf="sharePhoto.user.username">
+                                <a [href]="sharePhoto.user.links.html" target="_blank"
+                                    title="{{sharePhoto.user.first_name}}"><strong>@{{sharePhoto.user.username}}</strong></a>
+                            </span>
+                        </span>
+                    </span>
+                    <span><span>{{sharePhoto.created_at | date}}</span></span>
+                </div>
+
+                <div class="image-detail">
+                    <div class="flex align-items-center"><label>Dimention:</label><strong>{{sharePhoto.width}} x
+                            {{sharePhoto.height}}</strong>
+                    </div>
+                    <div class="flex align-items-center"><label>Likes:</label><strong>{{sharePhoto.likes}}</strong>
+                    </div>
+                    <div class="color-box flex align-items-center"><label>Color:</label><span
+                            [style.background]="sharePhoto.color"></span></div>
+                </div>
+
+                <div class="buttons-wrapper flex">
+                    <div class="button text-center">
+                        <a [href]="sharePhoto.links.download + '?force=true'" download rel="nofollow">Download</a>
+                    </div>
+                    <div class="button-share text-center">
+                        <span (click)="shareToggle()" [ngClass]="isShareActive ? 'active' : ''"><i
+                                class="material-icons">share</i>
+                            <ul class="flex">
+                                <li><a
+                                        [href]="'https://www.facebook.com/sharer/sharer.php?u=' + sharePhoto.links.html + '&t=' + sharePhoto.description"><i
+                                            class="icon icon-facebook"></i></a></li>
+                                <li><a
+                                        [href]="'http://twitter.com/share?text='+ sharePhoto.description + '&url=' + sharePhoto.links.html"><i
+                                            class="icon icon-twitter"></i></a></li>
+                                <li><a [href]="'https://wa.me/?text='+ sharePhoto.links.html"><i
+                                            class="icon icon-whatsapp"></i></a>
+                                </li>
+                                <li><a href="javascript:void(0);" (click)="copyText(sharePhoto.links.html)"><i
+                                            class="icon icon-link"></i></a></li>
+                            </ul>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+</div>
+
+<!--
+<modal id="custom-modal-2">
+    <div class="modal">
+        <div class="modal-body">
+            <h1 style="height:1000px">A Tall Custom Modal!</h1>
+            <button (click)="closeModal('custom-modal-2');">Close</button>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</modal>
+-->

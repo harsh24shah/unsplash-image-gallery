@@ -22,21 +22,24 @@ export class FavoriteComponent implements OnInit {
   }
 
   showFavorites() {
-    this.favImages = JSON.parse(this.galleryServices.getFromLocalStorage());
+    var temp : any;
+    temp = JSON.parse(this.galleryServices.getFromLocalStorage());
+    this.favImages = temp.slice().reverse();
     //console.log(this.favImages);
   }
 
-  shareToggle(isShareActive: boolean) {
+  shareToggle() {
     this.isShareActive = !this.isShareActive;
   }
 
   openShareModal(id: string, image: any) {
-    this.sharePhoto = this.popupService.openShareModal(id, image);
+    this.popupService.open(id);
+    this.sharePhoto = image;
     this.openedPopupId = id;
   }
 
   closeModal(id: string) {
-    this.isShareActive = this.popupService.closeModal(id);
+    this.isShareActive = this.popupService.close(id);
   }
 
   @HostListener('document:keyup', ['$event']) handleKeyUp(event) {

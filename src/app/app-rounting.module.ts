@@ -7,7 +7,6 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 import { TrendingComponent } from './trending/trending.component';
 
-
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'favorite', component: FavoriteComponent },

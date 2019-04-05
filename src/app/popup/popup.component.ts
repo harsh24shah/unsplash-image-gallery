@@ -1,17 +1,21 @@
-import { Component, OnInit, Input, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewEncapsulation, Output, EventEmitter, HostListener } from '@angular/core';
 import { PopupService } from './popup.service'
 
 @Component({
   selector: 'popup',
-  template: `<ng-content></ng-content>`,
+  templateUrl: './popup.component.html',
   styleUrls: ['../../app/app.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class PopupComponent implements OnInit {
   @Input() id: string;
+  @Input() sharePhoto : any = [];
+  @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   private element: any;
+  private isShareActive: boolean = false;
 
-  constructor(private popupSrvice: PopupService, private el: ElementRef) {
+  constructor(private popupService: PopupService, private el: ElementRef) {
     this.element = el.nativeElement;
   }
 
@@ -32,11 +36,29 @@ export class PopupComponent implements OnInit {
       }
     });
 
-    this.popupSrvice.add(this);
+    this.popupService.add(this);
+  }
+
+  closeModal(id: string) {
+    this.isShareActive = this.popupService.close(id);
+  }
+
+  copyText(value: string) {
+    this.popupService.copyMessage(value);
+  }
+
+  shareToggle() {
+    this.isShareActive = !this.isShareActive;
+  }
+
+  @HostListener('document:keyup', ['$event']) handleKeyUp(event) {
+    if (event.keyCode === 27) {
+      this.closeModal(this.id);
+    }
   }
 
   ngOnDestroy(): void {
-    this.popupSrvice.remove(this.id);
+    this.popupService.remove(this.id);
     this.element.remove();
   }
 

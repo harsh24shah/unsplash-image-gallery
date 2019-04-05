@@ -58,7 +58,13 @@
 .app-name {
   background: black;
   padding: 10px 0;
-  transition: all 0.2s ease;
+  transform: translateY(0);
+  transition: all .8s ease;
+
+  &.hideHeader{
+    transform: translateY(-101%);
+    transition: all 0.2s ease;
+  }
 
   &.sticky {
     position: fixed;
@@ -229,7 +235,7 @@ nav {
   }
 
   .image-wrapper {
-    > a:not(.user-info) {
+    > div:not(.user-info) {
       img {
         @extend %absoulteImage;
       }
@@ -595,7 +601,7 @@ popup {
   .image-popup-wrap {
     .image-popup-image {
       width: 66.666%;
-      flex: 2;
+      flex: 3;
       position: relative;
 
       > span {
@@ -753,6 +759,38 @@ popup {
             @extend %button-round-invert;
             margin-right: 2px;
           }
+        }
+      }
+    }
+  }
+}
+
+.chips {
+  margin-top: 20px;
+
+  ul {
+    > li {
+      display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+      > a {
+        background: rgba(black, 0.8);
+        color: white;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        text-align: center;
+        line-height: normal;
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+          transition: all 0.2s ease;
         }
       }
     }

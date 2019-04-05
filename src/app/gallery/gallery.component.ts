@@ -23,16 +23,15 @@ export class GalleryComponent implements OnInit {
   private photos: any = [];
   private buffer: any = [];
   private collection: any = [];
+  private pageTitle :string;
   private searchQuery: '';
   private pageNo: number = 2;
   private hasFav: number;
-  private isShareActive: boolean = false;
-  private isSortActive: boolean = false;
   private openedPopupId: string;
+  private isSortActive: boolean = false;
   private loadmore: boolean = false;
   private loading: boolean = false;
   private sharePhoto: Observable<any>;
-
 
   constructor(
     private route: ActivatedRoute,
@@ -74,28 +73,10 @@ export class GalleryComponent implements OnInit {
     }
   }
 
-  shareToggle() {
-    this.isShareActive = !this.isShareActive;
-  }
-
   openShareModal(id: string, image: any) {
-    this.sharePhoto = this.popupService.openShareModal(id, image);
+    this.popupService.open(id);
+    this.sharePhoto = image;
     this.openedPopupId = id;
-  }
-
-  closeModal(id: string) {
-    this.isShareActive = this.popupService.closeModal(id);
-    this.openedPopupId = '';
-  }
-
-  copyText(value: string) {
-    this.galleryServices.copyMessage(value);
-  }
-
-  @HostListener('document:keyup', ['$event']) handleKeyUp(event) {
-    if (event.keyCode === 27) {
-      this.closeModal(this.openedPopupId);
-    }
   }
 
   getCollectionPhotos(collectionId: number) {
@@ -109,6 +90,7 @@ export class GalleryComponent implements OnInit {
     //this will fetch collection info but not photos i.e collection name, number of pics etc
     this.galleryServices.getCollectionInfo(collectionId).subscribe((data: {}) => {
       this.collection = data;
+      this.pageTitle = this.collection.title;
       this.loading = false;
     })
 
@@ -133,11 +115,14 @@ export class GalleryComponent implements OnInit {
       this.photos = this.photos.results;
       this.loading = false;
     });
+
+    if (this.collection) {     
+      this.pageTitle = searchQuery;
+    }
   }
 
   addFavorite(photo: any) {
     var favImage = new ImageDetails;
-
     favImage.imageURL = photo.urls.small;
     favImage.imageDownloadPath = photo.links.download;
     favImage.imageAlt = photo.user.username;
