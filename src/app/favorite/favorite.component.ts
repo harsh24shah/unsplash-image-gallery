@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 })
 
 export class FavoriteComponent implements OnInit {
-  private favImages: [];
+  favImages: [];
   private sharePhoto: Observable<any>;
-  private isShareActive: boolean = false;
+  private isShareActive = false;
   private openedPopupId: string;
 
   constructor(private galleryServices: GalleryServices, private popupService: PopupService) { }
@@ -22,10 +22,9 @@ export class FavoriteComponent implements OnInit {
   }
 
   showFavorites() {
-    var temp : any;
+    let temp: any;
     temp = JSON.parse(this.galleryServices.getFromLocalStorage());
     this.favImages = temp.slice().reverse();
-    //console.log(this.favImages);
   }
 
   shareToggle() {

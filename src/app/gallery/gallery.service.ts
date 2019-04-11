@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-//80c4c536403e65bc0651d0b3b116904ff9da875406e68a509c2d65346b418d65
+// 80c4c536403e65bc0651d0b3b116904ff9da875406e68a509c2d65346b418d65
 @Injectable()
 export class GalleryServices {
   unsplashUrl = 'https://api.unsplash.com';
@@ -15,19 +15,19 @@ export class GalleryServices {
   photos = '/photos';
   collections = '/collections';
   search = '/search/photos';
-  searchQuery = "&query=";
+  searchQuery = '&query=';
   size = '&per_page=30';
-  oredrBy = "&order_by=";
-  localStrorage = "favImages";
+  oredrBy = '&order_by=';
+  localStrorage = 'favImages';
   private hasfav = new BehaviorSubject(0);
   currentStatus = this.hasfav.asObservable();
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
-    let today = new Date();
+    const today = new Date();
   }
 
   private extractData(res: Response) {
-    let body = res;
+    const body = res;
     return body || {};
   }
 
@@ -35,7 +35,7 @@ export class GalleryServices {
     used to get random photos by date
   */
   getRandomImagesService(orderBy: string): Observable<any> {
-    let randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + this.oredrBy + orderBy;
+    const randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + this.oredrBy + orderBy;
     return this.http.get(randomImageUrl)
       .pipe(map(this.extractData));
   }
@@ -44,7 +44,7 @@ export class GalleryServices {
     used to get searched images from search input
   */
   getSearchedImages(query: string): Observable<any> {
-    let searchedUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size;
+    const searchedUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size;
     return this.http.get(searchedUrl)
       .pipe(map(this.extractData));
   }
@@ -54,10 +54,11 @@ export class GalleryServices {
   */
   getLoadMoreImages(pageNo: number, query: string, orderBy: string): Observable<any> {
     let loadmoreUrl: string;
+    const orderByText = '&page=' + pageNo + this.oredrBy + orderBy;
     if (!query) {
-      loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + "&page=" + pageNo + this.oredrBy + orderBy;
+      loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + orderByText;
     } else {
-      loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + "&page=" + pageNo + this.oredrBy + orderBy;
+      loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + orderByText;
     }
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
@@ -68,7 +69,7 @@ export class GalleryServices {
   */
   getLoadMoreCollections(pageNo: string): Observable<any> {
     let loadmoreUrl: string;
-    loadmoreUrl = this.unsplashUrl + this.collections + this.apiKey + this.size + "&page=" + pageNo;
+    loadmoreUrl = this.unsplashUrl + this.collections + this.apiKey + this.size + '&page=' + pageNo;
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
   }
@@ -77,8 +78,7 @@ export class GalleryServices {
     get latest collections on comopnent init
   */
   getCollection(): Observable<any> {
-    let CollectionUrl = this.unsplashUrl + this.collections + this.apiKey + this.size;
-    //console.log(CollectionUrl);
+    const CollectionUrl = this.unsplashUrl + this.collections + this.apiKey + this.size;
     return this.http.get(CollectionUrl)
       .pipe(map(this.extractData));
   }
@@ -87,7 +87,7 @@ export class GalleryServices {
     get photos from collection id
   */
   getCollectionDetails(collectionId: Number): Observable<any> {
-    let collectionDetailUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size;
+    const collectionDetailUrl = this.unsplashUrl + this.collections + '/' + collectionId + this.photos + this.apiKey + this.size;
     return this.http.get(collectionDetailUrl)
       .pipe(map(this.extractData));
   }
@@ -96,7 +96,7 @@ export class GalleryServices {
     get collection info on landing page from collection id
   */
   getCollectionInfo(collectionId: Number): Observable<any> {
-    let collectionInfoUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.apiKey;
+    const collectionInfoUrl = this.unsplashUrl + this.collections + '/' + collectionId + this.apiKey;
     return this.http.get(collectionInfoUrl)
       .pipe(map(this.extractData));
   }
@@ -106,7 +106,7 @@ export class GalleryServices {
   */
   getLoadMoreCollectionDetailImages(pageNo: string, collectionId: Number): Observable<any> {
     let loadmoreUrl: string;
-    loadmoreUrl = this.unsplashUrl + this.collections + "/" + collectionId + this.photos + this.apiKey + this.size + "&page=" + pageNo;
+    loadmoreUrl = this.unsplashUrl + this.collections + '/' + collectionId + this.photos + this.apiKey + this.size + '&page=' + pageNo;
     console.log(loadmoreUrl);
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
@@ -116,7 +116,7 @@ export class GalleryServices {
     Add favourite items on local storage
   */
   addToLocalStorage(data: any) {
-    var oldItems = JSON.parse(localStorage.getItem(this.localStrorage)) || [];
+    let oldItems = JSON.parse(localStorage.getItem(this.localStrorage)) || [];
     if (this.checkInStorage(data, this.localStrorage)) {
       oldItems.push(data);
     } else {
@@ -131,8 +131,8 @@ export class GalleryServices {
     will return true if image id found in local storage otherwise false
   */
   checkInStorage(data: any, storageKey: string) {
-    var oldItems = JSON.parse(localStorage.getItem(storageKey)) || [];
-    if (oldItems.some(item => item.imageId == data.imageId)) {
+    const oldItems = JSON.parse(localStorage.getItem(storageKey)) || [];
+    if (oldItems.some(item => item.imageId === data.imageId)) {
       return false;
     } else {
       return true;
@@ -153,7 +153,7 @@ export class GalleryServices {
     if (localStorage.getItem(this.localStrorage) === null) {
       this.hasfav.next(0);
     } else {
-      var storage = JSON.parse(localStorage.getItem(this.localStrorage)).length;
+      const storage = JSON.parse(localStorage.getItem(this.localStrorage)).length;
       this.hasfav.next(storage);
     }
   }

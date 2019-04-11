@@ -1,37 +1,37 @@
 import { Component, OnInit, HostListener, ViewEncapsulation, Input } from '@angular/core';
 import { GalleryServices } from './gallery.service';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { ImageDetails } from '../models/image-detail.model';
 import { PopupService } from '../popup/popup.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'gallery-grid',
+  selector: 'app-gallery-grid',
   templateUrl: './gallery.component.html',
   styleUrls: ['../../app/app.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 
 export class GalleryComponent implements OnInit {
-  @Input() orderBy: string = '';
+  @Input() orderBy = '';
   @Input() id: number;
-  @Input() showCollectionTitle: boolean = false;
-  @Input() showSearch: boolean = false;
-  @Input() isHomePage: boolean = false;
-  @Input() isCollectionDetailPage: boolean = false;
-  @Input() isTrendingPage: boolean = false;
-  private photos: any = [];
+  @Input() showCollectionTitle = false;
+  @Input() showSearch = false;
+  @Input() isHomePage = false;
+  @Input() isCollectionDetailPage = false;
+  @Input() isTrendingPage = false;
+  photos: any = [];
   private buffer: any = [];
   private collection: any = [];
-  private pageTitle :string;
+  private pageTitle: string;
   private searchQuery: '';
-  private pageNo: number = 2;
+  private pageNo = 2;
   private hasFav: number;
   private openedPopupId: string;
-  private isSortActive: boolean = false;
-  private loadmore: boolean = false;
-  private loading: boolean = false;
-  private sharePhoto: Observable<any>;
+  private isSortActive = false;
+  loadmore = false;
+  loading = false;
+  sharePhoto: Observable<any>;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,11 +42,10 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
     if (this.isHomePage || this.isTrendingPage) {
       this.getRandomImages(this.orderBy);
-    }
-    else if (this.isCollectionDetailPage) {
-      this.id = +this.route.snapshot.params["id"];
-      this.getCollectionPhotos(this.id);
-    }
+    } else if (this.isCollectionDetailPage) {
+        this.id = +this.route.snapshot.params['id'];
+        this.getCollectionPhotos(this.id);
+      }
 
     this.galleryServices.currentStatus.subscribe(hasFav => {
       this.hasFav = hasFav;
@@ -59,17 +58,17 @@ export class GalleryComponent implements OnInit {
   }
 
   triggerEnter(event: any) {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       this.getSearchResult(this.searchQuery);
     }
   }
 
   toggleSortBy() {
     this.isSortActive = !this.isSortActive;
-    if (this.orderBy == "") {
-      this.orderBy = "oldest";
+    if (this.orderBy === '') {
+      this.orderBy = 'oldest';
     } else {
-      this.orderBy = "";
+      this.orderBy = '';
     }
   }
 
@@ -81,18 +80,18 @@ export class GalleryComponent implements OnInit {
 
   getCollectionPhotos(collectionId: number) {
     this.loading = true;
-    //this will fetch collection photos and other details
+    // this will fetch collection photos and other details
     this.galleryServices.getCollectionDetails(collectionId).subscribe((data: {}) => {
       this.photos = data;
       this.loading = false;
-    })
+    });
 
-    //this will fetch collection info but not photos i.e collection name, number of pics etc
+    // this will fetch collection info but not photos i.e collection name, number of pics etc
     this.galleryServices.getCollectionInfo(collectionId).subscribe((data: {}) => {
       this.collection = data;
       this.pageTitle = this.collection.title;
       this.loading = false;
-    })
+    });
 
   }
 
@@ -116,13 +115,13 @@ export class GalleryComponent implements OnInit {
       this.loading = false;
     });
 
-    if (this.collection) {     
+    if (this.collection) {
       this.pageTitle = searchQuery;
     }
   }
 
   addFavorite(photo: any) {
-    var favImage = new ImageDetails;
+    let favImage = new ImageDetails;
     favImage.imageURL = photo.urls.small;
     favImage.imageDownloadPath = photo.links.download;
     favImage.imageAlt = photo.user.username;
@@ -135,18 +134,18 @@ export class GalleryComponent implements OnInit {
     favImage = null;
   }
 
-  @HostListener("window:scroll", ['$event'])
+  @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    let pos = window.innerHeight + window.scrollY;
-    let max = document.body.offsetHeight;
+    const pos = window.innerHeight + window.scrollY;
+    const max = document.body.offsetHeight;
 
     if (pos >= max) {
       if (this.isHomePage || this.isTrendingPage) {
         this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
-      }
-      else if (this.isCollectionDetailPage) {
-        this.loadMoreCollections(this.pageNo, this.id);
-      }
+      } else
+        if (this.isCollectionDetailPage) {
+          this.loadMoreCollections(this.pageNo, this.id);
+        }
     }
   }
 
@@ -156,8 +155,7 @@ export class GalleryComponent implements OnInit {
       this.buffer = data;
       if (!this.buffer.results) {
         this.photos = this.photos.concat(data);
-      }
-      else {
+      } else {
         this.photos = this.photos.concat(this.buffer.results);
       }
       this.pageNo++;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { GalleryComponent } from "../../gallery/gallery.component";
+import { ActivatedRoute } from '@angular/router';
+import { GalleryComponent } from '../../gallery/gallery.component';
 
 @Component({
   providers: [GalleryComponent],
@@ -10,11 +10,11 @@ import { GalleryComponent } from "../../gallery/gallery.component";
 })
 
 export class DetailpageComponent implements OnInit {
-  private id: number;
+  id: number;
 
   constructor(private route: ActivatedRoute, private galleryComponent: GalleryComponent) { }
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params["id"];
+    this.id = +this.route.snapshot.params['id'];
   }
 }

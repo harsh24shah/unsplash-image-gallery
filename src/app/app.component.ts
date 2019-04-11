@@ -6,7 +6,7 @@ import {
   NavigationEnd,
   NavigationCancel,
   NavigationError
-} from '@angular/router'
+} from '@angular/router';
 import { GalleryServices } from './gallery/gallery.service';
 
 @Component({
@@ -17,13 +17,13 @@ import { GalleryServices } from './gallery/gallery.service';
 
 export class AppComponent implements OnInit {
   private title = 'Wallperex';
-  private hasFav: number;
+  hasFav: number;
   loading = true;
 
   constructor(private galleryServices: GalleryServices, private router: Router) {
     router.events.subscribe((event: RouterEvent) => {
-      this.navigationInterceptor(event)
-    })
+      this.navigationInterceptor(event);
+    });
   }
 
   navigationInterceptor(event: RouterEvent): void {

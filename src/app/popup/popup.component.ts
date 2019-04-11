@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ElementRef, ViewEncapsulation, Output, EventEmitter, HostListener } from '@angular/core';
-import { PopupService } from './popup.service'
+import { Component, OnInit, Input, ElementRef, ViewEncapsulation, Output, EventEmitter, HostListener, OnDestroy } from '@angular/core';
+import { PopupService } from './popup.service';
 
 @Component({
   selector: 'popup',
@@ -8,25 +8,25 @@ import { PopupService } from './popup.service'
   encapsulation: ViewEncapsulation.None,
 })
 
-export class PopupComponent implements OnInit {
+export class PopupComponent implements OnInit, OnDestroy {
   @Input() id: string;
-  @Input() sharePhoto : any = [];
+  @Input() sharePhoto: any = [];
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   private element: any;
-  private isShareActive: boolean = false;
+  private isShareActive = false;
 
   constructor(private popupService: PopupService, private el: ElementRef) {
     this.element = el.nativeElement;
   }
 
   ngOnInit(): void {
-    let popup = this;
+    const popup = this;
 
     if (!this.id) {
       console.warn('element must have an id');
     }
 
-    //append just before body close
+    // append just before body close
     document.body.appendChild(this.element);
 
     // close modal on background click

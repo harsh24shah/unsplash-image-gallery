@@ -8,7 +8,7 @@ import { GalleryComponent } from '../gallery/gallery.component';
   styleUrls: ['../../app/app.component.scss']
 })
 export class TrendingComponent implements OnInit {
-  
+
   constructor() { }
 
   ngOnInit() {

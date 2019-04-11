@@ -8,11 +8,11 @@ import { GalleryServices } from '../gallery/gallery.service';
 })
 
 export class CollectionComponent implements OnInit, OnDestroy {
-  private collections: any = [];
+  collections: any = [];
   private buffer: any = [];
-  private pageNo: number = 2;
-  private loading: boolean = true;
-  private loadmore: boolean = false;
+  private pageNo = 2;
+  private loading = true;
+  loadmore = false;
 
   constructor(private collectionServices: GalleryServices) { }
 
@@ -28,10 +28,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
     });
   }
 
-  @HostListener("window:scroll", ['$event'])
+  @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    let pos = window.innerHeight + window.scrollY;
-    let max = document.body.offsetHeight;
+    const pos = window.innerHeight + window.scrollY;
+    const max = document.body.offsetHeight;
     if (pos >= max) {
       this.loadMoreCollections(this.pageNo);
     }

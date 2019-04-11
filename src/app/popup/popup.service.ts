@@ -16,13 +16,13 @@ export class PopupService {
 
     open(id: string) {
         // open modal specified by id
-        let modal: any = this.modals.filter(x => x.id === id)[0];
+        const modal: any = this.modals.filter(x => x.id === id)[0];
         modal.open();
     }
 
     close(id: string) {
         // close modal specified by id
-        let modal: any = this.modals.filter(x => x.id === id)[0];
+        const modal: any = this.modals.filter(x => x.id === id)[0];
         modal.close();
         return false;
     }
@@ -31,7 +31,7 @@ export class PopupService {
       Copy to clipboard menthod for string
     */
     copyMessage(val: string) {
-        let selBox = document.createElement('textarea');
+        const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';
         selBox.style.left = '0';
         selBox.style.top = '0';
@@ -42,6 +42,6 @@ export class PopupService {
         selBox.select();
         document.execCommand('copy');
         document.body.removeChild(selBox);
-        alert("Copied");
+        alert('Copied');
     }
 }
