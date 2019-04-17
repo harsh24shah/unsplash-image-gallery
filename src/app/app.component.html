@@ -1,12 +1,12 @@
 <header>
     <div class="app-name sticky" id="header-main">
         <div class="main-container">
-            <h1 class="header-title">
-                <a href="/">
-                    <i class="icon icon-wallperex-icon"></i>
-                    <span class="text-center w100">allperex</span>
+            <div class="flex justify-content-between">
+                <h1 class="header-title"><a href="/"><span class="text-center w100">Wallperex</span></a></h1>
+                <a href="javascript:void(0);" class="toggle-switch" (click)="toggleTheme()">
+                    <span [ngClass]="isDarkMode? 'active' : '' "></span>
                 </a>
-            </h1>
+            </div>
         </div>
     </div>
     <div class="main-container">
@@ -14,7 +14,7 @@
             <ul class="flex align-items-center">
                 <li class="text-center" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
                         routerLink="/">Latest</a></li>
-                <li class="text-center" routerLinkActive="active"><a routerLink="collections">Collection</a></li>
+                <li class="text-center" routerLinkActive="active"><a routerLink="collections">Collections</a></li>
                 <li class="text-center" routerLinkActive="active"><a routerLink="trending">Trending</a></li>
                 <li class="text-center" routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites
                         <span class="small">({{hasFav}})</span></a>
@@ -24,4 +24,4 @@
     </div>
 </header>
 <div class="loader" *ngIf="loading"></div>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> 

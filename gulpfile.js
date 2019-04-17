@@ -1,6 +1,10 @@
+'use strict';
+
 var gulp = require('gulp');
 var iconfont = require('gulp-iconfont');
 var iconfontCss = require('gulp-iconfont-css');
+var sass = require('gulp-sass');
+sass.compiler = require('node-sass');
 var runTimestamp = Math.round(Date.now()/1000);
 var fontName = 'Icons'; 
  
@@ -21,4 +25,10 @@ gulp.task('iconfont', function(){
       timestamp: runTimestamp // Recommended to get consistent builds when watching files
     })) 
     .pipe(gulp.dest('src/assets/fonts/'));
+});
+
+gulp.task('scss', function () {
+  return gulp.src('src/assets/themes/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('src/assets/themes/css'));
 });

@@ -1,0 +1,13 @@
+@import '../../styles.scss';
+
+$primary: white;
+$secondary: #2b2b2b;
+$whitesmoke: #ddd;
+
+$theme: (
+  primary: $primary,
+  secondary: $secondary,
+  color-grey: $whitesmoke
+);
+
+@include theme($theme);

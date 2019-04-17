@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   Router,
   Event as RouterEvent,
@@ -8,19 +8,27 @@ import {
   NavigationError
 } from '@angular/router';
 import { GalleryServices } from './gallery/gallery.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 
 export class AppComponent implements OnInit {
   private title = 'Wallperex';
   hasFav: number;
   loading = true;
+  isDarkMode = false;
+  public theme = 'light';
+  cssPath = './assets/themes/css/';
 
-  constructor(private galleryServices: GalleryServices, private router: Router) {
+  constructor(
+    private galleryServices: GalleryServices,
+    private router: Router,
+    @Inject(DOCUMENT) private document) {
+
     router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
@@ -40,5 +48,10 @@ export class AppComponent implements OnInit {
     this.galleryServices.changeStatus();
   }
 
-
+  toggleTheme() {
+    this.theme = (this.isDarkMode) ? 'light' : 'dark';
+    console.log(this.cssPath + this.theme + '.css');
+    this.document.getElementById('cssTheme').setAttribute('href', this.cssPath + this.theme + '.css');
+    this.isDarkMode = !this.isDarkMode;
+  }
 }
