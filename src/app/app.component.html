@@ -2,7 +2,7 @@
     <div class="app-name sticky" id="header-main">
         <div class="main-container">
             <div class="flex justify-content-between">
-                <h1 class="header-title"><a href="/"><span class="text-center w100">Wallperex</span></a></h1>
+                <h1 class="header-title"><a href="/"><span class="text-center w100">{{title}}</span></a></h1>
                 <a href="javascript:void(0);" class="toggle-switch" (click)="toggleTheme()">
                     <span [ngClass]="isDarkMode? 'active' : '' "></span>
                 </a>
@@ -11,12 +11,12 @@
     </div>
     <div class="main-container">
         <nav>
-            <ul class="flex align-items-center">
+            <ul class="flex flex-nowrap align-items-center">
                 <li class="text-center" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a
-                        routerLink="/">Latest</a></li>
-                <li class="text-center" routerLinkActive="active"><a routerLink="collections">Collections</a></li>
-                <li class="text-center" routerLinkActive="active"><a routerLink="trending">Trending</a></li>
-                <li class="text-center" routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite">Favorites
+                        routerLink="/" class="flex align-items-center">Latest</a></li>
+                <li class="text-center" routerLinkActive="active"><a routerLink="collections" class="flex align-items-center">Collections</a></li>
+                <li class="text-center" routerLinkActive="active"><a routerLink="trending" class="flex align-items-center">Trending</a></li>
+                <li class="text-center" routerLinkActive="active" *ngIf="hasFav"><a routerLink="favorite" class="flex flex-nowrap align-items-center">Favorites
                         <span class="small">({{hasFav}})</span></a>
                 </li>
             </ul>

@@ -2,7 +2,7 @@
   <div class="search flex" *ngIf="showSearch">
     <form class="search-form" (keydown)="triggerEnter($event)">
       <div class="form-field">
-        <div class="search-input"><input type='text' placeholder='i.e. Dogs' [(ngModel)]='searchQuery'
+        <div class="search-input"><input type='text' placeholder='Search' [(ngModel)]='searchQuery'
             name='searchQuery'></div>
         <button type="button" [disabled]="!searchQuery" (click)="getSearchResult(searchQuery)"><i
             class="icon icon-search"></i></button>

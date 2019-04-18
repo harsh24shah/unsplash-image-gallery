@@ -84,9 +84,9 @@ nav {
   nav ul {
     flex-direction: row;
     justify-content: flex-start;
+    flex-wrap: nowrap;
     margin: 0;
     padding: 0 12px;
-    flex-wrap: nowrap;
     overflow-x: auto;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none; }
@@ -98,7 +98,6 @@ nav {
     nav ul li {
       list-style: none; }
       nav ul li a {
-        display: inline-block;
         padding: 12px 12px;
         color: black;
         letter-spacing: 1px; }
@@ -318,7 +317,7 @@ nav {
         outline: none;
         font-size: 1.1rem;
         background: transparent;
-        color: #ddd; }
+        color: black; }
     .search .search-form button {
       position: absolute;
       top: 0;
@@ -326,10 +325,10 @@ nav {
       padding: 0.5em 1em 0 1em;
       cursor: pointer;
       border: none;
-      background: transparent;
-      color: #ddd; }
+      background: transparent; }
       .search .search-form button .icon-search {
-        font-size: 1rem; }
+        font-size: 1rem;
+        color: black; }
     @media (max-width: 768px) {
       .search .search-form {
         width: 60%;

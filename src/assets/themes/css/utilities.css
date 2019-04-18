@@ -175,6 +175,9 @@ table {
   display: flex;
   flex-wrap: wrap; }
 
+.flex-nowrap {
+  flex-wrap: nowrap; }
+
 .justify-content-between {
   justify-content: space-between; }
 

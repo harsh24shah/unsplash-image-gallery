@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
     private galleryServices: GalleryServices,
     private router: Router,
     @Inject(DOCUMENT) private document) {
-
     router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
@@ -50,7 +49,7 @@ export class AppComponent implements OnInit {
 
   toggleTheme() {
     this.theme = (this.isDarkMode) ? 'light' : 'dark';
-    console.log(this.cssPath + this.theme + '.css');
+    // console.log(this.cssPath + this.theme + '.css');
     this.document.getElementById('cssTheme').setAttribute('href', this.cssPath + this.theme + '.css');
     this.isDarkMode = !this.isDarkMode;
   }
