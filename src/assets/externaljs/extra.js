@@ -2,7 +2,7 @@ var lastScrollTop = 0;
 $(window).scroll(function () {
     st = $(this).scrollTop();
     navOffset = $('.app-name').outerHeight();
-   // console.log(st + "--" + navOffset);
+    // console.log(st + "--" + navOffset);
     if ((navOffset - st) <= 0) {
         if (st > lastScrollTop) {
             // downscroll code
@@ -14,3 +14,9 @@ $(window).scroll(function () {
         lastScrollTop = st;
     }
 });
+
+$(document).ready(function () {
+    $('#backToTop').click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 500);
+    });
+}); 

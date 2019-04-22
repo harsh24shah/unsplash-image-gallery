@@ -179,10 +179,10 @@ table {
   display: flex;
   flex-wrap: wrap;
 }
-.flex-nowrap{
+.flex-nowrap {
   flex-wrap: nowrap;
 }
-.justify-content-between{
+.justify-content-between {
   justify-content: space-between;
 }
 .align-items-center {
@@ -191,13 +191,16 @@ table {
 .w100 {
   width: 100%;
 }
+.hidden {
+  display: none;
+}
 a {
   text-decoration: none;
 }
 .small {
   font-size: 10px;
 }
-strong{
+strong {
   font-weight: 600;
 }
 h1,
@@ -243,4 +246,3 @@ h4,
     font-size: 1.6rem;
   }
 }
-

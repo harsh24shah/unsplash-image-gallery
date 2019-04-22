@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   hasFav: number;
   loading = true;
   isDarkMode = false;
-  public theme = 'light';
+  public theme = 'dark';
   cssPath = './assets/themes/css/';
 
   constructor(
@@ -48,9 +48,13 @@ export class AppComponent implements OnInit {
   }
 
   toggleTheme() {
-    this.theme = (this.isDarkMode) ? 'light' : 'dark';
+    this.theme = (this.isDarkMode) ? 'dark' : 'light';
     // console.log(this.cssPath + this.theme + '.css');
     this.document.getElementById('cssTheme').setAttribute('href', this.cssPath + this.theme + '.css');
     this.isDarkMode = !this.isDarkMode;
+  }
+
+  backToTop(){
+    
   }
 }

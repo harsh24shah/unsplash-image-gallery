@@ -16,7 +16,7 @@ body {
   transform: translate(-50%, -50%) scale(1);
   transition: all 0.3s ease; }
 
-.search .sorting button, popup .buttons-wrapper .button-share > span > i {
+popup .buttons-wrapper .button-share > span > i {
   padding: 10px;
   display: flex;
   border: 1px solid white;
@@ -24,7 +24,7 @@ body {
   color: white;
   background: transparent;
   transition: all 0.2s ease; }
-  .search .sorting button:hover, popup .buttons-wrapper .button-share > span > i:hover, .search .sorting button.active, popup .buttons-wrapper .button-share > span > i.active {
+  popup .buttons-wrapper .button-share > span > i:hover, popup .buttons-wrapper .button-share > span > i.active {
     box-shadow: 1px 2px 11px 0px rgba(0, 0, 0, 0.3);
     color: #2b2b2b;
     background: white;
@@ -50,6 +50,14 @@ popup .buttons-wrapper .button > a, popup .buttons-wrapper .button-share ul > li
   display: inline-block;
   top: 50%;
   transform: translateY(-50%); }
+
+.backToTop > i, popup .close > i {
+  font-size: 26px;
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 1px 2px 11px 0px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.5);
+  color: #2b2b2b; }
 
 .app-name {
   background: black;
@@ -101,6 +109,8 @@ nav {
         padding: 12px 12px;
         color: white;
         letter-spacing: 1px; }
+        nav ul li a .small {
+          margin-left: 4px; }
       nav ul li.active {
         border-bottom: 2px solid white; }
   @media (max-width: 768px) {
@@ -282,6 +292,13 @@ nav {
       z-index: 2;
       color: white; }
 
+.backToTop {
+  display: inline-block;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99; }
+
 .search {
   margin: 0 auto;
   padding: 0 8px 1.5rem;
@@ -290,17 +307,15 @@ nav {
     color: white; }
   .search .sorting {
     align-content: center; }
-    .search .sorting button {
+    .search .sorting div {
       border-radius: 4px;
-      border: none; }
-      .search .sorting button.sort {
+      border: none;
+      color: white; }
+      .search .sorting div.sort {
         transform: rotatez(180deg);
         margin-right: 4px; }
-      .search .sorting button:disabled {
-        border: none;
-        color: #2b2b2b;
-        background: #ddd;
-        box-shadow: none; }
+      .search .sorting div.active {
+        transform: scaleX(-1); }
   @media (max-width: 768px) {
     .search {
       padding: 0 0 0.8rem 0; } }
@@ -351,16 +366,6 @@ popup .close {
     popup .close {
       top: 10px;
       left: 10px; } }
-  popup .close > i {
-    font-size: 26px;
-    border-radius: 50%;
-    padding: 5px;
-    box-shadow: 1px 2px 11px 0px rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.5);
-    color: #2b2b2b; }
-    @media (max-width: 768px) {
-      popup .close > i {
-        font-size: 26px; } }
 
 popup .modal {
   position: fixed;

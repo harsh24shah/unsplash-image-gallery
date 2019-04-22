@@ -2,15 +2,15 @@
   <div class="search flex" *ngIf="showSearch">
     <form class="search-form" (keydown)="triggerEnter($event)">
       <div class="form-field">
-        <div class="search-input"><input type='text' placeholder='Search' [(ngModel)]='searchQuery'
-            name='searchQuery'></div>
+        <div class="search-input"><input type='text' placeholder='Search' [(ngModel)]='searchQuery' name='searchQuery'>
+        </div>
         <button type="button" [disabled]="!searchQuery" (click)="getSearchResult(searchQuery)"><i
             class="icon icon-search"></i></button>
       </div>
     </form>
     <div class="sorting flex">
-      <button class="sort" [ngClass]="isSortActive? 'active':''" href="javascript:void(0);"
-        (click)="setSort('popuplar')" [disabled]="searchQuery"><i class="material-icons">sort</i></button>
+      <div class="sort" [ngClass]="isSortActive? 'active':''" (click)="setSort('popuplar')" [hidden]="searchQuery"><i
+          class="material-icons">sort</i></div>
     </div>
   </div>
 

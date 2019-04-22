@@ -57,6 +57,11 @@ export class PopupComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:popstate', ['$event'])
+  handleBrosweBack(event: any) {
+    this.closeModal(this.id);
+  }
+
   ngOnDestroy(): void {
     this.popupService.remove(this.id);
     this.element.remove();
@@ -66,6 +71,7 @@ export class PopupComponent implements OnInit, OnDestroy {
   open(): void {
     this.element.classList.add('active');
     document.body.classList.add('modal-open');
+    window.history.pushState('forward', null, '#popup');
   }
 
   // to close modal

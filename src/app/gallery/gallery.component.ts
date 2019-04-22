@@ -137,7 +137,7 @@ export class GalleryComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     const pos = window.innerHeight + window.scrollY;
-    const max = document.body.offsetHeight;
+    const max = document.body.offsetHeight - 80 ;
 
     if (pos >= max) {
       if (this.isHomePage || this.isTrendingPage) {
