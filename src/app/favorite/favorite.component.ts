@@ -1,7 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GalleryServices } from '../gallery/gallery.service';
-import { PopupService } from '../popup/popup.service';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorite',
@@ -11,39 +10,33 @@ import { Observable } from 'rxjs';
 
 export class FavoriteComponent implements OnInit {
   favImages: [];
-  private sharePhoto: Observable<any>;
-  private isShareActive = false;
-  private openedPopupId: string;
+  loadmore = false;
 
-  constructor(private galleryServices: GalleryServices, private popupService: PopupService) { }
+  constructor(
+    private galleryServices: GalleryServices,
+    private router: Router) { }
 
   ngOnInit() {
     this.showFavorites();
   }
 
   showFavorites() {
+    this.loadmore = true;
     let temp: any;
     temp = JSON.parse(this.galleryServices.getFromLocalStorage());
     this.favImages = temp.slice().reverse();
+    this.loadmore = false;
   }
 
-  shareToggle() {
-    this.isShareActive = !this.isShareActive;
-  }
-
-  openShareModal(id: string, image: any) {
-    this.popupService.open(id);
-    this.sharePhoto = image;
-    this.openedPopupId = id;
-  }
-
-  closeModal(id: string) {
-    this.isShareActive = this.popupService.close(id);
-  }
-
-  @HostListener('document:keyup', ['$event']) handleKeyUp(event) {
-    if (event.keyCode === 27) {
-      this.closeModal(this.openedPopupId);
+  addFavorite(photo: any) {
+    this.loadmore = true;
+    this.galleryServices.addToLocalStorage(photo);
+    this.galleryServices.changeStatus();
+    photo = null;
+    this.favImages = JSON.parse(this.galleryServices.getFromLocalStorage());
+    if (this.favImages.length === 0) {
+      this.router.navigate(['/']);
     }
+    this.loadmore = false;
   }
 }

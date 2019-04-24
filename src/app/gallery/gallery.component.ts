@@ -21,6 +21,7 @@ export class GalleryComponent implements OnInit {
   @Input() isCollectionDetailPage = false;
   @Input() isTrendingPage = false;
   photos: any = [];
+  hidebutton = [];
   private buffer: any = [];
   private collection: any = [];
   private pageTitle: string;
@@ -43,9 +44,9 @@ export class GalleryComponent implements OnInit {
     if (this.isHomePage || this.isTrendingPage) {
       this.getRandomImages(this.orderBy);
     } else if (this.isCollectionDetailPage) {
-        this.id = +this.route.snapshot.params['id'];
-        this.getCollectionPhotos(this.id);
-      }
+      this.id = +this.route.snapshot.params['id'];
+      this.getCollectionPhotos(this.id);
+    }
 
     this.galleryServices.currentStatus.subscribe(hasFav => {
       this.hasFav = hasFav;
@@ -92,7 +93,6 @@ export class GalleryComponent implements OnInit {
       this.pageTitle = this.collection.title;
       this.loading = false;
     });
-
   }
 
   getRandomImages(orderBy: string) {
@@ -121,6 +121,7 @@ export class GalleryComponent implements OnInit {
   }
 
   addFavorite(photo: any) {
+    this.hidebutton[photo.id] = true;
     let favImage = new ImageDetails;
     favImage.imageURL = photo.urls.small;
     favImage.imageDownloadPath = photo.links.download;
@@ -137,7 +138,7 @@ export class GalleryComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     const pos = window.innerHeight + window.scrollY;
-    const max = document.body.offsetHeight - 80 ;
+    const max = document.body.offsetHeight - 80;
 
     if (pos >= max) {
       if (this.isHomePage || this.isTrendingPage) {

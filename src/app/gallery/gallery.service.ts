@@ -31,6 +31,16 @@ export class GalleryServices {
     return body || {};
   }
 
+
+  /*
+    used to get photos from photoID
+  */
+  getImage(id: string): Observable<any> {
+    const photoUrl = this.unsplashUrl + this.photos + '/' + id + this.apiKey;
+    return this.http.get(photoUrl)
+      .pipe(map(this.extractData));
+  }
+
   /*
     used to get random photos by date
   */

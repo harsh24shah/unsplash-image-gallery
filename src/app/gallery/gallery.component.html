@@ -34,13 +34,18 @@
           <div (click)="openShareModal('sharePopup',photo)">
             <img alt="photo?.alt_description" [src]="photo?.urls.small" />
           </div>
-          <a class="user-info flex align-items-center" [href]="photo?.user.links.html" target="_blank">
-            <span class="user-profile-image"><img alt="{{photo?.user.first_name}}"
-                [src]="photo?.user.profile_image.small" /></span>
-            <span class="user-name">{{photo?.user.first_name}}</span>
-          </a>
+          <div class="user-info flex align-items-center justify-content-between">
+            <a [href]="photo?.user.links.html" target="_blank">
+              <span class="user-profile-image"><img alt="{{photo?.user.first_name}}"
+                  [src]="photo?.user.profile_image.small" /></span>
+              <span class="user-name">{{photo?.user.first_name}}</span>
+            </a>
+            <span><span class="trash" [routerLink]="['/edit', photo.id]"><i
+                  class="material-icons">short_text</i></span></span>
+          </div>
           <div class="image-info flex align-items-center">
-            <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)">
+            <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
+              [hidden]="hidebutton[photo.id]">
               <i class="material-icons-outlined">thumb_up</i>
             </a>
           </div>
