@@ -23,8 +23,7 @@ export class FavoriteComponent implements OnInit {
   showFavorites() {
     this.loadmore = true;
     let temp: any;
-    temp = JSON.parse(this.galleryServices.getFromLocalStorage());
-    this.favImages = temp.slice().reverse();
+    this.favImages = this.galleryServices.getFromLocalStorage();
     this.loadmore = false;
   }
 
@@ -33,7 +32,7 @@ export class FavoriteComponent implements OnInit {
     this.galleryServices.addToLocalStorage(photo);
     this.galleryServices.changeStatus();
     photo = null;
-    this.favImages = JSON.parse(this.galleryServices.getFromLocalStorage());
+    this.favImages = this.galleryServices.getFromLocalStorage();
     if (this.favImages.length === 0) {
       this.router.navigate(['/']);
     }

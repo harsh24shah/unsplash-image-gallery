@@ -1,5 +1,17 @@
 <div class="gallery-wrapper  main-container">
   <div class="main-content">
-    <img [src]="photo.urls.small" />
+    <div class="search">
+      <form class="search-form" autocomplete="off">
+        <div class="form-field">
+          <div class="search-input">
+            <input type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
+              (keyup)="writeText()" name="searchQuery" autofocus>
+          </div>        
+        </div>
+      </form>
+    </div>
+    <div id="canvas-wrap">
+      <canvas #editCanvas></canvas>
+    </div>
   </div>
 </div>

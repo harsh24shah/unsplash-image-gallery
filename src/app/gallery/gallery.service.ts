@@ -153,7 +153,8 @@ export class GalleryServices {
     To get favourite items on local storage
   */
   getFromLocalStorage() {
-    return localStorage.getItem(this.localStrorage);
+    let temp = JSON.parse(localStorage.getItem(this.localStrorage));
+    return temp.slice().reverse();
   }
 
   /*
