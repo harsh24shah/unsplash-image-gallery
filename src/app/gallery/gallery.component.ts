@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageDetails } from '../models/image-detail.model';
 import { PopupService } from '../popup/popup.service';
 import { Observable } from 'rxjs';
+import { windowCount } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gallery-grid',
@@ -138,9 +139,8 @@ export class GalleryComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     const pos = window.innerHeight + window.scrollY;
-    const max = document.body.offsetHeight - 80;
-
-    if (pos >= max) {
+    const max = document.body.offsetHeight;
+    if (pos === max) {
       if (this.isHomePage || this.isTrendingPage) {
         this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
       } else

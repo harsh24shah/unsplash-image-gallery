@@ -53,8 +53,4 @@ export class AppComponent implements OnInit {
     this.document.getElementById('cssTheme').setAttribute('href', this.cssPath + this.theme + '.css');
     this.isDarkMode = !this.isDarkMode;
   }
-
-  backToTop(){
-    
-  }
 }

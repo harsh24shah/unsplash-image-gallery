@@ -2,16 +2,19 @@
   <div class="main-content">
     <div class="search">
       <form class="search-form" autocomplete="off">
-        <div class="form-field">
+        <div class="form-field flex">
           <div class="search-input">
             <input type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
               (keyup)="writeText()" name="searchQuery" autofocus>
-          </div>        
+             
+          </div> 
+          <input type="range" name="fontsize" min="0" max="70" [(ngModel)]="textFontSize" (input)="updateRangeFontSize($event)">   
+          <input type="color" name="fontcolor" [(ngModel)]="textFontColor" (input)="updateColor($event)" />    
         </div>
       </form>
     </div>
     <div id="canvas-wrap">
-      <canvas #editCanvas></canvas>
+      <canvas #editCanvas ></canvas>
     </div>
   </div>
 </div>

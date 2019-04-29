@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GalleryServices } from '../gallery/gallery.service';
 
@@ -7,6 +7,7 @@ import { GalleryServices } from '../gallery/gallery.service';
   templateUrl: './edit.component.html',
   styleUrls: ['../../app/app.component.scss']
 })
+
 export class EditComponent implements OnInit, OnDestroy {
   @ViewChild('editCanvas') myCanvas: ElementRef;
   context: CanvasRenderingContext2D;
@@ -15,8 +16,12 @@ export class EditComponent implements OnInit, OnDestroy {
   textTitle: '';
   textColor: string;
   textBaseline: CanvasTextBaseline;
-  textFont :string;
-  textFontSize :'20';
+  textFont: string;
+  textFontSize = 20;
+  selectedText = -1;
+  textFontColor = '#fff';
+  fontsFamily = ['Open Sans','Arial','Montserrat','Raleway','Tangerine']; 
+
   imageSrc: string;
   imageWidth: number;
   imageHeight: number;
@@ -28,7 +33,7 @@ export class EditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private galleryServices: GalleryServices) {
     this.textColor = 'white';
     this.textBaseline = 'middle';
-    this.textFont = this.textFontSize + 'Montserrat';
+    this.textFont = this.textFontSize + "px" + " 'Montserrat'";
   }
 
   ngOnInit() {
@@ -60,15 +65,25 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   writeText() {
-    this.context.fillStyle = this.textColor;
     this.context.textBaseline = this.textBaseline;
-    this.context.font = this.textFont;
-    if (this.textTitle.length > 2) {
-      this.drawUpdatedCanvas(this.textTitle);
-      this.drawText(this.textTitle);
-    } else {
-      this.drawUpdatedCanvas('');
+    if (this.textTitle !== undefined && this.textFont !== undefined) {
+      if (this.textTitle.length > 2 || this.textFontSize > 5) {
+        this.drawUpdatedCanvas(this.textTitle);
+        this.drawText(this.textTitle);
+      } else {
+        this.drawUpdatedCanvas('');
+      }
     }
+  }
+
+  updateRangeFontSize(e) {
+    this.textFont = e.target.value + "px" + " 'Montserrat'";
+    this.writeText();
+  }
+
+  updateColor(e) {
+    this.textColor = e.target.value;
+    this.writeText();
   }
 
   drawText(textTitle: string) {
@@ -76,6 +91,8 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   drawUpdatedCanvas(textTitle: string) {
+    this.context.fillStyle = this.textColor;
+    this.context.font = this.textFont;
     this.drawText(textTitle);
     this.context.drawImage(this.baseImage, 0, 0);
   }
