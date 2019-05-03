@@ -610,3 +610,33 @@ popup .buttons-wrapper {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
+
+input[type=range] {
+  box-sizing: border-box;
+  font-size: 0;
+  line-height: 1;
+  height: 30px;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  width: 100%;
+  max-width: 200px; }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 26px;
+    height: 26px;
+    margin-top: 0;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px solid black;
+    cursor: pointer; }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    cursor: pointer;
+    height: 15px;
+    border-bottom: 2px solid black;
+    background-color: transparent; }
+  input[type=range]:focus {
+    outline: none; }
+  input[type=range]:hover::-webkit-slider-thumb {
+    background-color: black; }

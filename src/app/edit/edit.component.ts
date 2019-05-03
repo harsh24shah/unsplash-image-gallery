@@ -18,10 +18,9 @@ export class EditComponent implements OnInit, OnDestroy {
   textBaseline: CanvasTextBaseline;
   textFont: string;
   textFontSize = 20;
-  selectedText = -1;
   textFontColor = '#fff';
-  fontsFamily = ['Open Sans','Arial','Montserrat','Raleway','Tangerine']; 
-
+  fontsFamily = 'Open Sans,Arial,Montserrat,Raleway,Tangerine'.split(',');
+  selectedFont = 'Montserrat';
   imageSrc: string;
   imageWidth: number;
   imageHeight: number;
@@ -33,7 +32,7 @@ export class EditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private galleryServices: GalleryServices) {
     this.textColor = 'white';
     this.textBaseline = 'middle';
-    this.textFont = this.textFontSize + "px" + " 'Montserrat'";
+    this.textFont = this.textFontSize + "px " + this.selectedFont;
   }
 
   ngOnInit() {
@@ -76,13 +75,20 @@ export class EditComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateRangeFontSize(e) {
-    this.textFont = e.target.value + "px" + " 'Montserrat'";
+  updateRangeFontSize(e: any) {
+    this.textFontSize = e.target.value;
+    this.textFont = this.textFontSize + "px " + this.selectedFont;
     this.writeText();
   }
 
-  updateColor(e) {
+  updateColor(e: any) {
     this.textColor = e.target.value;
+    this.writeText();
+  }
+
+  changeFontFamily(font: string) {
+    this.selectedFont = font;
+    this.textFont = this.textFontSize + "px " + this.selectedFont;
     this.writeText();
   }
 

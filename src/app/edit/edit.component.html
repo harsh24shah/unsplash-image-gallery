@@ -2,19 +2,30 @@
   <div class="main-content">
     <div class="search">
       <form class="search-form" autocomplete="off">
-        <div class="form-field flex">
+        <div class="form-field flex align-items-center">
           <div class="search-input">
             <input type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
               (keyup)="writeText()" name="searchQuery" autofocus>
-             
-          </div> 
-          <input type="range" name="fontsize" min="0" max="70" [(ngModel)]="textFontSize" (input)="updateRangeFontSize($event)">   
-          <input type="color" name="fontcolor" [(ngModel)]="textFontColor" (input)="updateColor($event)" />    
+          </div>
+          <div class="font-range">
+            <input type="range" class="range-slider" name="fontsize" min="10" max="70" [(ngModel)]="textFontSize"
+              (input)="updateRangeFontSize($event)">
+          </div>
+          <div class="font-color">
+            <input type="color" name="fontcolor" [(ngModel)]="textFontColor" (input)="updateColor($event)" />
+          </div>
+          <div class="font-family">
+            <div class="chips w100" *ngIf="fontsFamily">
+              <ul class="flex">
+                <li *ngFor="let font of fontsFamily"><a (click)="changeFontFamily(font)">{{font}}</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </form>
     </div>
     <div id="canvas-wrap">
-      <canvas #editCanvas ></canvas>
+      <canvas #editCanvas></canvas>
     </div>
   </div>
 </div>

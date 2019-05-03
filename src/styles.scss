@@ -822,7 +822,7 @@
     }
   }
 
-  //Loader spinner global
+  // -- Loader spinner global --
   .loader {
     margin: 0 auto;
     font-size: 10px;
@@ -881,6 +881,46 @@
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
       }
+    }
+  }
+
+  // -- Range slider --
+  input[type=range] {
+    box-sizing: border-box;
+    font-size: 0;
+    line-height: 1;
+    height: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    width: 100%;
+    max-width: 200px;
+
+    &::-webkit-slider-thumb{
+      -webkit-appearance: none;
+      width: 26px;
+      height: 26px;
+      margin-top: 0;
+      background-color:$secondary;
+      border-radius: 50%;
+      border: 2px solid $primary;
+      cursor: pointer;
+    }
+
+    &::-webkit-slider-runnable-track{
+      width: 100%;
+      cursor: pointer;
+      height: 15px;
+      border-bottom: 2px solid $primary;
+      background-color: transparent;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover::-webkit-slider-thumb {
+      background-color: $primary;
     }
   }
 }
