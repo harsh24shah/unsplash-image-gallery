@@ -178,6 +178,9 @@ table {
 .flex-nowrap {
   flex-wrap: nowrap; }
 
+.flex-column {
+  flex-direction: column; }
+
 .justify-content-between {
   justify-content: space-between; }
 
