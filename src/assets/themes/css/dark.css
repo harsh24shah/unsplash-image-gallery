@@ -652,3 +652,11 @@ label {
   display: block;
   margin-bottom: 10px;
   margin-top: 12px; }
+
+.nodata {
+  margin: 10vh auto;
+  max-width: 80%;
+  line-height: normal;
+  color: white; }
+  .nodata i {
+    font-size: 60px; }
