@@ -22,7 +22,6 @@ export class FavoriteComponent implements OnInit {
 
   showFavorites() {
     this.loadmore = true;
-    let temp: any;
     this.favImages = this.galleryServices.getFromLocalStorage();
     this.loadmore = false;
   }

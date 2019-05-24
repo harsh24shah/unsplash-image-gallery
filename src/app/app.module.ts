@@ -13,9 +13,12 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './popup/popup.service';
+import { GalleryServices } from './gallery/gallery.service';
 import { TrendingComponent } from './trending/trending.component';
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -36,8 +39,9 @@ import { EditComponent } from './edit/edit.component';
     AppRoutingModule,
     FormsModule,
     RouterModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [ImageDetails, PopupService],
+  providers: [ImageDetails, PopupService, GalleryServices],
   bootstrap: [AppComponent],
   exports: [GalleryComponent]
 })

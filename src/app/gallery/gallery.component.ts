@@ -75,9 +75,9 @@ export class GalleryComponent implements OnInit {
   }
 
   openShareModal(id: string, image: any) {
-    this.popupService.open(id);
     this.sharePhoto = image;
     this.openedPopupId = id;
+    this.popupService.open(id);
   }
 
   getCollectionPhotos(collectionId: number) {
@@ -173,4 +173,4 @@ export class GalleryComponent implements OnInit {
       this.loadmore = false;
     });
   }
-} 
+}

@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GalleryServices } from '../gallery/gallery.service';
 import { fromEvent } from 'rxjs';
-import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
+import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit',
@@ -10,7 +10,7 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
   styleUrls: ['../../app/app.component.scss']
 })
 
-export class EditComponent implements OnInit, OnDestroy {
+export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('editCanvas') myCanvas: ElementRef;
   context: CanvasRenderingContext2D;
 
@@ -29,8 +29,8 @@ export class EditComponent implements OnInit, OnDestroy {
   imageWidth: number;
   imageHeight: number;
 
-  mouseDownEvents = ['mousedown','touchdown'];
-  mouseMoveEvents = ['mousemove','touchmove'];
+  mouseDownEvents = ['mousedown', 'touchdown'];
+  mouseMoveEvents = ['mousemove', 'touchmove'];
   mouseleaveEvents = ['mouseleave', 'mouseup', 'touchleave'];
 
   id: string;
@@ -43,7 +43,7 @@ export class EditComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private galleryServices: GalleryServices) {
     this.textColor = 'white';
     this.textBaseline = 'middle';
-    this.textFont = this.textFontSize + "px " + this.selectedFont;
+    this.textFont = this.textFontSize + 'px ' + this.selectedFont;
 
   }
 
@@ -76,7 +76,7 @@ export class EditComponent implements OnInit, OnDestroy {
       this.myCanvas.nativeElement.height = imageHeight;
       this.context.drawImage(this.baseImage, 0, 0);
       this.writeText();
-    }
+    };
     this.baseImage.src = imageSrc;
   }
 
@@ -94,7 +94,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   updateRangeFontSize(e: any) {
     this.textFontSize = e.target.value;
-    this.textFont = this.textFontSize + "px " + this.selectedFont;
+    this.textFont = this.textFontSize + 'px ' + this.selectedFont;
     this.writeText();
   }
 
@@ -105,7 +105,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   changeFontFamily(font: string) {
     this.selectedFont = font;
-    this.textFont = this.textFontSize + "px " + this.selectedFont;
+    this.textFont = this.textFontSize + 'px ' + this.selectedFont;
     this.writeText();
   }
 
@@ -119,7 +119,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.drawText(textTitle, this.positionX, this.positionY);
     this.context.drawImage(this.baseImage, 0, 0);
   }
-  
+
   captureEvents(canvasEl: HTMLCanvasElement) {
     // this will capture all mousedown events from the canvas element
     fromEvent(canvasEl, 'mousedown')
@@ -130,14 +130,14 @@ export class EditComponent implements OnInit, OnDestroy {
           return fromEvent(canvasEl, 'mousemove')
             .pipe(
               // we'll stop (and unsubscribe) once the user releases the mouse
-              // this will trigger a 'mouseup' event    
+              // this will trigger a 'mouseup' event
               takeUntil(fromEvent(canvasEl, 'mouseup')),
               // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
               takeUntil(fromEvent(canvasEl, 'mouseleave')),
               // pairwise lets us get the previous value to draw a line from
-              // the previous point to the current point    
+              // the previous point to the current point
               pairwise()
-            )
+            );
         })
       )
       .subscribe((res: [MouseEvent, MouseEvent]) => {

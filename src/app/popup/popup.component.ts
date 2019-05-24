@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ElementRef, ViewEncapsulation, Output, EventE
 import { PopupService } from './popup.service';
 
 @Component({
-  selector: 'popup',
+  selector: 'app-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['../../app/app.component.scss'],
   encapsulation: ViewEncapsulation.None,

@@ -17,7 +17,7 @@ import { DOCUMENT } from '@angular/common';
 })
 
 export class AppComponent implements OnInit {
-  private title = 'Wallperex';
+  title = 'Wallperex';
   hasFav: number;
   loading = true;
   isDarkMode = false;

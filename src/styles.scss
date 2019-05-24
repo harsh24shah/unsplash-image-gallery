@@ -527,7 +527,7 @@
   }
 
   // -- collection page box --
-  popup {
+  app-popup {
     body.modal-open & {
       overflow: hidden;
     }

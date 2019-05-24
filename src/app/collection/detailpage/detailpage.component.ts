@@ -11,17 +11,17 @@ import { GalleryComponent } from '../../gallery/gallery.component';
 
 export class DetailpageComponent implements OnInit, OnDestroy {
   id: number;
-  private sub:any;
+  private sub: any;
 
   constructor(private route: ActivatedRoute, private galleryComponent: GalleryComponent) { }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params =>{
+    this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
   }
 
-  ngOnDestroy(){
-      this.sub.unsubscribe();
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

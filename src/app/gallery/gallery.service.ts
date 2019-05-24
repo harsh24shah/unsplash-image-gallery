@@ -130,8 +130,8 @@ export class GalleryServices {
     if (this.checkInStorage(data, this.localStrorage)) {
       oldItems.push(data);
     } else {
-      oldItems = oldItems.filter(oldItems => {
-        return oldItems.imageId !== data.imageId;
+      oldItems = oldItems.filter( oldItemsFromLocal => {
+        return oldItemsFromLocal.imageId !== data.imageId;
       });
     }
     localStorage.setItem(this.localStrorage, JSON.stringify(oldItems));
@@ -153,7 +153,7 @@ export class GalleryServices {
     To get favourite items on local storage
   */
   getFromLocalStorage() {
-    let temp = JSON.parse(localStorage.getItem(this.localStrorage));
+    const temp = JSON.parse(localStorage.getItem(this.localStrorage));
     return temp.slice().reverse();
   }
 
