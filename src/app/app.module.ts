@@ -17,8 +17,8 @@ import { GalleryServices } from './gallery/gallery.service';
 import { TrendingComponent } from './trending/trending.component';
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
-import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     FormsModule,
     RouterModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ImageDetails, PopupService, GalleryServices],
   bootstrap: [AppComponent],

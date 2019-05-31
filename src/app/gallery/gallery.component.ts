@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageDetails } from '../models/image-detail.model';
 import { PopupService } from '../popup/popup.service';
 import { Observable } from 'rxjs';
-import { windowCount } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gallery-grid',
@@ -34,7 +33,8 @@ export class GalleryComponent implements OnInit {
   loadmore = false;
   loading = false;
   sharePhoto: Observable<any>;
-
+  pos: number;
+  max: number;
   constructor(
     private route: ActivatedRoute,
     private galleryServices: GalleryServices,
@@ -42,6 +42,7 @@ export class GalleryComponent implements OnInit {
   }
 
   ngOnInit() {
+
     if (this.isHomePage || this.isTrendingPage) {
       this.getRandomImages(this.orderBy);
     } else if (this.isCollectionDetailPage) {
@@ -138,16 +139,19 @@ export class GalleryComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    const pos = window.innerHeight + window.scrollY;
-    const max = document.body.offsetHeight;
-    if (pos === max) {
-      if (this.isHomePage || this.isTrendingPage) {
+    this.pos = window.scrollY + window.innerHeight;
+    this.max = document.body.offsetHeight;
+
+    if (this.isHomePage || this.isTrendingPage) {
+      if (this.pos === this.max) {
         this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
-      } else
-        if (this.isCollectionDetailPage) {
+      }
+    } else
+      if (this.isCollectionDetailPage) {
+        if (this.pos === this.max) {
           this.loadMoreCollections(this.pageNo, this.id);
         }
-    }
+      }
   }
 
   loadMoreImages(pages: number, search: string, orderBy: string) {

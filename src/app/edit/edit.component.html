@@ -4,24 +4,24 @@
       <form class="search-form" autocomplete="off">
         <div class="form-field flex flex-column">
           <div class="search-input">
-            <label>Your Quote:</label>
-            <input type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
+            <label for="quote-text">Your Quote:</label>
+            <input id="quote-text" type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
               (keyup)="writeText()" name="searchQuery" autofocus>
           </div>
           <div class="font-range">
-            <label>Font size:</label>
-            <input type="range" class="range-slider" name="fontsize" min="10" max="100" [(ngModel)]="textFontSize"
+            <label for="font-size">Font size:</label>
+            <input id="font-size" type="range" class="range-slider" name="fontsize" min="10" max="100" [(ngModel)]="textFontSize"
               (input)="updateRangeFontSize($event)">
           </div>
           <div class="font-color">
-            <label>Color:</label>
-            <input type="color" name="fontcolor" [(ngModel)]="textFontColor" (input)="updateColor($event)" />
+            <label for="font-color">Color:</label>
+            <input id="font-color" type="color" name="fontcolor" [(ngModel)]="textFontColor" (input)="updateColor($event)" />
           </div>
           <div class="font-family">
-            <label>Font Style:</label>
+            <label for="font-family">Font Style:</label>
             <div class="chips w100" *ngIf="fontsFamily">
-              <ul class="flex">
-                <li *ngFor="let font of fontsFamily"><a (click)="changeFontFamily(font)">{{font}}</a></li>
+              <ul id="font-family" class="flex">
+                <li *ngFor="let font of fontsFamily" role="checkbox"><a (click)="changeFontFamily(font)">{{font}}</a></li>
               </ul>
             </div>
           </div>

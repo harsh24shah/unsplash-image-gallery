@@ -13,6 +13,26 @@
     margin: 0 auto;
   }
 
+  .gallery-component {
+    @media (max-width: 768px) {
+      padding-top: 26px;
+    }
+  }
+
+  .collection-page,
+  .trending-page,
+  .collection-detail-page {
+    @media (max-width: 768px) {
+      padding-top: 50px;
+    }
+  }
+
+  .favorite-page {
+    @media (max-width: 768px) {
+      padding-top: 66px;
+    }
+  }
+
   %absoulteImage {
     min-width: 101%;
     max-width: inherit;
@@ -79,12 +99,13 @@
   // -- Header --
   .app-name {
     background: black;
-    padding: 10px 0;
+    padding: 13px 0;
     transform: translateY(0);
     transition: all 0.8s ease;
+    box-shadow: 0 1px 12px 2px rgba(black, 0.3);
 
     &.hideHeader {
-      transform: translateY(-101%);
+      transform: translateY(-107%);
       transition: all 0.2s ease;
     }
 
@@ -121,6 +142,16 @@
   nav {
     padding: 100px 0 0;
 
+    @media (max-width: 768px) {
+      transform: translateY(0);
+      transition: all 0.3s ease;
+
+      &.hideNav {
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+      }
+    }
+
     ul {
       flex-direction: row;
       justify-content: flex-start;
@@ -130,6 +161,10 @@
       overflow-x: auto;
       overflow: -moz-scrollbars-none;
       -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       @media (max-width: 768px) {
         padding: 0;
@@ -142,10 +177,35 @@
       li {
         list-style: none;
 
+        @media (max-width: 768px) {
+          flex: 1;
+          align-items: center;
+          justify-content: center;
+        }
+
         a {
+          display: block;
           padding: 12px 12px;
           color: $primary;
           letter-spacing: 1px;
+
+          @media (max-width: 768px) {
+            color: lighten(#2b2b2b, 29.8);
+            text-align: center;
+            padding: 10px 12px;
+
+            > span {
+              display: none;
+            }
+          }
+
+          .material-icons {
+            display: none;
+
+            @media (max-width: 768px) {
+              display: block;
+            }
+          }
 
           .small {
             margin-left: 4px;
@@ -154,12 +214,30 @@
 
         &.active {
           border-bottom: 2px solid $primary;
+
+          > a {
+            @media (max-width: 768px) {
+              color: $primary;
+
+              > span {
+                display: block;
+                font-size: 12px;
+                margin-top: 2px;
+              }
+            }
+          }
         }
       }
     }
 
     @media (max-width: 768px) {
-      padding: 70px 0 0;
+      padding: 0 0 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: $secondary;
+      z-index: 3;
     }
   }
 
@@ -447,8 +525,19 @@
     z-index: 99;
     cursor: pointer;
 
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    .modal-open & {
+      display: none;
+    }
+
     > i {
       @extend %roundTransperentButton;
+      font-size: 35px;
+      display: block;
+      max-width: 45px;
     }
   }
 
@@ -527,230 +616,288 @@
   }
 
   // -- collection page box --
-  app-popup {
-    body.modal-open & {
-      overflow: hidden;
+  .popup-wrap {
+    position: fixed;
+    height: 100vh;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    font-size: 14px;
+    background: $primary;
+    z-index: 3;
+    transform: translateX(102%);
+    transition: all 0.3s ease;
+
+    @media (max-width: 991px) {
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     &.active {
-      .modal {
-        transform: translateX(0);
-        transition: all 0.3s ease;
-      }
-    }
-
-    .close {
-      display: inline-block;
-      position: absolute;
-      z-index: 1111;
-      top: 20px;
-      left: 20px;
-
-      @media (max-width: 768px) {
-        top: 10px;
-        left: 10px;
-      }
-
-      > i {
-        @extend %roundTransperentButton;
-      }
-    }
-
-    .modal {
-      position: fixed;
-      height: 100vh;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      font-size: 14px;
-      background: #fff;
-      transform: translateX(102%);
+      opacity: 1;
+      transform: translateX(0);
       transition: all 0.3s ease;
-      z-index: 1000;
-
-      @media (max-width: 991px) {
-        overflow-y: auto;
-      }
     }
 
-    .modal-background {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: #000;
-      opacity: 0.5;
-      z-index: 900;
-    }
+    app-popup {
+      .modal {
+        display: none;
 
-    .image-popup-wrap {
-      .image-popup-image {
-        width: 66.666%;
-        flex: 3;
-        position: relative;
-
-        > span {
+        .modal-open & {
           display: block;
-          width: 100%;
-          height: 100vh;
+        }
+      }
+
+      .modal-open & {
+        overflow: hidden;
+      }
+
+      .close {
+        display: inline-block;
+        position: absolute;
+        z-index: 4;
+        top: 20px;
+        left: 20px;
+
+        .active & {
+          display: block;
+        }
+
+        @media (max-width: 768px) {
+          top: 10px;
+          left: 10px;
+        }
+
+        > i {
+          @extend %roundTransperentButton;
+          color: white;
+          background: transparent;
+          box-shadow: none;
+        }
+      }
+
+      .modal-background {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 900;
+      }
+
+      .image-popup-wrap {
+        .image-popup-image {
+          width: 66.666%;
+          flex: 3;
           position: relative;
 
-          img {
-            display: inline-block;
-            min-height: 300px;
-            margin: 0 auto;
-            float: none;
+          > span {
+            display: block;
             width: 100%;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
+            height: 100vh;
+            position: relative;
+
+            img {
+              display: inline-block;
+              min-height: 200px;
+              margin: 0 auto;
+              float: none;
+              width: 100%;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              transform: translateY(-50%);
+
+              @media (max-width: 991px) {
+                position: fixed;
+                float: left;
+                top: 0;
+                left: 50%;
+                -webkit-transform: translateY(0);
+                transform: translateY(0) translateX(-50%);
+                z-index: 3;
+                height: 100vh;
+                width: auto;
+                overflow: hidden;
+              }
+            }
 
             @media (max-width: 991px) {
-              position: static;
-              float: left;
-              top: auto;
-              left: auto;
-              transform: translateY(0);
+              height: auto;
             }
           }
 
           @media (max-width: 991px) {
-            height: auto;
+            width: 100%;
+            height: 100%;
+            flex: 0;
+            position: fixed;
           }
         }
 
-        @media (max-width: 991px) {
-          width: 100%;
-          flex: 0;
-        }
-      }
-
-      .image-popup-description {
-        position: relative;
-        width: 33.33%;
-        padding: 25px 30px 30px 30px;
-        flex: 1;
-        -webkit-flex: 1;
-        background: $secondary;
-        color: $primary;
-
-        span:first-child {
-          flex-wrap: nowrap;
-
-          img {
-            border-radius: 50%;
-            margin-right: 10px;
-          }
-        }
-
-        .user-info {
-          justify-content: space-between;
-          margin: 10px 0 20px;
+        .image-popup-description {
+          position: relative;
+          width: 33.33%;
+          padding: 25px 30px 30px 30px;
+          flex: 1;
+          -webkit-flex: 1;
+          background: $secondary;
           color: $primary;
 
-          .user-name {
-            flex-direction: column;
+          @media (max-width: 991px) {
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+          }
 
-            a {
-              color: rgba(black, 0.9);
-              color: $primary;
+          &.active {
+            @media (max-width: 991px) {
+              transform: translateY(0);
+              transition: all 0.3s ease;
+            }
+
+            .uparrow {
+              i {
+                transform: rotate(180deg);
+                transition: all 0.3s ease;
+              }
             }
           }
 
-          @media (max-width: 768px) {
-            margin: 0 0 20px;
-          }
-        }
+          span:first-child {
+            flex-wrap: nowrap;
 
-        .image-detail {
-          color: $primary;
-          label {
-            margin-right: 10px;
+            img {
+              border-radius: 50%;
+              margin-right: 10px;
+            }
           }
 
-          > div {
-            margin: 12px 0;
-            align-items: center;
+          .uparrow {
+            position: absolute;
+            z-index: 4;
+            left: 50%;
+            top: -50px;
+            transform: translateX(-50%);
+
+            > i {
+              font-size: 45px;
+              color: white;
+              transition: all 0.3s ease;
+            }
           }
 
-          .color-box > span {
-            display: inline-block;
-            width: 40px;
-            height: 20px;
+          .user-info {
+            justify-content: space-between;
+            margin: 10px 0 20px;
+            color: $primary;
+
+            .user-name {
+              flex-direction: column;
+
+              a {
+                color: rgba(black, 0.9);
+                color: $primary;
+              }
+            }
+
+            @media (max-width: 768px) {
+              margin: 0 0 20px;
+            }
+          }
+
+          .image-detail {
+            color: $primary;
+            label {
+              margin-right: 10px;
+            }
+
+            > div {
+              align-items: center;
+            }
+
+            .color-box > span {
+              display: inline-block;
+              width: 40px;
+              height: 20px;
+            }
+          }
+
+          @media (max-width: 991px) {
+            flex: auto;
+            padding: 16px;
+            position: fixed;
+            z-index: 5;
+            bottom: 0;
+            width: 100vw;
           }
         }
 
         @media (max-width: 991px) {
-          width: auto;
-          flex: auto;
-          padding: 16px;
-        }
-      }
-
-      @media (max-width: 991px) {
-        flex-direction: column;
-        height: 100vh;
-        flex-wrap: nowrap;
-      }
-    }
-
-    .buttons-wrapper {
-      margin-top: 20px;
-
-      .button {
-        display: inline-block;
-
-        > a {
-          @extend %button-round-invert;
-          font-size: 12px;
-          font-weight: 600;
-        }
-      }
-
-      .button-share {
-        position: relative;
-
-        > span {
-          display: block;
-          cursor: pointer;
-
-          > i {
-            @extend %button-round;
-            font-size: 14px;
-            margin-left: 10px;
-          }
-
-          &.active ul {
-            visibility: visible;
-            opacity: 1;
-            width: 100%;
-            transition: all 0.3s ease;
-          }
-        }
-
-        ul {
+          flex-direction: column;
+          height: 100vh;
           flex-wrap: nowrap;
-          flex-direction: row;
-          position: absolute;
-          visibility: hidden;
-          opacity: 0;
-          width: 0;
-          height: 100%;
-          left: 53px;
-          bottom: 0;
-          transition: all 0.2s ease;
+        }
+      }
 
-          > li {
-            display: inline-block;
+      .buttons-wrapper {
+        margin-top: 20px;
 
-            > a {
-              @extend %button-round-invert;
-              margin-right: 2px;
+        .button {
+          display: inline-block;
+
+          > a {
+            @extend %button-round-invert;
+            font-size: 12px;
+            font-weight: 600;
+          }
+        }
+
+        .button-share {
+          position: relative;
+
+          > span {
+            display: block;
+            cursor: pointer;
+
+            > i {
+              @extend %button-round;
+              font-size: 14px;
+              margin-left: 10px;
+            }
+
+            &.active ul {
+              visibility: visible;
+              opacity: 1;
+              width: 100%;
+              transition: all 0.3s ease;
+            }
+          }
+
+          ul {
+            flex-wrap: nowrap;
+            flex-direction: row;
+            position: absolute;
+            visibility: hidden;
+            opacity: 0;
+            width: 0;
+            height: 100%;
+            left: 53px;
+            bottom: 0;
+            transition: all 0.2s ease;
+
+            > li {
+              display: inline-block;
+
+              > a {
+                @extend %button-round-invert;
+                margin-right: 2px;
+              }
             }
           }
         }
@@ -763,6 +910,15 @@
     margin-top: 20px;
 
     ul {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
       > li {
         display: inline-block;
         margin-right: 10px;

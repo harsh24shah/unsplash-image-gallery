@@ -2,59 +2,63 @@
   <div class="search flex" *ngIf="showSearch">
     <form class="search-form" (keydown)="triggerEnter($event)">
       <div class="form-field">
-        <div class="search-input"><input type='text' placeholder='Search' [(ngModel)]='searchQuery' name='searchQuery'>
+        <label for="search-images" class="hide">Search</label>
+        <div class="search-input"><input id="search-images" type='text' placeholder='Search' [(ngModel)]='searchQuery'
+            name='searchQuery'>
         </div>
         <button type="button" [disabled]="!searchQuery" (click)="getSearchResult(searchQuery)">
           <i class="icon icon-search"></i></button>
       </div>
     </form>
     <div class="sorting flex">
-      <div class="sort" [ngClass]="isSortActive? 'active':''" (click)="setSort('popuplar')" [hidden]="searchQuery"><i
-          class="material-icons">sort</i></div>
+      <div class="sort" [ngClass]="isSortActive? 'active':''" (click)="setSort('popuplar')" [hidden]="searchQuery">
+        <i class="material-icons">sort</i>
+      </div>
     </div>
   </div>
 
-  <div class="search flex" *ngIf="showCollectionTitle">
-    <div class="w100 collection-banner">
-      <h1 class="text-center"><strong>{{pageTitle}}</strong></h1>
+  <div class="gallery-component">
+    <div class="search flex" *ngIf="showCollectionTitle">
+      <div class="w100 collection-banner">
+        <h1 class="text-center"><strong>{{pageTitle}}</strong></h1>
+      </div>
+      <div class="chips w100" *ngIf="collection.tags">
+        <ul class="flex">
+          <li *ngFor="let tag of collection.tags"><a (click)="getSearchResult(tag.title)">#{{tag.title}}</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="chips w100" *ngIf="collection.tags">
-      <ul class="flex">
-        <li *ngFor="let tag of collection.tags"><a (click)="getSearchResult(tag.title)">#{{tag.title}}</a></li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="main-content">
-    <div class="masonry flex masonry--h" id="masonry">
-      <div class="loader" *ngIf="loading"></div>
-      <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
-        [style.background]="photo?.color">
-        <div class="image-wrapper">
-          <div (click)="openShareModal('sharePopup',photo)">
-            <img alt="photo?.alt_description" [src]="photo?.urls.small" />
-          </div>
-          <div class="user-info flex align-items-center justify-content-between">
-            <a [href]="photo?.user.links.html" target="_blank">
-              <span class="user-profile-image"><img alt="{{photo?.user.first_name}}"
-                  [src]="photo?.user.profile_image.small" /></span>
-              <span class="user-name">{{photo?.user.first_name}}</span>
-            </a>
-            <!-- <span><span class="trash" [routerLink]="['/edit', photo.id]">
+    <div class="main-content">
+      <div class="masonry flex masonry--h" id="masonry">
+        <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
+          [ngStyle]="{background: 'url(' + photo?.urls.thumb + ') center no-repeat / cover'}">
+          <div class="image-wrapper">
+            <div (click)="openShareModal('sharePopup',photo)">
+              <img [alt]="photo?.alt_description" [src]="photo?.urls.small" />
+            </div>
+            <div class="user-info flex align-items-center justify-content-between">
+              <a [href]="photo?.user.links.html" target="_blank">
+                <span class="user-profile-image"><img [alt]="photo?.user.first_name"
+                    [src]="photo?.user.profile_image.small" /></span>
+                <span class="user-name">{{photo?.user.first_name}}</span>
+              </a>
+              <!-- <span><span class="trash" [routerLink]="['/edit', photo.id]">
                 <i class="material-icons">short_text</i></span>
             </span> -->
+            </div>
+            <div class="image-info flex align-items-center">
+              <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
+                [hidden]="hidebutton[photo?.id]">
+                <i class="material-icons-outlined">thumb_up</i>
+              </a>
+            </div>
           </div>
-          <div class="image-info flex align-items-center">
-            <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
-              [hidden]="hidebutton[photo.id]">
-              <i class="material-icons-outlined">thumb_up</i>
-            </a>
-          </div>
-        </div>
-      </span>
+        </span>
+      </div>
     </div>
+    <div class="loader relative" *ngIf="loadmore"></div>
   </div>
-  <div class="loader relative" *ngIf="loadmore"></div>
 </div>
 
-<app-popup id="sharePopup" [sharePhoto]="sharePhoto"></app-popup>
+<app-popup id="sharePopup" [sharePhoto]="sharePhoto" class="hide"></app-popup>

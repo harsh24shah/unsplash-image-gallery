@@ -26,9 +26,6 @@ export class PopupComponent implements OnInit, OnDestroy {
       console.warn('element must have an id');
     }
 
-    // append just before body close
-    document.body.appendChild(this.element);
-
     // close modal on background click
     this.element.addEventListener('click', function (e: any) {
       if (e.target.className === 'popup') {
@@ -69,14 +66,19 @@ export class PopupComponent implements OnInit, OnDestroy {
 
   // to open modal
   open(): void {
-    this.element.classList.add('active');
+    document.getElementById('popup-wrap').appendChild(this.element);
+    document.getElementById('popup-wrap').classList.add('active');
+    this.element.classList.remove('hide');
     document.body.classList.add('modal-open');
     window.history.pushState('forward', null, '#popup');
   }
 
   // to close modal
   close(): void {
-    this.element.classList.remove('active');
+    document.getElementById('popup-wrap').classList.remove('active');
     document.body.classList.remove('modal-open');
+    this.element.classList.add('hide');
+    this.element.remove();
+    window.history.replaceState(null, null, '');
   }
 }

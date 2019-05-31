@@ -90,6 +90,11 @@ video {
   font: inherit;
   vertical-align: baseline; }
 
+*,
+::before,
+::after {
+  box-sizing: border-box; }
+
 html {
   font-size: 16px; }
 
@@ -171,6 +176,9 @@ table {
   width: 0;
   opacity: 0; }
 
+.hide {
+  display: none; }
+
 .flex {
   display: flex;
   flex-wrap: wrap; }
@@ -196,7 +204,7 @@ table {
 a {
   text-decoration: none; }
 
-.small {
+small {
   font-size: 10px; }
 
 strong {
