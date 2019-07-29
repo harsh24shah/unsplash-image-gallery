@@ -35,6 +35,7 @@ export class GalleryComponent implements OnInit {
   sharePhoto: Observable<any>;
   pos: number;
   max: number;
+
   constructor(
     private route: ActivatedRoute,
     private galleryServices: GalleryServices,
@@ -42,7 +43,6 @@ export class GalleryComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.isHomePage || this.isTrendingPage) {
       this.getRandomImages(this.orderBy);
     } else if (this.isCollectionDetailPage) {
@@ -146,12 +146,19 @@ export class GalleryComponent implements OnInit {
       if (this.pos === this.max) {
         this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
       }
-    } else
-      if (this.isCollectionDetailPage) {
-        if (this.pos === this.max) {
-          this.loadMoreCollections(this.pageNo, this.id);
-        }
+    } else if (this.isCollectionDetailPage) {
+      if (this.pos === this.max) {
+        this.loadMoreCollections(this.pageNo, this.id);
       }
+    }
+  }
+
+  loadmoreContent() {
+    if (this.isHomePage || this.isTrendingPage) {
+      this.loadMoreImages(this.pageNo, this.searchQuery, this.orderBy);
+    } else if (this.isCollectionDetailPage) {
+      this.loadMoreCollections(this.pageNo, this.id);
+    }
   }
 
   loadMoreImages(pages: number, search: string, orderBy: string) {

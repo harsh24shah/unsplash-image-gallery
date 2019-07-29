@@ -1,0 +1,322 @@
+@mixin theme($theme) {
+  $primary: map-get($theme, primary);
+  $secondary: map-get($theme, secondary);
+  $common: map-get($theme, color-grey);
+
+  body {
+    background: $secondary;
+  }
+
+  %absoulteImage {
+    min-width: 101%;
+    max-width: inherit;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.3s ease;
+  }
+
+  %button-round {
+    padding: 10px;
+    display: flex;
+    border: 1px solid $primary;
+    border-radius: 25px;
+    color: $primary;
+    background: transparent;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &.active {
+      box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+      color: $secondary;
+      background: $primary;
+      transition: all 0.2s ease;
+    }
+  }
+
+  %button-round-invert {
+    border-radius: 25px;
+    padding: 10px;
+    display: flex;
+    text-decoration: none;
+    border: 1px solid $primary;
+    background: $primary;
+    color: $secondary;
+    transition: all 0.2s ease;
+
+    &:hover,
+    &.active {
+      color: $primary;
+      background: transparent;
+      box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+      transition: all 0.2s ease;
+    }
+  }
+
+  %absolute-at-half {
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  %roundTransperentButton {
+    font-size: 26px;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 1px 2px 11px 0px rgba($primary, 0.3);
+    background: rgba($primary, 0.5);
+    color: $secondary;
+  }
+
+  .loadmore-btn {
+    @extend %roundTransperentButton;
+  }
+
+  // -- Header --
+  .app-name {
+    background: black;
+    a {
+      color: white;
+    }
+  }
+
+  // -- Navigation tabs --
+  nav {
+    ul {
+      li {
+        a {
+          color: $primary;
+          @media (max-width: 768px) {
+            color: lighten(#2b2b2b, 29.8);
+          }
+        }
+
+        &.active {
+          border-bottom: 2px solid $primary;
+
+          > a {
+            @media (max-width: 768px) {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      background: $secondary;
+    }
+  }
+
+  // -- Global gallery & mesonry layout --
+  .gallery-wrapper {
+    .image-wrapper {
+      > div:not(.user-info) {
+        img {
+          @extend %absoulteImage;
+        }
+      }
+      > a {
+        color: $secondary;
+      }
+    }
+
+    .masonry-brick {
+      background-color: #333;
+      color: $secondary;
+    }
+
+    .user-info {
+      background: linear-gradient(rgba(black, 0.5), rgba(white, 0));
+
+      span {
+        color: white;
+      }
+    }
+
+    .image-info {
+      background: linear-gradient(rgba(white, 0), rgba(black, 0.5));
+      color: $secondary;
+
+      .image-like {
+        color: white;
+      }
+    }
+  }
+
+  // -- Collection page box --
+  .collection-wrapper {
+    .collection-item {
+      img {
+        @extend %absoulteImage;
+      }
+      & > a {
+        & > span {
+          &:after {
+            background: rgba(black, 0.5);
+          }
+        }
+      }
+      .collection-text {
+        color: white;
+      }
+    }
+  }
+
+  .backToTop {
+    > i {
+      @extend %roundTransperentButton;
+    }
+  }
+
+  // -- Search bar style on home --
+  .search {
+    .collection-banner {
+      color: $primary;
+    }
+    .sorting {
+      div {
+        color: $primary;
+      }
+    }
+
+    .search-form {
+      .search-input {
+        border-bottom: 1px solid $primary;
+
+        input[type="text"] {
+          background: transparent;
+          color: $primary;
+        }
+      }
+
+      button {
+        background: transparent;
+
+        .icon-search {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  // -- popup --
+  .popup-wrap {
+    .close {
+      > i {
+        @extend %roundTransperentButton;
+        color: white;
+        background: transparent;
+      }
+    }
+
+    .modal-background {
+      background-color: #000;
+    }
+
+    .image-popup-wrap {
+      .image-popup-description {
+        background: $secondary;
+        color: $primary;
+
+        .uparrow {
+          > i {
+            color: white;
+          }
+        }
+
+        .user-info {
+          color: $primary;
+          .user-name {
+            a {
+              color: rgba(black, 0.9);
+              color: $primary;
+            }
+          }
+        }
+
+        .image-detail {
+          color: $primary;
+        }
+      }
+    }
+
+    .buttons-wrapper {
+      .button {
+        > a {
+          @extend %button-round-invert;
+        }
+      }
+
+      .button-share {
+        > span {
+          > i {
+            @extend %button-round;
+          }
+        }
+
+        ul {
+          > li {
+            > a {
+              @extend %button-round-invert;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // -- Chips ---
+  .chips {
+    ul {
+      > li {
+        > a {
+          background: $primary;
+          color: $secondary;
+
+          &:hover {
+            box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+          }
+        }
+      }
+    }
+  }
+
+  // -- Toggle button ---
+  .toggle-switch {
+    > span {
+      @extend %absolute-at-half;
+      background: $secondary;
+    }
+
+    &:after {
+      @extend %absolute-at-half;
+      background: #bbb;
+    }
+  }
+
+  // -- Range slider --
+  input[type="range"] {
+    background-color: transparent;
+
+    &::-webkit-slider-thumb {
+      background-color: $secondary;
+      border: 2px solid $primary;
+    }
+
+    &::-webkit-slider-runnable-track {
+      border-bottom: 2px solid $primary;
+    }
+
+    &:hover::-webkit-slider-thumb {
+      background-color: $primary;
+    }
+  }
+
+  label {
+    color: $primary;
+  }
+}

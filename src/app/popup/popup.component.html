@@ -5,7 +5,8 @@
 
     <ng-container *ngIf="sharePhoto">
         <div class="modal-body image-popup-wrap flex">
-            <div class="modal-image image-popup-image text-center" [ngStyle]="{background: 'url(' + sharePhoto?.urls.thumb + ') center no-repeat / cover'}">
+            <div class="modal-image image-popup-image text-center"
+                [ngStyle]="{background: 'url(' + sharePhoto?.urls.thumb + ') center no-repeat / cover'}">
                 <span><img [src]="sharePhoto?.urls.regular" [alt]="sharePhoto?.description" /></span>
             </div>
 
@@ -19,7 +20,7 @@
                         <span class="user-name flex">
                             <strong>{{sharePhoto?.user.first_name}}</strong>
                             <span class="small" *ngIf="sharePhoto?.user.username">
-                                <a [href]="sharePhoto?.user.links.html" target="_blank"
+                                <a [href]="sharePhoto?.user.links.html" rel="noreferrer" target="_blank"
                                     [title]="sharePhoto?.user.first_name"><strong>@{{sharePhoto?.user.username}}</strong></a>
                             </span>
                         </span>
@@ -42,8 +43,11 @@
                         <a [href]="sharePhoto?.links.download + '?force=true'" download rel="nofollow">Download</a>
                     </div>
                     <div class="button-share text-center">
-                        <span (click)="shareToggle()" [ngClass]="isShareActive ? 'active' : ''"><i
-                                class="material-icons">share</i>
+                        <span onclick="javascript:navigator.share === undefined ? 'void(0);' : 'shareImage(this)'"
+                            [attr.data-imageurl]="sharePhoto?.links.html"
+                            [attr.data-imagetitle]="sharePhoto?.description"
+                            [attr.data-imagetext]="sharePhoto?.user.first_name" (click)="shareToggle()"
+                            [ngClass]="isShareActive ? 'active' : ''"><i class="material-icons">share</i>
                             <ul class="flex">
                                 <li><a
                                         [href]="'https://www.facebook.com/sharer/sharer.php?u=' + sharePhoto?.links.html + '&t=' + sharePhoto?.description"><i

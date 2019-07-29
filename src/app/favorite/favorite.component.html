@@ -5,11 +5,11 @@
         <div class="loader" *ngIf="!favImages.length"></div>
         <span class="masonry-brick masonry-brick--h" *ngFor="let photoset of favImages, let i = index">
           <div class="image-wrapper">
-            <div target="_blank">
+            <div target="_blank" rel="noreferrer">
               <img [alt]="photoset?.imageAlt" [src]="photoset?.imageURL" />
             </div>
             <a class="user-info flex align-items-center justify-content-between" href="javascript:void(0);"
-              target="_blank">
+              target="_blank" rel="noreferrer">
               <span>
                 <span class="user-profile-image"><img alt="" [src]="photoset?.imageOwnerProfile" /></span>
                 <span class="user-name">{{photoset?.imageOwnerName}}</span>

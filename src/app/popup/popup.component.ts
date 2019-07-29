@@ -70,7 +70,7 @@ export class PopupComponent implements OnInit, OnDestroy {
     document.getElementById('popup-wrap').classList.add('active');
     this.element.classList.remove('hide');
     document.body.classList.add('modal-open');
-    window.history.pushState('forward', null, '#popup');
+    window.history.pushState('forward', null, window.location.pathname + '#popup');
   }
 
   // to close modal
@@ -79,6 +79,7 @@ export class PopupComponent implements OnInit, OnDestroy {
     document.body.classList.remove('modal-open');
     this.element.classList.add('hide');
     this.element.remove();
-    window.history.replaceState(null, null, '');
+    window.history.replaceState(null, null, window.location.pathname + '');
   }
+
 }

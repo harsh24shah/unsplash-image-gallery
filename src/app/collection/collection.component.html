@@ -14,7 +14,13 @@
           </span>
         </a>
       </div>
-      <div class="loader relative" *ngIf="loadmore"></div>
+      <!-- <div class="loader relative" *ngIf="loadmore"></div> -->
+      <span class="chips loadmore" *ngIf="collections.length>30">
+        <ul class="text-center">
+          <li><a href="javascript:void(0);" (click)="loadMoreCollections(pageNo)">Load more</a></li>
+        </ul>
+      </span>
     </div>
+    <div class="loader relative" *ngIf="collections"></div>
   </div>
 </div>

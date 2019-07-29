@@ -2,11 +2,12 @@
   <div class="search flex" *ngIf="showSearch">
     <form class="search-form" (keydown)="triggerEnter($event)">
       <div class="form-field">
-        <label for="search-images" class="hide">Search</label>
+        <label for="search-images" class="hidethis">Search</label>
         <div class="search-input"><input id="search-images" type='text' placeholder='Search' [(ngModel)]='searchQuery'
             name='searchQuery'>
         </div>
-        <button type="button" [disabled]="!searchQuery" (click)="getSearchResult(searchQuery)">
+        <button aria-label="searchimage" name="search" type="button" [disabled]="!searchQuery"
+          (focus)="getSearchResult(searchQuery)">
           <i class="icon icon-search"></i></button>
       </div>
     </form>
@@ -22,13 +23,13 @@
       <div class="w100 collection-banner">
         <h1 class="text-center"><strong>{{pageTitle}}</strong></h1>
       </div>
-      <div class="chips w100" *ngIf="collection.tags">
+      <div class="chips w100" *ngIf="collection?.tags">
         <ul class="flex">
-          <li *ngFor="let tag of collection.tags"><a (click)="getSearchResult(tag.title)">#{{tag.title}}</a></li>
+          <li *ngFor="let tag of collection?.tags"><a (click)="getSearchResult(tag?.title)">#{{tag?.title}}</a></li>
         </ul>
       </div>
     </div>
-
+    
     <div class="main-content">
       <div class="masonry flex masonry--h" id="masonry">
         <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
@@ -38,14 +39,14 @@
               <img [alt]="photo?.alt_description" [src]="photo?.urls.small" />
             </div>
             <div class="user-info flex align-items-center justify-content-between">
-              <a [href]="photo?.user.links.html" target="_blank">
+              <a [href]="photo?.user.links.html" target="_blank" rel="noreferrer">
                 <span class="user-profile-image"><img [alt]="photo?.user.first_name"
                     [src]="photo?.user.profile_image.small" /></span>
                 <span class="user-name">{{photo?.user.first_name}}</span>
               </a>
-              <!-- <span><span class="trash" [routerLink]="['/edit', photo.id]">
+               <!--<span><span class="trash" [routerLink]="['/edit', photo.id]">
                 <i class="material-icons">short_text</i></span>
-            </span> -->
+            </span>-->
             </div>
             <div class="image-info flex align-items-center">
               <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
@@ -55,9 +56,14 @@
             </div>
           </div>
         </span>
-      </div>
-    </div>
-    <div class="loader relative" *ngIf="loadmore"></div>
+      </div>    
+      <div class="loader relative" *ngIf="!photos"></div>
+      <span class="chips loadmore gallery-loadmore" *ngIf="photos.length">
+        <ul class="text-center">
+          <li><a href="javascript:void(0);" (click)="loadmoreContent()">Load more</a></li>
+        </ul>
+      </span>  
+    </div>   
   </div>
 </div>
 

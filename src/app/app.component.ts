@@ -20,8 +20,9 @@ export class AppComponent implements OnInit {
   title = 'Wallperex';
   hasFav: number;
   loading = true;
-  isDarkMode = false;
+  isDarkMode = true;
   public theme = 'dark';
+  public savedTheme = '';
   cssPath = './assets/themes/css/';
 
   constructor(
@@ -45,12 +46,23 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.galleryServices.currentStatus.subscribe(hasFav => this.hasFav = hasFav);
     this.galleryServices.changeStatus();
+    this.isDarkMode = this.galleryServices.getThemeFromLocalStrorage() === 'false' ? false : true;
+    this.galleryServices.setThemeToLocalStrorage(this.isDarkMode + '');
+    this.applyTheme(this.isDarkMode);
   }
 
   toggleTheme() {
-    this.theme = (this.isDarkMode) ? 'dark' : 'light';
-    // console.log(this.cssPath + this.theme + '.css');
-    this.document.getElementById('cssTheme').setAttribute('href', this.cssPath + this.theme + '.css');
     this.isDarkMode = !this.isDarkMode;
+    this.applyTheme(this.isDarkMode);
+    this.galleryServices.setThemeToLocalStrorage(this.isDarkMode + '');
+  }
+
+  applyTheme(themeName: boolean) {
+    this.theme = (themeName) ? 'dark' : 'light';
+    this.document.getElementById('cssTheme').setAttribute('href', this.cssPath + this.theme + '.css');
+  }
+
+  getThemeFromStorage() {
+    return this.savedTheme = this.galleryServices.getThemeFromLocalStrorage();
   }
 }

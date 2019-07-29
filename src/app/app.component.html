@@ -1,32 +1,34 @@
 <header>
-    <div class="app-name sticky" id="header-main">
+    <div class="app-name" id="header-main">
         <div class="main-container">
-            <div class="flex justify-content-between">
+            <div class="flex justify-content-between align-items-center">
                 <h1 class="header-title"><a href="/"><span class="text-center w100">{{title}}</span></a></h1>
-                <a href="javascript:void(0);" aria-label="change the theme" class="toggle-switch"
-                    (click)="toggleTheme()">
-                    <span [ngClass]="isDarkMode? 'active' : '' "></span>
+                <a href="javascript:void(0);" aria-label="change the theme" (click)="toggleTheme()">
+                    <span *ngIf="isDarkMode; else themeToggle"><i class="material-icons">brightness_low</i></span>
+                    <ng-template #themeToggle><span><i class="material-icons">brightness_high</i></span></ng-template>
                 </a>
             </div>
         </div>
     </div>
-    <div class="main-container">
-        <nav>
+    <nav>
+        <div class="main-container">
             <ul class="flex flex-nowrap align-items-center">
                 <li class="text-center" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <a routerLink="/" class=""><i class="material-icons">image</i><span>Latest</span></a></li>
+                    <a routerLink="/" class=""><i class="material-icons">home</i><span>Home</span></a></li>
                 <li class="text-center" routerLinkActive="active">
-                    <a routerLink="collections" class=""><i class="material-icons">collections</i><span>Collections</span></a>
+                    <a routerLink="collections" class=""><i
+                            class="material-icons">collections</i><span>Collections</span></a>
                 </li>
                 <li class="text-center" routerLinkActive="active">
                     <a routerLink="trending" class=""><i class="material-icons">whatshot</i><span>Trending</span></a>
                 </li>
                 <li class="text-center" routerLinkActive="active" *ngIf="hasFav">
-                    <a routerLink="favorite" class=""><i class="material-icons">favorite</i><span>Favorites<small>&nbsp;({{hasFav}})</small></span></a>
+                    <a routerLink="favorite" class=""><i
+                            class="material-icons">favorite</i><span>Favorites<small>&nbsp;({{hasFav}})</small></span></a>
                 </li>
             </ul>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </header>
-<div class="backToTop" id="backToTop"><i class="material-icons">arrow_drop_up</i></div>
 <router-outlet></router-outlet>
+<div class="backToTop" id="backToTop"><i class="material-icons">arrow_drop_up</i></div>

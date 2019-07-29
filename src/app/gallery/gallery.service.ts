@@ -130,11 +130,25 @@ export class GalleryServices {
     if (this.checkInStorage(data, this.localStrorage)) {
       oldItems.push(data);
     } else {
-      oldItems = oldItems.filter( oldItemsFromLocal => {
+      oldItems = oldItems.filter(oldItemsFromLocal => {
         return oldItemsFromLocal.imageId !== data.imageId;
       });
     }
     localStorage.setItem(this.localStrorage, JSON.stringify(oldItems));
+  }
+
+  /*
+    Set theme in local storage
+  */
+  setThemeToLocalStrorage(isDarkMode: string) {
+    localStorage.setItem('isDarkMode', isDarkMode);
+  }
+
+  /*
+    get theme in local storage
+  */
+  getThemeFromLocalStrorage() {
+    return localStorage.getItem('isDarkMode');
   }
 
   /*
