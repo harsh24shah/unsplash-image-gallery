@@ -11,7 +11,7 @@
             </div>
 
             <div class="modal-description image-popup-description">
-                <div class="uparrow text-center"><i class="material-icons">arrow_drop_up</i></div>
+                <div class="uparrow text-center">arrow</div>
                 <h4 *ngIf="sharePhoto?.description">{{sharePhoto?.description | slice:0:18}}</h4>
                 <div class="user-info flex align-items-center">
                     <span class="flex align-items-center">
@@ -63,6 +63,14 @@
                             </ul>
                         </span>
                     </div>
+                </div>
+                <div class="loader relative" *ngIf="!userImages"></div>
+                <div *ngIf="userImages" class="popup-slider"> 
+                    <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
+                        <div ngxSlickItem *ngFor="let userImage of userImages" class="slide">
+                            <a [href]="userImage?.links.html" target="_blank" (click)="changeimage" ><img [src]="userImage?.urls.thumb" alt="" width="100%" /></a>
+                        </div>
+                    </ngx-slick-carousel>
                 </div>
             </div>
         </div>

@@ -153,6 +153,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
           y: res[1].clientY - rect.top
         };
 
+        // console.log(this.positionX + ' , ' + this.positionX);
         this.positionX = currentPos.x;
         this.positionY = currentPos.y;
 
@@ -161,44 +162,44 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
         this.drawText(this.textTitle, currentPos.x, currentPos.y);
       });
 
-          // this will capture all mousedown events from the canvas element
+    // this will capture all mousedown events from the canvas element
     fromEvent(canvasEl, 'touchstart')
-    .pipe(
-      switchMap((e) => {
+      .pipe(
+        switchMap((e) => {
 
-        // after a mouse down, we'll record all mouse moves
-        return fromEvent(canvasEl, 'touchmove')
-          .pipe(
-            // we'll stop (and unsubscribe) once the user releases the mouse
-            // this will trigger a 'mouseup' event
-            // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
-             takeUntil(fromEvent(canvasEl, 'touchend')),
-            // pairwise lets us get the previous value to draw a line from
-            // the previous point to the current point
-            pairwise()
-          );
-      })
-    )
-    .subscribe((res: [TouchEvent, TouchEvent]) => {
-      const rect = canvasEl.getBoundingClientRect();
-      // previous and current position with the offset
-      const prevPos = {
-        x: res[0].targetTouches[0].clientX - rect.left,
-        y: res[0].targetTouches[0].clientY - rect.top
-      };
+          // after a mouse down, we'll record all mouse moves
+          return fromEvent(canvasEl, 'touchmove')
+            .pipe(
+              // we'll stop (and unsubscribe) once the user releases the mouse
+              // this will trigger a 'mouseup' event
+              // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
+              takeUntil(fromEvent(canvasEl, 'touchend')),
+              // pairwise lets us get the previous value to draw a line from
+              // the previous point to the current point
+              pairwise()
+            );
+        })
+      )
+      .subscribe((res: [TouchEvent, TouchEvent]) => {
+        const rect = canvasEl.getBoundingClientRect();
+        // previous and current position with the offset
+        const prevPos = {
+          x: res[0].targetTouches[0].clientX - rect.left,
+          y: res[0].targetTouches[0].clientY - rect.top
+        };
 
-      const currentPos = {
-        x: res[1].targetTouches[0].clientX - rect.left,
-        y: res[1].targetTouches[0].clientY - rect.top
-      };
+        const currentPos = {
+          x: res[1].targetTouches[0].clientX - rect.left,
+          y: res[1].targetTouches[0].clientY - rect.top
+        };
 
-      this.positionX = currentPos.x;
-      this.positionY = currentPos.y;
+        this.positionX = currentPos.x;
+        this.positionY = currentPos.y;
 
-      this.context.clearRect(0, 0, this.imageWidth, this.imageHeight);
-      this.context.drawImage(this.baseImage, 0, 0);
-      this.drawText(this.textTitle, currentPos.x, currentPos.y);
-    });
+        this.context.clearRect(0, 0, this.imageWidth, this.imageHeight);
+        this.context.drawImage(this.baseImage, 0, 0);
+        this.drawText(this.textTitle, currentPos.x, currentPos.y);
+      });
   }
 
   ngOnDestroy() {

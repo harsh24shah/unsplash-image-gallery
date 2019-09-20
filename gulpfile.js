@@ -11,7 +11,7 @@ const runTimestamp = Math.round(Date.now() / 1000);
 const fontName = 'Icons';
 
 gulp.task('iconfont', () => {
-  return gulp.src(['src/assets/icons/*.svg']) // Source folder containing the SVG images
+  return gulp.src(['external-assets/icons/*.svg']) // Source folder containing the SVG images
     .pipe(iconfontCss({
       fontName: fontName, // The name that the generated font will have
       // path: 'src/assets/fonts/scss/icons.scss', // The path to the template that will be used to create the SASS/LESS/CSS file
@@ -29,11 +29,11 @@ gulp.task('iconfont', () => {
     .pipe(gulp.dest('src/assets/fonts/'));
 });
 
-gulp.task('compile-scss', () => {
-  return gulp.src('src/assets/themes/*.scss')
+gulp.task('compile-scss', () => { 
+  return gulp.src('external-assets/scss/themes/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('src/assets/themes/css'));
-});
+}); 
 
 gulp.task('minify-css', () => {
   return gulp.src('src/assets/**/*.css')
@@ -42,10 +42,11 @@ gulp.task('minify-css', () => {
 });
 
 gulp.task('minify-js', done => {
-  gulp.src('src/assets/externaljs/*.js')
+  gulp.src('external-assets/js/*.js')
       .pipe(terser())
-      .pipe(gulp.dest('src/assets/externaljs/minified'));
+      .pipe(gulp.dest('src/assets/js'));
       done();
 });
 
-gulp.task('build', gulp.series('compile-scss', 'minify-css', 'minify-js'));
+gulp.task('css-creation', gulp.series('compile-scss', 'minify-css'));
+gulp.task('build', gulp.parallel('css-creation', 'minify-js'));

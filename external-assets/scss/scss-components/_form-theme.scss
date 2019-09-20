@@ -1,0 +1,22 @@
+@mixin form-theme($primary, $secondary) {
+  input[type="range"] {
+    background-color: transparent;
+
+    &::-webkit-slider-thumb {
+      background-color: $secondary;
+      border: 2px solid $primary;
+    }
+
+    &::-webkit-slider-runnable-track {
+      border-bottom: 2px solid $primary;
+    }
+
+    &:hover::-webkit-slider-thumb {
+      background-color: $primary;
+    }
+  }
+
+  label {
+    color: $primary;
+  }
+}

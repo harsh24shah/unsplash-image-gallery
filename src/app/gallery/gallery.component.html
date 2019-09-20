@@ -29,7 +29,7 @@
         </ul>
       </div>
     </div>
-    
+
     <div class="main-content">
       <div class="masonry flex masonry--h" id="masonry">
         <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
@@ -44,9 +44,9 @@
                     [src]="photo?.user.profile_image.small" /></span>
                 <span class="user-name">{{photo?.user.first_name}}</span>
               </a>
-               <!--<span><span class="trash" [routerLink]="['/edit', photo.id]">
-                <i class="material-icons">short_text</i></span>
-            </span>-->
+              <!-- <span><span class="trash" [routerLink]="['/edit', photo.id]">
+                  <i class="material-icons">short_text</i></span>
+              </span> -->
             </div>
             <div class="image-info flex align-items-center">
               <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
@@ -56,15 +56,15 @@
             </div>
           </div>
         </span>
-      </div>    
-      <div class="loader relative" *ngIf="!photos"></div>
+      </div>
+      <div class="loader relative" *ngIf="photos"></div>
       <span class="chips loadmore gallery-loadmore" *ngIf="photos.length">
         <ul class="text-center">
           <li><a href="javascript:void(0);" (click)="loadmoreContent()">Load more</a></li>
         </ul>
-      </span>  
-    </div>   
+      </span>
+    </div>
   </div>
 </div>
 
-<app-popup id="sharePopup" [sharePhoto]="sharePhoto" class="hide"></app-popup>
+<app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" class="hide"></app-popup>

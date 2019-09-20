@@ -33,6 +33,7 @@ export class GalleryComponent implements OnInit {
   loadmore = false;
   loading = false;
   sharePhoto: Observable<any>;
+  userImages: Observable<any>;
   pos: number;
   max: number;
 
@@ -68,17 +69,20 @@ export class GalleryComponent implements OnInit {
 
   toggleSortBy() {
     this.isSortActive = !this.isSortActive;
-    if (this.orderBy === '') {
-      this.orderBy = 'oldest';
-    } else {
-      this.orderBy = '';
-    }
+    this.orderBy = this.orderBy === '' ? 'oldest' : '';
   }
 
   openShareModal(id: string, image: any) {
     this.sharePhoto = image;
+    this.getUsersPhotos(image);
     this.openedPopupId = id;
     this.popupService.open(id);
+  }
+
+  getUsersPhotos(sharePhoto: any) {
+    this.galleryServices.getUsersImages(sharePhoto.user.username).subscribe((data: any) => {
+      this.userImages = data;
+    });
   }
 
   getCollectionPhotos(collectionId: number) {
@@ -140,7 +144,7 @@ export class GalleryComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     this.pos = window.scrollY + window.innerHeight;
-    this.max = document.body.offsetHeight;
+    this.max = document.body.offsetHeight + 60;
 
     if (this.isHomePage || this.isTrendingPage) {
       if (this.pos === this.max) {
@@ -165,11 +169,7 @@ export class GalleryComponent implements OnInit {
     this.loadmore = true;
     this.galleryServices.getLoadMoreImages(pages, search, orderBy).subscribe((data: {}) => {
       this.buffer = data;
-      if (!this.buffer.results) {
-        this.photos = this.photos.concat(data);
-      } else {
-        this.photos = this.photos.concat(this.buffer.results);
-      }
+      this.photos = !this.buffer.results ? this.photos.concat(data) : this.photos = this.photos.concat(this.buffer.results);
       this.pageNo++;
       this.loadmore = false;
     });

@@ -1,0 +1,44 @@
+// -- Range slider --
+input[type="range"] {
+  box-sizing: border-box;
+  font-size: 0;
+  line-height: 1;
+  height: 30px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  width: 100%;
+  max-width: 200px;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 26px;
+    height: 26px;
+    margin-top: 0;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    cursor: pointer;
+    height: 15px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#canvas-wrap {
+  width: 100%;
+
+  canvas {
+    width: 100%;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 12px;
+}

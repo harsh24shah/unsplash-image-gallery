@@ -115,6 +115,16 @@ nav,
 section {
   display: block;
 }
+
+.main-container {
+  padding: 0 1.5em;
+  margin: 0 auto;
+
+  @media (min-width: 767px) {
+    max-width: 90%;
+  }
+}
+
 body {
   line-height: 1;
   font-family: "Open Sans", sans-serif;
@@ -213,8 +223,10 @@ table {
 a {
   text-decoration: none;
 }
-small {
+.small {
   font-size: 10px;
+  font-weight: lighter;
+  line-height: 2;
 }
 strong {
   font-weight: 600;

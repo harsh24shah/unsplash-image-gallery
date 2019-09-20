@@ -1,0 +1,16 @@
+@mixin chips-theme($primary, $secondary) {
+  .chips {
+    ul {
+      > li {
+        > a {
+          background: $primary;
+          color: $secondary;
+
+          &:hover {
+            box-shadow: 1px 2px 11px 0px rgba(black, 0.3);
+          }
+        }
+      }
+    }
+  }
+}

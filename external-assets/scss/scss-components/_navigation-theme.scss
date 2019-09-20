@@ -1,0 +1,68 @@
+@mixin navigation-theme($primary, $secondary) {
+  // -- Header --
+  .app-name {
+    background: black;
+    a {
+      color: white;
+    }
+  }
+
+  // -- Navigation tabs --
+  nav {
+    ul {
+      li {
+        a {
+          color: $primary;
+          @media (max-width: 767px) {
+            color: lighten(#2b2b2b, 29.8);
+          }
+        }
+
+        &.active {
+          border-bottom: 2px solid $primary;
+
+          > a {
+            @media (max-width: 767px) {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 767px) {
+      background: $secondary;
+    }
+  }
+
+  // -- Search bar style on home --
+  .search {
+    .collection-banner {
+      color: $primary;
+    }
+    .sorting {
+      div {
+        color: $primary;
+      }
+    }
+
+    .search-form {
+      .search-input {
+        border-bottom: 1px solid $primary;
+
+        input[type="text"] {
+          background: transparent;
+          color: $primary;
+        }
+      }
+
+      button {
+        background: transparent;
+
+        .icon-search {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

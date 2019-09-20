@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, ElementRef, ViewEncapsulation, Output, EventEmitter, HostListener, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ElementRef,
+  ViewEncapsulation,
+  Output,
+  EventEmitter,
+  HostListener,
+  OnDestroy } from '@angular/core';
 import { PopupService } from './popup.service';
 
 @Component({
@@ -11,9 +20,26 @@ import { PopupService } from './popup.service';
 export class PopupComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() sharePhoto: any = [];
+  @Input() userImages: any = [];
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   private element: any;
+  private ImageUrl: string;
+  private showloader = false;
   private isShareActive = false;
+  private slideConfig = {
+    'slidesToShow': 3,
+    'slidesToScroll': 1,
+    'nextArrow': '<div class="nav-btn next-slide material-icons">arrow_forward</div>',
+    'prevArrow': '<div class="nav-btn prev-slide material-icons">arrow_back</div>',
+    'infinite': true,
+    'responsive': [{
+      'breakpoint': 768,
+      'settings': {
+          'slidesToShow': 2,
+          'slidesToScroll': 1
+        }
+      }]
+  };
 
   constructor(private popupService: PopupService, private el: ElementRef) {
     this.element = el.nativeElement;
@@ -75,10 +101,13 @@ export class PopupComponent implements OnInit, OnDestroy {
 
   // to close modal
   close(): void {
-    document.getElementById('popup-wrap').classList.remove('active');
     document.body.classList.remove('modal-open');
-    this.element.classList.add('hide');
-    this.element.remove();
+    document.getElementById('popup-wrap').classList.remove('active');
+    setTimeout(() => {
+      this.element.classList.add('hide');
+      this.element.remove();
+      this.userImages = [];
+    }, 500);
     window.history.replaceState(null, null, window.location.pathname + '');
   }
 

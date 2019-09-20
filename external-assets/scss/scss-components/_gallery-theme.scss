@@ -1,0 +1,70 @@
+
+
+@mixin gallery-theme($primary, $secondary) {
+  $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+  
+  %absoulteImage {
+    min-width: 101%;
+    max-width: inherit;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: $animation;
+  }
+
+  %roundTransperentButton {
+    font-size: 26px;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 1px 2px 11px 0px rgba($primary, 0.3);
+    background: rgba($primary, 0.5);
+    color: $secondary;
+  }
+
+  .gallery-wrapper {
+    .image-wrapper {
+      > div:not(.user-info) {
+        img {
+          @extend %absoulteImage;
+        }
+      }
+      > a {
+        color: $secondary;
+      }
+    }
+
+    .masonry-brick {
+      background-color: #333;
+      color: $secondary;
+    }
+
+    .user-info {
+      background: linear-gradient(rgba(black, 0.5), rgba(white, 0));
+
+      span {
+        color: white;
+      }
+    }
+
+    .image-info {
+      background: linear-gradient(rgba(white, 0), rgba(black, 0.5));
+      color: $secondary;
+
+      .image-like {
+        color: white;
+      }
+    }
+  }
+
+  .loadmore-btn {
+    @extend %roundTransperentButton;
+  }
+
+  .backToTop {
+    > i {
+      @extend %roundTransperentButton;
+    }
+  }
+}

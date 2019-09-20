@@ -1,0 +1,310 @@
+$animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+
+@keyframes rev-block {
+  0% {
+    left: 0;
+    width: 0%;
+  }
+  50% {
+    left: 0;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 0%;
+  }
+}
+
+.popup-wrap {
+  position: fixed;
+  height: 100vh;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-size: 14px;
+  z-index: 3;
+  transform: translateX(102%);
+  transition: $animation;
+  background: white;
+
+
+  @media (max-width: 991px) {
+    overflow: hidden;
+  }
+
+  &.active {
+    transform: translateX(0);
+    transition: $animation;
+  }
+
+  app-popup {
+    .modal-open & {
+      overflow: hidden;
+    }
+
+    .popup-slider{
+      margin: 40px 0;
+    }
+
+    .close {
+      display: inline-block;
+      position: absolute;
+      z-index: 4;
+      top: 20px;
+      left: 20px;
+
+      .active & {
+        display: block;
+      }
+
+      @media (max-width: 767px) {
+        top: 10px;
+        left: 10px;
+      }
+
+      > i {
+        box-shadow: none;
+      }
+    }
+
+    .modal-background {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0.5;
+      z-index: 900;
+    }
+
+    .image-popup-wrap {
+      .image-popup-image {
+        width: 66.666%;
+        flex: 3;
+        position: relative;
+
+        > span {
+          display: block;
+          width: 100%;
+          height: 100vh;
+          position: relative;
+
+          img {
+            display: inline-block;
+            min-height: 200px;
+            margin: 0 auto;
+            float: none;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+
+            @media (max-width: 991px) {
+              position: fixed;
+              float: left;
+              top: 0;
+              left: 50%;
+              -webkit-transform: translateY(0);
+              transform: translateY(0) translateX(-50%);
+              z-index: 3;
+              height: 100vh;
+              width: auto;
+              overflow: hidden;
+            }
+          }
+
+          @media (max-width: 991px) {
+            height: auto;
+          }
+        }
+
+        @media (max-width: 991px) {
+          width: 100%;
+          height: 100%;
+          flex: 0;
+          position: fixed;
+        }
+      }
+
+      .image-popup-description {
+        position: relative;
+        width: 33.33%;
+        padding: 25px 30px 30px 30px;
+        flex: 1;
+        -webkit-flex: 1;
+
+        @media (max-width: 991px) {
+          transform: translateY(100%);
+          transition: $animation;
+        }
+
+        &.active {
+          @media (max-width: 991px) {
+            transform: translateY(37px);
+            transition: $animation;
+          }
+        }
+
+        span:first-child {
+          flex-wrap: nowrap;
+
+          img {
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+        }
+
+        .uparrow {
+          display: none;
+          position: absolute;
+          z-index: 4;
+          left: 50%;
+          top: 14px;
+          transform: translateX(-50%);
+          width: 30px;
+          height: 10px;
+          color: transparent;
+          border-radius: 13px;
+
+          @media (max-width: 991px) {
+            display: block;
+          }
+        }
+
+        .user-info {
+          justify-content: space-between;
+          margin: 10px 0 20px;
+
+          .user-name {
+            flex-direction: column;
+          }
+
+          @media (max-width: 767px) {
+            margin: 0 0 20px;
+          }
+        }
+
+        .image-detail {
+          label {
+            margin-right: 10px;
+          }
+
+          > div {
+            align-items: center;
+          }
+
+          .color-box > span {
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+          }
+        }
+
+        @media (max-width: 991px) {
+          flex: auto;
+          padding: 36px 16px 16px 16px;
+          position: fixed;
+          z-index: 5;
+          bottom: 36px;
+          width: 100%;
+          border-top-right-radius: 16px;
+          border-top-left-radius: 16px;
+        }
+      }
+
+      @media (max-width: 991px) {
+        flex-direction: column;
+        height: 100vh;
+        flex-wrap: nowrap;
+      }
+    }
+
+    .buttons-wrapper {
+      margin-top: 20px;
+
+      .button {
+        display: inline-block;
+
+        > a {
+          font-size: 12px;
+          font-weight: 600;
+        }
+      }
+
+      .button-share {
+        position: relative;
+
+        > span {
+          display: block;
+          cursor: pointer;
+
+          > i {
+            font-size: 14px;
+            margin-left: 10px;
+          }
+
+          &.active ul {
+            visibility: visible;
+            opacity: 1;
+            width: 100%;
+            transition: $animation;
+          }
+        }
+
+        ul {
+          flex-wrap: nowrap;
+          flex-direction: row;
+          position: absolute;
+          visibility: hidden;
+          opacity: 0;
+          width: 0;
+          height: 100%;
+          left: 53px;
+          bottom: 0;
+          transition: $animation;
+
+          > li {
+            display: inline-block;
+
+            > a {
+              margin-right: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// -- Toggle button ---
+.toggle-switch {
+  position: relative;
+  width: 33px;
+  height: auto;
+  display: inline-block;
+
+  > span {
+    left: 0;
+    right: auto;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    z-index: 9;
+    transition: $animation;
+
+    &.active {
+      left: 20px;
+      transition: $animation;
+    }
+  }
+
+  &:after {
+    content: "";
+    width: 100%;
+    height: 2px;
+  }
+}

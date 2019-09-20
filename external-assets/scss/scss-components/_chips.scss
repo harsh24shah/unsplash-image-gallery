@@ -1,0 +1,45 @@
+$animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+
+.chips {
+  margin-top: 20px;
+
+  &.gallery-loadmore {
+    @media (min-width: 991px) {
+      display: none;
+    }
+  }
+
+  ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    > li {
+      display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+      > a {
+        display: block;
+        padding: 4px 16px;
+        border-radius: 20px;
+        font-size: 11px;
+        letter-spacing: 0.7px;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: normal;
+        cursor: pointer;
+        transition: $animation;
+
+        &:hover {
+          transition: $animation;
+        }
+      }
+    }
+  }
+}

@@ -19,6 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    SlickCarouselModule,
     FormsModule,
     RouterModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

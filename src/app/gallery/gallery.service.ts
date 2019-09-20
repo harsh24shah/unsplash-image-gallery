@@ -3,22 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Constants } from '../models/constants';
 
 @Injectable({
   providedIn: 'root'
 })
-// 80c4c536403e65bc0651d0b3b116904ff9da875406e68a509c2d65346b418d65
+
 @Injectable()
 export class GalleryServices {
-  unsplashUrl = 'https://api.unsplash.com';
-  apiKey = '?client_id=061c51148e8b602c992064482ba158499083625ae7139aee5d6bda6e2c895c96';
-  photos = '/photos';
-  collections = '/collections';
-  search = '/search/photos';
-  searchQuery = '&query=';
-  size = '&per_page=30';
-  oredrBy = '&order_by=';
-  localStrorage = 'favImages';
+  unsplashUrl = Constants.BASEURL;
+  apiKey = Constants.APIKEY;
+  photos = Constants.PHOTOS;
+  collections = Constants.COLLECTIONS;
+  search = Constants.SEARCH;
+  searchQuery = Constants.SEARCHQEURY;
+  size = Constants.PAGESIZE;
+  oredrBy = Constants.ORDERBY;
+  users = Constants.USERS;
+  localStrorage = Constants.LOCALSTORAGE;
   private hasfav = new BehaviorSubject(0);
   currentStatus = this.hasfav.asObservable();
 
@@ -31,52 +33,67 @@ export class GalleryServices {
     return body || {};
   }
 
-
-  /*
-    used to get photos from photoID
-  */
+  /**
+   * To get photos data
+   * @param id photoid to get photo data
+   */
   getImage(id: string): Observable<any> {
     const photoUrl = this.unsplashUrl + this.photos + '/' + id + this.apiKey;
     return this.http.get(photoUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    used to get random photos by date
-  */
+  /**
+   *
+   * @param username get Images array from username
+   */
+  getUsersImages(username: string): Observable<any> {
+    const UserImagesUrl = this.unsplashUrl + this.users + '/' + username + this.photos + this.apiKey;
+    return this.http.get(UserImagesUrl)
+      .pipe(map(this.extractData));
+  }
+
+  /**
+   * To fetch random images
+   * @param orderBy to set orderby of sorting
+   */
   getRandomImagesService(orderBy: string): Observable<any> {
     const randomImageUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + this.oredrBy + orderBy;
     return this.http.get(randomImageUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    used to get searched images from search input
-  */
+  /**
+   * To get searched images
+   * @param query search stream from input
+   */
   getSearchedImages(query: string): Observable<any> {
     const searchedUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size;
     return this.http.get(searchedUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    for Loadmore images on scroll
-  */
+  /**
+   * To get more random images on page scroll
+   * @param pageNo increamental page numbers
+   * @param query if searched results are there
+   * @param orderBy if any orderby is there
+   */
   getLoadMoreImages(pageNo: number, query: string, orderBy: string): Observable<any> {
     let loadmoreUrl: string;
     const orderByText = '&page=' + pageNo + this.oredrBy + orderBy;
-    if (!query) {
-      loadmoreUrl = this.unsplashUrl + this.photos + this.apiKey + this.size + orderByText;
-    } else {
-      loadmoreUrl = this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + orderByText;
-    }
+
+    loadmoreUrl = !query ? this.unsplashUrl + this.photos + this.apiKey + this.size + orderByText
+      : this.unsplashUrl + this.search + this.apiKey + this.searchQuery + query + this.size + orderByText;
+
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    for Loadmore collections on scroll
-  */
+  /**
+   * To get collections on page scroll
+   * @param pageNo increamental page numbers
+   */
   getLoadMoreCollections(pageNo: string): Observable<any> {
     let loadmoreUrl: string;
     loadmoreUrl = this.unsplashUrl + this.collections + this.apiKey + this.size + '&page=' + pageNo;
@@ -84,47 +101,51 @@ export class GalleryServices {
       .pipe(map(this.extractData));
   }
 
-  /*
-    get latest collections on comopnent init
-  */
+  /**
+   * To get latest collections on comopnent init
+   */
   getCollection(): Observable<any> {
-    const CollectionUrl = this.unsplashUrl + this.collections + this.apiKey + this.size;
-    return this.http.get(CollectionUrl)
+    const collectionUrl = this.unsplashUrl + this.collections + this.apiKey + this.size;
+    return this.http.get(collectionUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    get photos from collection id
-  */
+  /**
+   * To get Details/images of collection
+   * @param collectionId collection id
+   */
   getCollectionDetails(collectionId: Number): Observable<any> {
     const collectionDetailUrl = this.unsplashUrl + this.collections + '/' + collectionId + this.photos + this.apiKey + this.size;
     return this.http.get(collectionDetailUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    get collection info on landing page from collection id
-  */
+  /**
+   * TO get details like cover pic and likes and count of collection
+   * @param collectionId collection id
+   */
   getCollectionInfo(collectionId: Number): Observable<any> {
     const collectionInfoUrl = this.unsplashUrl + this.collections + '/' + collectionId + this.apiKey;
     return this.http.get(collectionInfoUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    for Loadmore images from collection id on scroll
-  */
+  /**
+   * To get Loadmore images from collection id on scroll
+   * @param pageNo increamental page count
+   * @param collectionId collection ids
+   */
   getLoadMoreCollectionDetailImages(pageNo: string, collectionId: Number): Observable<any> {
     let loadmoreUrl: string;
     loadmoreUrl = this.unsplashUrl + this.collections + '/' + collectionId + this.photos + this.apiKey + this.size + '&page=' + pageNo;
-    console.log(loadmoreUrl);
     return this.http.get(loadmoreUrl)
       .pipe(map(this.extractData));
   }
 
-  /*
-    Add favourite items on local storage
-  */
+  /**
+   * To add favourite items on local storage
+   * @param data data to add in localstorage
+   */
   addToLocalStorage(data: any) {
     let oldItems = JSON.parse(localStorage.getItem(this.localStrorage)) || [];
     if (this.checkInStorage(data, this.localStrorage)) {
@@ -137,23 +158,26 @@ export class GalleryServices {
     localStorage.setItem(this.localStrorage, JSON.stringify(oldItems));
   }
 
-  /*
-    Set theme in local storage
-  */
+  /**
+   * TO set theme in local storage
+   * @param isDarkMode light/dark
+   */
   setThemeToLocalStrorage(isDarkMode: string) {
     localStorage.setItem('isDarkMode', isDarkMode);
   }
 
-  /*
-    get theme in local storage
-  */
+  /**
+   * To get theme in local storage
+   */
   getThemeFromLocalStrorage() {
     return localStorage.getItem('isDarkMode');
   }
 
-  /*
-    will return true if image id found in local storage otherwise false
-  */
+  /**
+   * will return true if image id found in local storage otherwise false
+   * @param data data to check in local storage
+   * @param storageKey local storage key
+   */
   checkInStorage(data: any, storageKey: string) {
     const oldItems = JSON.parse(localStorage.getItem(storageKey)) || [];
     if (oldItems.some(item => item.imageId === data.imageId)) {
@@ -163,17 +187,17 @@ export class GalleryServices {
     }
   }
 
-  /*
-    To get favourite items on local storage
-  */
+  /**
+   * To get favourite items on local storage
+   */
   getFromLocalStorage() {
     const temp = JSON.parse(localStorage.getItem(this.localStrorage));
     return temp.slice().reverse();
   }
 
-  /*
-    To get favourite items on local storage
-  */
+  /**
+   * To check local storage is empty or not
+   */
   changeStatus() {
     if (localStorage.getItem(this.localStrorage) === null) {
       this.hasfav.next(0);

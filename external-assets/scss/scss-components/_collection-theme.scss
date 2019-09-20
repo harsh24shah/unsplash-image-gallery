@@ -1,0 +1,32 @@
+@mixin collection-theme($primary, $secondary) {
+  $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+
+  %absoulteImage {
+    min-width: 101%;
+    max-width: inherit;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: $animation;
+  }
+  
+  .collection-wrapper {
+    .collection-item {
+      img {
+        @extend %absoulteImage;
+      }
+      & > a {
+        & > span {
+          &:after {
+            background: rgba(black, 0.5);
+          }
+        }
+      }
+      .collection-text {
+        color: white;
+      }
+    }
+  }
+}
