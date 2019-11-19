@@ -8,18 +8,18 @@
             <div target="_blank" rel="noreferrer">
               <img [alt]="photoset?.imageAlt" [src]="photoset?.imageURL" />
             </div>
-            <div class="user-info flex align-items-center justify-content-between" 
-              rel="noreferrer">
+            <div class="user-info flex align-items-center justify-content-between" rel="noreferrer">
               <span>
-                <span class="user-profile-image"><img alt="" [src]="photoset?.imageOwnerProfile" /></span>
+                <span class="user-profile-image"><img [alt]="photoset?.imageOwnerName" [src]="photoset?.imageOwnerProfile" /></span>
                 <span class="user-name">{{photoset?.imageOwnerName}}</span>
               </span>
               <span><span class="trash" (click)="addFavorite(photoset)"><i
                     class="material-icons">delete</i></span></span>
-              </div>
+            </div>
             <div class="image-info">
-              <a class="image-like" [href]="photoset?.imageDownloadPath" download rel="nofollow"><i
-                  class="material-icons">arrow_downward</i></a>
+              <a class="image-like" [href]="photoset?.imageDownloadPath" download rel="nofollow">
+                <i class="material-icons">arrow_downward</i>
+              </a>
             </div>
           </div>
         </span>

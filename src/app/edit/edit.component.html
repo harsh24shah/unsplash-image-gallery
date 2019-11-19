@@ -1,36 +1,63 @@
-<div class="gallery-wrapper  main-container">
-  <div class="main-content">
-    <div class="search">
-      <form class="search-form" autocomplete="off">
-        <div class="form-field flex flex-column">
-          <div class="search-input">
-            <label for="quote-text">Your Quote:</label>
-            <input id="quote-text" type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
-              (keyup)="writeText()" name="searchQuery" autofocus>
-          </div>
-          <div class="font-range">
-            <label for="font-size">Font size:</label>
-            <input id="font-size" type="range" class="range-slider" name="fontsize" min="10" max="100" [(ngModel)]="textFontSize"
-              (input)="updateRangeFontSize($event)">
-          </div>
-          <div class="font-color">
-            <label for="font-color">Color:</label>
-            <input id="font-color" type="color" name="fontcolor" [(ngModel)]="textFontColor" (input)="updateColor($event)" />
-          </div>
-          <div class="font-family">
-            <label for="font-family">Font Style:</label>
-            <div class="chips w100" *ngIf="fontsFamily">
-              <ul id="font-family" class="flex">
-                <li *ngFor="let font of fontsFamily" role="checkbox"><a (click)="changeFontFamily(font)">{{font}}</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </form>
+<div class="modal-image image-popup-image text-center">
+  <a class="close" href="javascript:void(0);" (click)="closeModal('editPopup');">
+    <i class="material-icons">arrow_back</i>
+  </a>
+  <span id="editedImage">
+    <img [src]="downloadURL" crossorigin="anonymous"/>
+    <div id="canvas-wrap" style="display: none;">
+      <canvas id="mycanvas" #editCanvas crossorigin="anonymous"></canvas>
     </div>
+  </span>
+</div>
 
-    <div id="canvas-wrap">
-      <canvas id="mycanvas" #editCanvas></canvas>
+<div class="modal-description image-popup-description">
+  <div class="uparrow text-center">arrow</div>
+  <div class="buttons-wrapper flex">
+    <div class="button text-center">
+      <a href="javascript:void(0);" (click)="saveEditing();">Save</a>
+    </div>
+    <div class="button text-center">
+      <a [href]="downloadURL" [download]="textTitle">Download</a>
     </div>
   </div>
+  <div class="search">
+    <form class="search-form" autocomplete="off">
+      <div class="form-field flex flex-column">
+        <div class="search-input">
+          <label for="quote-text">Your Quote:</label>
+          <input id="quote-text" type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
+            (keyup)="writeText()" name="searchQuery" autofocus>
+        </div>
+        <div class="font-range">
+          <label for="font-size">Font size:</label>
+          <input id="font-size" type="range" class="range-slider" name="fontsize" min="10" max="100"
+            [(ngModel)]="textFontSize" (input)="updateRangeFontSize($event)">
+        </div>
+        <div class="font-color">
+          <label for="font-color">Color:</label>
+          <input id="font-color" type="color" name="fontcolor" [(ngModel)]="textFontColor"
+            (input)="updateColor($event)" />
+        </div>
+        <div class="font-family">
+          <label for="font-family">Font Style:</label>
+          <div class="chips w100" *ngIf="fontsFamily">
+            <ul id="font-family" class="flex">
+              <li *ngFor="let font of fontsFamily" role="checkbox">
+                <a (click)="changeFontFamily(font)">{{font}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- <div class="loader relative" *ngIf="!userImages"></div> 
+      <div *ngIf="userImages" class="popup-slider">
+        <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let userImage of userImages" class="slide">
+                <a href="javascript:void(0);" (click)="changeimage(userImage)"><img [src]="userImage?.urls?.thumb"
+                        [alt]="userImage?.description" width="100%" /></a>
+            </div>
+        </ngx-slick-carousel>
+    </div> -->
 </div>

@@ -1,5 +1,5 @@
 @mixin popup-theme($primary, $secondary, $common) {
-  $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+  $animation: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
   %roundTransperentButton {
     font-size: 26px;
@@ -55,7 +55,8 @@
   }
 
   .popup-wrap {
-    .close {
+    .close, 
+    .trash { 
       > i {
         @extend %roundTransperentButton;
         color: white;
@@ -71,6 +72,11 @@
       .image-popup-description {
         background: $secondary;
         color: $primary;
+        box-shadow: -4px 0 16px 0 rgba(black, .2);
+
+        @media (max-width: 991px) {
+          box-shadow: 0 0px 12px 4px rgba(black, .2);
+        }
 
         .uparrow {
           background: $common;

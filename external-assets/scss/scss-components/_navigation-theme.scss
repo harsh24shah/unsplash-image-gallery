@@ -1,7 +1,7 @@
 @mixin navigation-theme($primary, $secondary) {
   // -- Header --
   .app-name {
-    background: black;
+    background: #101010;
     a {
       color: white;
     }

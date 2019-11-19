@@ -1,4 +1,4 @@
-$animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+$animation: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
 .chips {
   margin-top: 20px;
@@ -29,6 +29,7 @@ $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
         padding: 4px 16px;
         border-radius: 20px;
         font-size: 11px;
+        white-space: nowrap;
         letter-spacing: 0.7px;
         text-transform: uppercase;
         text-align: center;

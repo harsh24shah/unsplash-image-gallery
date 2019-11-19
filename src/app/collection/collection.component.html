@@ -3,10 +3,10 @@
   <div class="collection-page">
     <div class="collection-wrapper flex" id="collection-wrapper">
       <div class="collection-item" *ngFor="let collection of collections, let i = index"
-        [ngStyle]="{background: 'url(' + collection?.cover_photo.urls.thumb + ') center no-repeat / cover'}">
+        [ngStyle]="{background: 'url(' + collection?.cover_photo?.urls.thumb + ') center no-repeat / cover'}">
         <a [routerLink]="['./', collection?.id]">
           <span>
-            <img [src]="collection?.cover_photo.urls.small" />
+            <img [src]="collection?.cover_photo?.urls?.small" />
             <span class="collection-text flex">
               <span>{{collection?.title}}</span>
               <span class="small">{{collection?.total_photos}} Photos</span>

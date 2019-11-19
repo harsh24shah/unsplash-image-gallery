@@ -20,7 +20,8 @@ import { PopupService } from './popup.service';
 export class PopupComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() sharePhoto: any = [];
-  @Input() userImages: any = [];
+  @Input() userImages: any = []; // Related Images of current image
+  @Input() imageDetail: boolean;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   private element: any;
   private ImageUrl: string;
@@ -31,7 +32,7 @@ export class PopupComponent implements OnInit, OnDestroy {
     'slidesToScroll': 1,
     'nextArrow': '<div class="nav-btn next-slide material-icons">arrow_forward</div>',
     'prevArrow': '<div class="nav-btn prev-slide material-icons">arrow_back</div>',
-    'infinite': true,
+    'infinite': false,
     'responsive': [{
       'breakpoint': 768,
       'settings': {
@@ -88,6 +89,10 @@ export class PopupComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.popupService.remove(this.id);
     this.element.remove();
+  }
+
+  changeimage(userImage){
+    this.sharePhoto = userImage;
   }
 
   // to open modal

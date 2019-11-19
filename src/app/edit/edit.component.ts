@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { GalleryServices } from '../gallery/gallery.service';
-import { fromEvent } from 'rxjs';
-import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
+import { PopupService } from '../popup/popup.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit',
@@ -12,8 +11,8 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators';
 
 export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('editCanvas') myCanvas: ElementRef;
-  context: CanvasRenderingContext2D;
 
+  context: CanvasRenderingContext2D;
   baseImage = new Image();
   canvas;
   textTitle = '';
@@ -23,40 +22,40 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   textFontSize = 40;
   textFontColor = '#000';
   selectedText = -1;
-  fontsFamily = 'Open Sans,Arial,Montserrat,Raleway,Tangerine'.split(',');
-  selectedFont = 'Montserrat';
+  fontsFamily = 'Open Sans,Arial,Raleway,Tangerine'.split(',');
+  selectedFont = 'Open Sans';
   imageSrc: string;
   imageWidth: number;
   imageHeight: number;
+  downloadURL;
 
-  mouseDownEvents = ['mousedown', 'touchdown'];
-  mouseMoveEvents = ['mousemove', 'touchmove'];
-  mouseleaveEvents = ['mouseleave', 'mouseup', 'touchleave'];
-
-  id: string;
+  @Input() id: string;
   private sub: any;
   photo: [];
 
   positionX = 50;
   positionY = 50;
 
-  constructor(private route: ActivatedRoute, private galleryServices: GalleryServices) {
+  constructor(
+    private galleryServices: GalleryServices,
+    private popupService: PopupService,
+    private domSanitizer: DomSanitizer) {
     this.textColor = 'white';
     this.textBaseline = 'middle';
     this.textFont = this.textFontSize + 'px ' + this.selectedFont;
-
   }
 
   ngAfterViewInit() {
     this.canvas = this.myCanvas.nativeElement as HTMLCanvasElement;
-    this.captureEvents(this.canvas);
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-    });
     this.getPhotoFromId(this.id);
+    this.baseImage.crossOrigin = 'Anonymous';
+  }
+
+  closeModal(id: string) {
+    this.popupService.close(id);
   }
 
   getPhotoFromId(id: string) {
@@ -66,6 +65,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
       this.imageWidth = (data.width) / 3;
       this.imageHeight = (data.height) / 3;
       this.createBaseImage(this.imageSrc, this.imageWidth, this.imageHeight);
+      this.downloadURL = this.imageSrc;
     });
   }
 
@@ -120,90 +120,15 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
     this.context.drawImage(this.baseImage, 0, 0);
   }
 
-  captureEvents(canvasEl: HTMLCanvasElement) {
-    // this will capture all mousedown events from the canvas element
-    fromEvent(canvasEl, 'mousedown')
-      .pipe(
-        switchMap((e) => {
-
-          // after a mouse down, we'll record all mouse moves
-          return fromEvent(canvasEl, 'mousemove')
-            .pipe(
-              // we'll stop (and unsubscribe) once the user releases the mouse
-              // this will trigger a 'mouseup' event
-              takeUntil(fromEvent(canvasEl, 'mouseup')),
-              // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
-              takeUntil(fromEvent(canvasEl, 'mouseleave')),
-              // pairwise lets us get the previous value to draw a line from
-              // the previous point to the current point
-              pairwise()
-            );
-        })
-      )
-      .subscribe((res: [MouseEvent, MouseEvent]) => {
-        const rect = canvasEl.getBoundingClientRect();
-        // previous and current position with the offset
-        const prevPos = {
-          x: res[0].clientX - rect.left,
-          y: res[0].clientY - rect.top
-        };
-
-        const currentPos = {
-          x: res[1].clientX - rect.left,
-          y: res[1].clientY - rect.top
-        };
-
-        // console.log(this.positionX + ' , ' + this.positionX);
-        this.positionX = currentPos.x;
-        this.positionY = currentPos.y;
-
-        this.context.clearRect(0, 0, this.imageWidth, this.imageHeight);
-        this.context.drawImage(this.baseImage, 0, 0);
-        this.drawText(this.textTitle, currentPos.x, currentPos.y);
-      });
-
-    // this will capture all mousedown events from the canvas element
-    fromEvent(canvasEl, 'touchstart')
-      .pipe(
-        switchMap((e) => {
-
-          // after a mouse down, we'll record all mouse moves
-          return fromEvent(canvasEl, 'touchmove')
-            .pipe(
-              // we'll stop (and unsubscribe) once the user releases the mouse
-              // this will trigger a 'mouseup' event
-              // we'll also stop (and unsubscribe) once the mouse leaves the canvas (mouseleave event)
-              takeUntil(fromEvent(canvasEl, 'touchend')),
-              // pairwise lets us get the previous value to draw a line from
-              // the previous point to the current point
-              pairwise()
-            );
-        })
-      )
-      .subscribe((res: [TouchEvent, TouchEvent]) => {
-        const rect = canvasEl.getBoundingClientRect();
-        // previous and current position with the offset
-        const prevPos = {
-          x: res[0].targetTouches[0].clientX - rect.left,
-          y: res[0].targetTouches[0].clientY - rect.top
-        };
-
-        const currentPos = {
-          x: res[1].targetTouches[0].clientX - rect.left,
-          y: res[1].targetTouches[0].clientY - rect.top
-        };
-
-        this.positionX = currentPos.x;
-        this.positionY = currentPos.y;
-
-        this.context.clearRect(0, 0, this.imageWidth, this.imageHeight);
-        this.context.drawImage(this.baseImage, 0, 0);
-        this.drawText(this.textTitle, currentPos.x, currentPos.y);
-      });
+  saveEditing() {
+   // console.log(this.context.getImageData(0, 0, this.canvas.width, this.canvas.height));
+   this.downloadURL = this.canvas.toDataURL('image/jpeg');
+   this.downloadURL = this.domSanitizer.bypassSecurityTrustUrl(this.downloadURL);
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+   this.baseImage = null;
+   this.canvas = null;
   }
 
 }

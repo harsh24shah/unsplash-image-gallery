@@ -20,6 +20,7 @@ export class GalleryComponent implements OnInit {
   @Input() isHomePage = false;
   @Input() isCollectionDetailPage = false;
   @Input() isTrendingPage = false;
+  private isEditEnabled = false;
   photos: any = [];
   hidebutton = [];
   private buffer: any = [];
@@ -34,6 +35,7 @@ export class GalleryComponent implements OnInit {
   loading = false;
   sharePhoto: Observable<any>;
   userImages: Observable<any>;
+  imageDetail: boolean;
   pos: number;
   max: number;
 
@@ -72,10 +74,15 @@ export class GalleryComponent implements OnInit {
     this.orderBy = this.orderBy === '' ? 'oldest' : '';
   }
 
-  openShareModal(id: string, image: any) {
+  openShareModal(id: string, imageDetail: boolean, image: any) {
     this.sharePhoto = image;
+    this.imageDetail = imageDetail;
+    if(imageDetail) {
+      this.isEditEnabled = true;
+    }
     this.getUsersPhotos(image);
     this.openedPopupId = id;
+
     this.popupService.open(id);
   }
 

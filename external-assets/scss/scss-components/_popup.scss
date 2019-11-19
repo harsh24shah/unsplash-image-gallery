@@ -1,4 +1,4 @@
-$animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
+$animation: all 1s 0.1s cubic-bezier(0.19, 1, 0.22, 1);
 
 @keyframes rev-block {
   0% {
@@ -30,7 +30,6 @@ $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
   transition: $animation;
   background: white;
 
-
   @media (max-width: 991px) {
     overflow: hidden;
   }
@@ -45,16 +44,20 @@ $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
       overflow: hidden;
     }
 
-    .popup-slider{
+    .popup-slider {
       margin: 40px 0;
+
+      @media (max-width: 767px) {
+        margin: 14px 0;
+      }
     }
 
-    .close {
+    .close,
+    .trash {
       display: inline-block;
       position: absolute;
       z-index: 4;
       top: 20px;
-      left: 20px;
 
       .active & {
         display: block;
@@ -62,11 +65,24 @@ $animation: all 0.5s cubic-bezier(0.75, 0.08, 0.09, 0.98);
 
       @media (max-width: 767px) {
         top: 10px;
-        left: 10px;
       }
 
       > i {
         box-shadow: none;
+      }
+    }
+
+    .close {
+      left: 20px;
+      @media (max-width: 767px) {
+        left: 10px;
+      }
+    }
+
+    .trash {
+      right: 20px;
+      @media (max-width: 767px) {
+        right: 10px;
       }
     }
 

@@ -21,7 +21,7 @@
   <div class="gallery-component">
     <div class="search flex" *ngIf="showCollectionTitle">
       <div class="w100 collection-banner">
-        <h1 class="text-center"><strong>{{pageTitle}}</strong></h1>
+        <h1 class="text-center text-uppercase"><strong>{{pageTitle}}</strong></h1>
       </div>
       <div class="chips w100" *ngIf="collection?.tags">
         <ul class="flex">
@@ -33,20 +33,20 @@
     <div class="main-content">
       <div class="masonry flex masonry--h" id="masonry">
         <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
-          [ngStyle]="{background: 'url(' + photo?.urls.thumb + ') center no-repeat / cover'}">
+          [ngStyle]="{background: 'url(' + photo?.urls?.thumb + ') center no-repeat / cover'}">
           <div class="image-wrapper">
-            <div (click)="openShareModal('sharePopup',photo)">
-              <img [alt]="photo?.alt_description" [src]="photo?.urls.small" />
+            <div (click)="openShareModal('sharePopup',true,photo)">
+              <img [alt]="photo?.alt_description" [src]="photo?.urls?.small" />
             </div>
             <div class="user-info flex align-items-center justify-content-between">
-              <a [href]="photo?.user.links.html" target="_blank" rel="noreferrer">
-                <span class="user-profile-image"><img [alt]="photo?.user.first_name"
-                    [src]="photo?.user.profile_image.small" /></span>
+              <a [href]="photo?.user?.links?.html" target="_blank" rel="noreferrer">
+                <span class="user-profile-image"><img [alt]="photo?.user?.first_name"
+                    [src]="photo?.user?.profile_image?.small" /></span>
                 <span class="user-name">{{photo?.user.first_name}}</span>
               </a>
-              <!-- <span><span class="trash" [routerLink]="['/edit', photo.id]">
-                  <i class="material-icons">short_text</i></span>
-              </span> -->
+              <span><span class="trash" (click)="openShareModal('editPopup',false,photo)">
+                  <i class="material-icons">edit</i></span>
+              </span> 
             </div>
             <div class="image-info flex align-items-center">
               <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
@@ -55,7 +55,7 @@
               </a>
             </div>
           </div>
-        </span>
+        </span> 
       </div>
       <div class="loader relative" *ngIf="photos"></div>
       <span class="chips loadmore gallery-loadmore" *ngIf="photos.length">
@@ -64,7 +64,8 @@
         </ul>
       </span>
     </div>
-  </div>
+  </div> 
 </div>
 
-<app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" class="hide"></app-popup>
+<app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" [imageDetail]="true" class="hide"></app-popup>
+<app-popup id="editPopup" [sharePhoto]="sharePhoto" [imageDetail]="false" class="hide"></app-popup>

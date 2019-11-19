@@ -1,82 +1,93 @@
 <div class="modal">
-    <a class="close" href="javascript:void(0);" (click)="closeModal('sharePopup');">
-        <i class="material-icons">arrow_back</i>
-    </a>
-
     <ng-container *ngIf="sharePhoto">
-        <div class="modal-body image-popup-wrap flex">
-            <div class="modal-image image-popup-image text-center"
-                [ngStyle]="{background: 'url(' + sharePhoto?.urls.thumb + ') center no-repeat / cover'}">
-                <span><img [src]="sharePhoto?.urls.regular" [alt]="sharePhoto?.description" /></span>
-            </div>
+        <ng-container *ngIf="imageDetail;else imageEditSection">
+            <ng-container *ngTemplateOutlet="imageDetailsection"></ng-container>
+        </ng-container>
+    </ng-container>
+</div>
 
-            <div class="modal-description image-popup-description">
-                <div class="uparrow text-center">arrow</div>
-                <h4 *ngIf="sharePhoto?.description">{{sharePhoto?.description | slice:0:18}}</h4>
-                <div class="user-info flex align-items-center">
-                    <span class="flex align-items-center">
-                        <span class="user-profile-image"><img [alt]="sharePhoto?.user.username"
-                                [src]="sharePhoto?.user.profile_image.small" /></span>
-                        <span class="user-name flex">
-                            <strong>{{sharePhoto?.user.first_name}}</strong>
-                            <span class="small" *ngIf="sharePhoto?.user.username">
-                                <a [href]="sharePhoto?.user.links.html" rel="noreferrer" target="_blank"
-                                    [title]="sharePhoto?.user.first_name"><strong>@{{sharePhoto?.user.username}}</strong></a>
-                            </span>
+<ng-template #imageDetailsection>
+    <div class="modal-body image-popup-wrap flex">
+        <div class="modal-image image-popup-image text-center"
+            [ngStyle]="{background: 'url(' + sharePhoto?.urls?.thumb + ') center no-repeat / cover'}">
+            <a class="close" href="javascript:void(0);" (click)="closeModal('sharePopup');">
+                <i class="material-icons">arrow_back</i>
+            </a>
+            <span><img [src]="sharePhoto?.urls?.regular" [alt]="sharePhoto?.description" /></span>
+        </div>
+        <div class="modal-description image-popup-description">
+            <div class="uparrow text-center">arrow</div>
+            <h4 *ngIf="sharePhoto?.description">{{sharePhoto?.description | slice:0:18}}</h4>
+            <div class="user-info flex align-items-center">
+                <span class="flex align-items-center">
+                    <span class="user-profile-image"><img [alt]="sharePhoto?.user?.username"
+                            [src]="sharePhoto?.user?.profile_image?.small" /></span>
+                    <span class="user-name flex">
+                        <strong>{{sharePhoto?.user?.first_name}}</strong>
+                        <span class="small" *ngIf="sharePhoto?.user.username">
+                            <a [href]="sharePhoto?.user?.links?.html" rel="noreferrer" target="_blank"
+                                [title]="sharePhoto?.user?.first_name"><strong>@{{sharePhoto?.user?.username}}</strong></a>
                         </span>
                     </span>
-                    <span><span>{{sharePhoto?.created_at | date}}</span></span>
-                </div>
+                </span>
+                <span><span>{{sharePhoto?.created_at | date}}</span></span>
+            </div>
 
-                <div class="image-detail">
-                    <div class="flex align-items-center"><label>Dimention:</label><strong>{{sharePhoto?.width}} x
-                            {{sharePhoto?.height}}</strong>
-                    </div>
-                    <div class="flex align-items-center"><label>Likes:</label><strong>{{sharePhoto?.likes}}</strong>
-                    </div>
-                    <div class="color-box flex align-items-center"><label>Color:</label><span
-                            [style.background]="sharePhoto?.color"></span></div>
+            <div class="image-detail">
+                <div class="flex align-items-center">
+                    <label><i class="material-icons">photo_size_select_large</i></label>
+                    <strong>{{sharePhoto?.width}} x {{sharePhoto?.height}}</strong>
                 </div>
+                <div class="flex align-items-center">
+                    <label><i class="material-icons">thumb_up_alt</i></label>
+                    <strong>{{sharePhoto?.likes}}</strong>
+                </div>
+                <div class="color-box flex align-items-center">
+                    <label><i class="material-icons">color_lens</i></label>
+                    <span [style.background]="sharePhoto?.color"></span></div>
+            </div>
 
-                <div class="buttons-wrapper flex">
-                    <div class="button text-center">
-                        <a [href]="sharePhoto?.links.download + '?force=true'" download rel="nofollow">Download</a>
-                    </div>
-                    <div class="button-share text-center">
-                        <span onclick="javascript:navigator.share === undefined ? 'void(0);' : 'shareImage(this)'"
-                            [attr.data-imageurl]="sharePhoto?.links.html"
-                            [attr.data-imagetitle]="sharePhoto?.description"
-                            [attr.data-imagetext]="sharePhoto?.user.first_name" (click)="shareToggle()"
-                            [ngClass]="isShareActive ? 'active' : ''"><i class="material-icons">share</i>
-                            <ul class="flex">
-                                <li><a
-                                        [href]="'https://www.facebook.com/sharer/sharer.php?u=' + sharePhoto?.links.html + '&t=' + sharePhoto?.description"><i
-                                            class="icon icon-facebook"></i></a></li>
-                                <li><a
-                                        [href]="'http://twitter.com/share?text='+ sharePhoto?.description + '&url=' + sharePhoto?.links.html"><i
-                                            class="icon icon-twitter"></i></a></li>
-                                <li><a [href]="'https://wa.me/?text='+ sharePhoto?.links.html"><i
-                                            class="icon icon-whatsapp"></i></a>
-                                </li>
-                                <li><a href="javascript:void(0);" (click)="copyText(sharePhoto?.links.html)"><i
-                                            class="icon icon-link"></i></a></li>
-                            </ul>
-                        </span>
-                    </div>
+            <div class="buttons-wrapper flex">
+                <div class="button text-center">
+                    <a [href]="sharePhoto?.links?.download + '?force=true'" download rel="nofollow">Download</a>
                 </div>
-                <div class="loader relative" *ngIf="!userImages"></div>
-                <div *ngIf="userImages" class="popup-slider"> 
-                    <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
-                        <div ngxSlickItem *ngFor="let userImage of userImages" class="slide">
-                            <a [href]="userImage?.links.html" target="_blank" (click)="changeimage" ><img [src]="userImage?.urls.thumb" alt="" width="100%" /></a>
-                        </div>
-                    </ngx-slick-carousel>
+                <div class="button-share text-center">
+                    <span onclick="javascript:navigator.share === undefined ? 'void(0);' : 'shareImage(this)'"
+                        [attr.data-imageurl]="sharePhoto?.links.html" [attr.data-imagetitle]="sharePhoto?.description"
+                        [attr.data-imagetext]="sharePhoto?.user?.first_name" (click)="shareToggle()"
+                        [ngClass]="isShareActive ? 'active' : ''"><i class="material-icons">share</i>
+                        <ul class="flex">
+                            <li><a
+                                    [href]="'https://www.facebook.com/sharer/sharer.php?u=' + sharePhoto?.links?.html + '&t=' + sharePhoto?.description"><i
+                                        class="icon icon-facebook"></i></a></li>
+                            <li><a
+                                    [href]="'http://twitter.com/share?text='+ sharePhoto?.description + '&url=' + sharePhoto?.links?.html"><i
+                                        class="icon icon-twitter"></i></a></li>
+                            <li><a [href]="'https://wa.me/?text='+ sharePhoto?.links?.html"
+                                    data-action="share/whatsapp/share"><i class="icon icon-whatsapp"></i></a>
+                            </li>
+                            <li><a href="javascript:void(0);" (click)="copyText(sharePhoto?.links?.html)"><i
+                                        class="icon icon-link"></i></a></li>
+                        </ul>
+                    </span>
                 </div>
             </div>
+            <div class="loader relative" *ngIf="!userImages"></div>
+            <div *ngIf="userImages" class="popup-slider">
+                <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
+                    <div ngxSlickItem *ngFor="let userImage of userImages" class="slide">
+                        <a href="javascript:void(0);" (click)="changeimage(userImage)"><img
+                                [src]="userImage?.urls?.thumb" [alt]="userImage?.description" width="100%" /></a>
+                    </div>
+                </ngx-slick-carousel>
+            </div>
         </div>
-    </ng-container>
+    </div>
+</ng-template>
 
-</div>
+<ng-template #imageEditSection>
+    <app-edit [id]="sharePhoto?.id" class="modal-body image-popup-wrap flex"></app-edit>
+</ng-template>
 
 <!--
 <modal id="custom-modal-2">

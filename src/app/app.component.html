@@ -14,16 +14,16 @@
         <div class="main-container">
             <ul class="flex flex-nowrap align-items-center">
                 <li class="text-center" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <a routerLink="/" class=""><i class="material-icons">home</i><span>Home</span></a></li>
-                <li class="text-center" routerLinkActive="active">
-                    <a routerLink="collections" class=""><i
-                            class="material-icons">collections</i><span>Collections</span></a>
+                    <a routerLink="/"><i class="material-icons">home</i><span>Home</span></a>
                 </li>
                 <li class="text-center" routerLinkActive="active">
-                    <a routerLink="trending" class=""><i class="material-icons">whatshot</i><span>Trending</span></a>
+                    <a routerLink="collections"><i class="material-icons">collections</i><span>Collections</span></a>
+                </li>
+                <li class="text-center" routerLinkActive="active">
+                    <a routerLink="trending"><i class="material-icons">whatshot</i><span>Trending</span></a>
                 </li>
                 <li class="text-center" routerLinkActive="active" *ngIf="hasFav">
-                    <a routerLink="favorite" class=""><i
+                    <a routerLink="favorite"><i
                             class="material-icons">favorite</i><span>Favorites<small>&nbsp;({{hasFav}})</small></span></a>
                 </li>
             </ul>

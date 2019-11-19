@@ -1,14 +1,13 @@
 'use strict';
-
 const gulp = require('gulp');
 const iconfont = require('gulp-iconfont');
 const iconfontCss = require('gulp-iconfont-css');
 const sass = require('gulp-sass');
 const terser = require('gulp-terser');
 const cleanCSS = require('gulp-clean-css');
-sass.compiler = require('node-sass');
 const runTimestamp = Math.round(Date.now() / 1000);
 const fontName = 'Icons';
+sass.compiler = require('node-sass');
 
 gulp.task('iconfont', () => {
   return gulp.src(['external-assets/icons/*.svg']) // Source folder containing the SVG images
