@@ -32,9 +32,6 @@ export class FavoriteComponent implements OnInit {
     this.galleryServices.changeStatus();
     photo = null;
     this.favImages = this.galleryServices.getFromLocalStorage();
-    if (this.favImages.length === 0) {
-      this.router.navigate(['/']);
-    }
-    this.loadmore = false;
+    this.favImages.length === 0 ? this.router.navigate(['/']) : this.loadmore = false;
   }
 }

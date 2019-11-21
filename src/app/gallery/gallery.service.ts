@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Constants } from '../models/constants';
+import { Generalparameters } from '../common/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +10,20 @@ import { Constants } from '../models/constants';
 
 @Injectable()
 export class GalleryServices {
-  unsplashUrl = Constants.BASEURL;
-  apiKey = Constants.APIKEY;
-  photos = Constants.PHOTOS;
-  collections = Constants.COLLECTIONS;
-  search = Constants.SEARCH;
-  searchQuery = Constants.SEARCHQEURY;
-  size = Constants.PAGESIZE;
-  oredrBy = Constants.ORDERBY;
-  users = Constants.USERS;
-  localStrorage = Constants.LOCALSTORAGE;
+  unsplashUrl = Generalparameters.ApiConstants.BASEURL;
+  apiKey = Generalparameters.ApiConstants.APIKEY;
+  photos = Generalparameters.ApiConstants.PHOTOS;
+  collections = Generalparameters.ApiConstants.COLLECTIONS;
+  search = Generalparameters.ApiConstants.SEARCH;
+  searchQuery = Generalparameters.ApiConstants.SEARCHQEURY;
+  size = Generalparameters.ApiConstants.PAGESIZE;
+  oredrBy = Generalparameters.ApiConstants.ORDERBY;
+  users = Generalparameters.ApiConstants.USERS;
+  localStrorage = Generalparameters.ApiConstants.LOCALSTORAGE;
   private hasfav = new BehaviorSubject(0);
   currentStatus = this.hasfav.asObservable();
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
+  constructor(private http: HttpClient) {
     const today = new Date();
   }
 
@@ -180,11 +179,7 @@ export class GalleryServices {
    */
   checkInStorage(data: any, storageKey: string) {
     const oldItems = JSON.parse(localStorage.getItem(storageKey)) || [];
-    if (oldItems.some(item => item.imageId === data.imageId)) {
-      return false;
-    } else {
-      return true;
-    }
+    return oldItems.some(item => item.imageId === data.imageId) ? false : true;
   }
 
   /**

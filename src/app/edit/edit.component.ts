@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Generalparameters } from '../common/constants';
 import { GalleryServices } from '../gallery/gallery.service';
 import { PopupService } from '../popup/popup.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit',
@@ -10,31 +11,38 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('editCanvas') myCanvas: ElementRef;
-
+  @ViewChild('editCanvas', { static: true }) myCanvas: ElementRef;
+  @Input() id: string;
+  private sub: any;
   context: CanvasRenderingContext2D;
   baseImage = new Image();
   canvas;
-  textTitle = '';
+  textTitle = Generalparameters.EditInitparameters.TEXTTITLE;
   textColor: string;
   textBaseline: CanvasTextBaseline;
   textFont: string;
-  textFontSize = 40;
-  textFontColor = '#000';
+  textFontSize = Generalparameters.EditInitparameters.FONTSIZE;
+  textFontColor = Generalparameters.EditInitparameters.FONTCOLOR;
   selectedText = -1;
-  fontsFamily = 'Open Sans,Arial,Raleway,Tangerine'.split(',');
+  fontsFamily = Generalparameters.EditInitparameters.FONTFAMILY.split(',');
   selectedFont = 'Open Sans';
   imageSrc: string;
   imageWidth: number;
   imageHeight: number;
-  downloadURL;
-
-  @Input() id: string;
-  private sub: any;
+  downloadURL: any;
+  showloader = true;
   photo: [];
+  positionX: number;
+  positionY: number;
 
-  positionX = 50;
-  positionY = 50;
+  filterBlur = 0;
+  filterBrightness = 100;
+  filterContrast = 100;
+  filterGrayscale = 0;
+  filterHuerotate = 0;
+  filterInvert = 0;
+  filterSaturate = 100;
+  filterSepia = 0;
 
   constructor(
     private galleryServices: GalleryServices,
@@ -60,14 +68,18 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getPhotoFromId(id: string) {
     this.galleryServices.getImage(id).subscribe(data => {
+      this.showloader = true;
       this.photo = data;
       this.imageSrc = data.urls.regular;
-      this.imageWidth = (data.width) / 3;
-      this.imageHeight = (data.height) / 3;
+      this.baseImage.src = this.imageSrc;
+      this.imageWidth = 1080;
+      this.imageHeight = (data.height * 1080) / data.width;
       this.createBaseImage(this.imageSrc, this.imageWidth, this.imageHeight);
       this.downloadURL = this.imageSrc;
+      this.showloader = false;
     });
   }
+
 
   createBaseImage(imageSrc: string, imageWidth: number, imageHeight: number) {
     this.context = (<HTMLCanvasElement>this.myCanvas.nativeElement).getContext('2d');
@@ -77,15 +89,17 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
       this.context.drawImage(this.baseImage, 0, 0);
       this.writeText();
     };
-    this.baseImage.src = imageSrc;
   }
 
   writeText() {
     this.context.textBaseline = this.textBaseline;
     if (this.textTitle !== undefined && this.textFont !== undefined) {
       if (this.textTitle.length > 2 || this.textFontSize > 5) {
+        this.positionX = this.imageWidth / 2;
+        this.positionY = this.imageHeight / 2;
         this.drawUpdatedCanvas(this.textTitle);
         this.drawText(this.textTitle, this.positionX, this.positionY);
+        this.saveEditing();
       } else {
         this.drawUpdatedCanvas('');
       }
@@ -96,6 +110,62 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
     this.textFontSize = e.target.value;
     this.textFont = this.textFontSize + 'px ' + this.selectedFont;
     this.writeText();
+  }
+
+  updateImageFilter(filtertype: string, e: any) {
+
+    // if (filtertype === 'blur') {
+    //   this.filterBlur = e.target.value;
+    // }
+    // if (filtertype === 'brightness') {
+    //   this.filterBrightness = e.target.value;
+    // }
+    // if (filtertype === 'contrast') {
+    //   this.filterContrast = e.target.value;
+    // }
+    // if (filtertype === 'greyscale') {
+    //   this.filterGrayscale = e.target.value;
+    // }
+    // if (filtertype === 'huerotate') {
+    //   this.filterHuerotate = e.target.value;
+    // }
+    // if (filtertype === 'invert') {
+    //   this.filterInvert = e.target.value;
+    // }
+    // if (filtertype === 'saturate') {
+    //   this.filterSaturate = e.target.value;
+    // }
+    // if (filtertype === 'sepia') {
+    //   this.filterSepia = e.target.value;
+    // }
+
+    switch (filtertype) {
+      case 'blur': this.filterBlur = e.target.value; break;
+      case 'brightness': this.filterBrightness = e.target.value; break;
+      case 'contrast': this.filterContrast = e.target.value; break;
+      case 'greyscale': this.filterGrayscale = e.target.value; break;
+      case 'huerotate': this.filterHuerotate = e.target.value; break;
+      case 'invert': this.filterInvert = e.target.value; break;
+      case 'saturate': this.filterSaturate = e.target.value; break;
+      case 'sepia': this.filterSepia = e.target.value; break;
+    }
+
+    let filters =
+      'blur(' + this.filterBlur + 'px) ' +
+      'contrast(' + this.filterContrast + '%) ' +
+      'brightness(' + this.filterBrightness + '%)' +
+      'grayscale( ' + this.filterGrayscale + '%)' +
+      'hue-rotate( ' + this.filterHuerotate + 'deg)' +
+      'invert( ' + this.filterInvert + '%)' +
+      'saturate( ' + this.filterSaturate + '%)' +
+      'sepia( ' + this.filterSepia + '%)';
+
+    this.context.filter = filters;
+    this.writeText();
+  }
+
+  resetImageFilter() {
+    this.context.filter = 'none';
   }
 
   updateColor(e: any) {
@@ -121,14 +191,14 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   saveEditing() {
-   // console.log(this.context.getImageData(0, 0, this.canvas.width, this.canvas.height));
-   this.downloadURL = this.canvas.toDataURL('image/jpeg');
-   this.downloadURL = this.domSanitizer.bypassSecurityTrustUrl(this.downloadURL);
+    // console.log(this.context.getImageData(0, 0, this.canvas.width, this.canvas.height));
+    this.downloadURL = this.canvas.toDataURL('image/jpeg');
+    this.downloadURL = this.domSanitizer.bypassSecurityTrustUrl(this.downloadURL);
   }
 
   ngOnDestroy() {
-   this.baseImage = null;
-   this.canvas = null;
+    this.baseImage = null;
+    this.canvas = null;
   }
 
 }
