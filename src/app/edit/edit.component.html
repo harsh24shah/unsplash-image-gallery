@@ -1,12 +1,12 @@
 <div class="modal-image image-popup-image text-center">
+  <div class="loader" *ngIf="showloader"></div>
   <a class="close" href="javascript:void(0);" (click)="closeModal('editPopup');">
     <i class="material-icons">arrow_back</i>
   </a>
   <span id="editedImage">
-    <div class="loader" *ngIf="showloader"></div>
     <img [src]="downloadURL" id="canvasImageElement" crossorigin="anonymous" />
     <div id="canvas-wrap" style="display: none;">
-      <canvas id="mycanvas" #editCanvas crossorigin="anonymous"></canvas>
+      <canvas #editCanvas crossorigin="anonymous"></canvas>
     </div>
   </span>
 </div>
@@ -22,73 +22,179 @@
     </div>
   </div>
   <div class="search">
-    <form class="search-form" autocomplete="off">
+    <form autocomplete="off">
       <div class="form-field flex flex-column">
-        <div class="search-input">
-          <label for="quote-text">Your Quote:</label>
-          <input id="quote-text" type="text" id="text" autocomplete="off" placeholder='Add text' [(ngModel)]="textTitle"
-            (keyup)="writeText()" name="searchQuery" autofocus>
-        </div>
-        <div class="font-family">
-          <label for="font-family">Font Style:</label>
-          <div class="chips w100" *ngIf="fontsFamily">
-            <ul id="font-family" class="flex">
-              <li *ngFor="let font of fontsFamily" role="checkbox">
-                <a (click)="changeFontFamily(font)">{{font}}</a>
-              </li>
-            </ul>
+        <div class="filter-form-textediting" style="display: none;">
+          <div class="search-input">
+            <label for="quote-text">Your Quote:</label>
+            <input id="quote-text" type="text" id="text" autocomplete="off" placeholder='Add text'
+              [(ngModel)]="textTitle" (keyup)="writeText()" name="searchQuery" autofocus>
+          </div>
+          <div class="font-family">
+            <label for="font-family">Font Style:</label>
+            <div class="chips w100" *ngIf="fontsFamily">
+              <ul id="font-family" class="flex">
+                <li *ngFor="let font of fontsFamily" role="checkbox">
+                  <a (click)="changeFontFamily(font)">{{font}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="font-range">
+            <label for="font-size">Font size: ({{textFontSize}})</label>
+            <input id="font-size" type="range" class="range-slider" name="fontsize" min="10" max="100"
+              [(ngModel)]="textFontSize" (input)="updateRangeFontSize($event)">
+          </div>
+          <div class="font-color">
+            <label for="font-color">Color: ({{textFontColor}})</label>
+            <input id="font-color" type="color" name="fontcolor" [(ngModel)]="textFontColor"
+              (input)="updateColor($event)" />
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('greyscale')">Greyscale</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('invert')">Invert</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('sepia')">Sepia</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('brightness')">Brightness</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('hueSaturation')">HueSaturation</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('saturation')">Saturation</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('contrast')">Contrast</button>
           </div>
         </div>
-        <div class="font-range">
-          <label for="font-size">Font size: ({{textFontSize}})</label>
-          <input id="font-size" type="range" class="range-slider" name="fontsize" min="10" max="100"
-            [(ngModel)]="textFontSize" (input)="updateRangeFontSize($event)">
-        </div>
-        <div class="font-color">
-          <label for="font-color">Color: ({{textFontColor}})</label>
-          <input id="font-color" type="color" name="fontcolor" [(ngModel)]="textFontColor"
-            (input)="updateColor($event)" />
-        </div>
-        <div class="font-range">
-          <label for="font-blur">Blur: ({{filterBlur}})</label>
-          <input id="font-blur" type="range" class="range-slider" name="filterblur" min="0" max="100"
-            [(ngModel)]="filterBlur" (input)="updateImageFilter('blur', $event)">
-        </div>
-        <div class="font-range">
-          <label for="font-brightness">Brightness: ({{filterBrightness}})</label>
-          <input id="font-brightness" type="range" class="range-slider" name="filterbrightness" min="0" max="200"
-            [(ngModel)]="filterBrightness" (input)="updateImageFilter('brightness', $event)">
-        </div>
-        <div class="font-range">
-          <label for="font-contrast">Contrast: ({{filterContrast}})</label>
-          <input id="font-contrast" type="range" class="range-slider" name="filtercontrast" min="0" max="200"
-            [(ngModel)]="filterContrast" (input)="updateImageFilter('contrast', $event)">
-        </div>
-        <div class="font-range">
-          <label for="font-greyscale">B/W: ({{filterGrayscale}})</label>
-          <input id="font-greyscale" type="range" class="range-slider" name="filtergreyscale" min="0" max="100"
-            [(ngModel)]="filterGrayscale" (input)="updateImageFilter('greyscale', $event)">
-        </div>
-        <div class="font-range">
-          <label for="font-huerotate">Hue: ({{filterHuerotate}})</label>
-          <input id="font-huerotate" type="range" class="range-slider" name="filterhuerotate" min="0" max="100"
-            [(ngModel)]="filterHuerotate" (input)="updateImageFilter('huerotate', $event)">
-        </div>
-        <div class="font-range">
-          <label for="font-invert">Invert: ({{filterInvert}})</label>
-          <input id="font-invert" type="range" class="range-slider" name="filterinvert" min="0" max="100"
-            [(ngModel)]="filterInvert" (input)="updateImageFilter('invert', $event)">
-        </div>
-        <div class="font-range">
-          <label for="font-saturate">Saturate: ({{filterSaturate}})</label>
-          <input id="font-saturate" type="range" class="range-slider" name="filtersaturate" min="0" max="200"
-            [(ngModel)]="filterSaturate" (input)="updateImageFilter('saturate', $event)">
-        </div>
-        <div class="font-range">
-            <label for="font-sepia">Sepia: ({{filterSepia}})</label>
-            <input id="font-sepia" type="range" class="range-slider" name="filtersepia" min="0" max="100"
-              [(ngModel)]="filterSepia" (input)="updateImageFilter('sepia', $event)">
+
+        <div class="filter-form-sliders">
+          <div class="button text-center">
+            <button (click)="updateImageFilter('clarendon')">Instagram - Clarendon</button>
           </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('gingham')">Instagram - gingham</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('moon')">Instagram - moon</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('lark')">Instagram - lark</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('reyes')">Instagram - reyes</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('juno')">Instagram - juno</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('slumber')">Instagram - slumber</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('crema')">Instagram - crema</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('ludwig')">Instagram - ludwig</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('aden')">Instagram - aden</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('perpetua')">Instagram - perpetua</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('amaro')">Instagram - amaro</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('mayfair')">Instagram - mayfair</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('rise')">Instagram - rise</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('hudson')">Instagram - hudson</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('valencia')">Instagram - valencia</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('xpro2')">Instagram - xpro2</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('sierra')">Instagram - sierra</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('willow')">Instagram - willow</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('lofi')">Instagram - lofi</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('inkwell')">Instagram - inkwell</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('hefe')">Instagram - hefe</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('nashville')">Instagram - nashville</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('stinson')">Instagram - stinson</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('vesper')">Instagram - vesper</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('earlybird')">Instagram - earlybird</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('brannan')">Instagram - brannan</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('sutro')">Instagram - sutro</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('toaster')">Instagram - toaster</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('walden')">Instagram - walden</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('1977')">Instagram - 1977</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('kelvin')">Instagram - kelvin</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('maven')">Instagram - maven</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('ginza')">Instagram - ginza</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('skyline')">Instagram - skyline</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('dogpatch')">Instagram - dogpatch</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('brooklyn')">Instagram - brooklyn</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('helena')">Instagram - helena</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('ashby')">Instagram - ashby</button>
+          </div>
+          <div class="button text-center">
+            <button (click)="updateImageFilter('charmes')">Instagram - charmes</button>
+          </div>
+        </div>
       </div>
     </form>
   </div>

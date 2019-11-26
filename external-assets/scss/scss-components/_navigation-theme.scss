@@ -46,15 +46,17 @@
       }
     }
 
-    .search-form {
-      .search-input {
-        border-bottom: 1px solid $primary;
+    .search-input {
+      border-bottom: 1px solid $primary;
 
-        input[type="text"] {
-          background: transparent;
-          color: $primary;
-        }
+      input[type="text"] {
+        background: transparent;
+        color: $primary;
       }
+    }
+
+    .search-form {
+  
 
       button {
         background: transparent;

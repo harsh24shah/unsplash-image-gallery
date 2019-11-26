@@ -162,21 +162,21 @@ nav {
     padding: 0 0 0.8rem 0;
   }
 
+  .search-input {
+    overflow: hidden;
+
+    input[type="text"] {
+      width: 100%;
+      border: none;
+      padding: 0.3em 0;
+      outline: none;
+      font-size: 1.1rem;
+    }
+  }
+
   .search-form {
     width: 50%;
     position: relative;
-
-    .search-input {
-      overflow: hidden;
-
-      input[type="text"] {
-        width: 100%;
-        border: none;
-        padding: 0.3em 0;
-        outline: none;
-        font-size: 1.1rem;
-      }
-    }
 
     button {
       position: absolute;

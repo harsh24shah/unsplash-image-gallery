@@ -36,7 +36,7 @@
           [ngStyle]="{background: 'url(' + photo?.urls?.thumb + ') center no-repeat / cover'}">
           <div class="image-wrapper">
             <div (click)="openShareModal('sharePopup',true,photo)">
-              <img [alt]="photo?.alt_description" [src]="photo?.urls?.small" />
+              <img [alt]="photo?.alt_description" [src]="photo?.urls?.small" (load)="loading = true;" />
             </div>
             <div class="user-info flex align-items-center justify-content-between">
               <a [href]="photo?.user?.links?.html" target="_blank" rel="noreferrer">
@@ -46,7 +46,7 @@
               </a>
               <span><span class="trash" (click)="openShareModal('editPopup',false,photo)">
                   <i class="material-icons">edit</i></span>
-              </span> 
+              </span>
             </div>
             <div class="image-info flex align-items-center">
               <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
@@ -55,7 +55,7 @@
               </a>
             </div>
           </div>
-        </span> 
+        </span>
       </div>
       <div class="loader relative" *ngIf="photos"></div>
       <span class="chips loadmore gallery-loadmore" *ngIf="photos.length">
@@ -64,7 +64,7 @@
         </ul>
       </span>
     </div>
-  </div> 
+  </div>
 </div>
 
 <app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" [imageDetail]="true" class="hide"></app-popup>

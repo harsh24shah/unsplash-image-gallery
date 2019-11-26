@@ -7,7 +7,8 @@ import {
   Output,
   EventEmitter,
   HostListener,
-  OnDestroy } from '@angular/core';
+  OnDestroy
+} from '@angular/core';
 import { PopupService } from './popup.service';
 
 @Component({
@@ -18,7 +19,7 @@ import { PopupService } from './popup.service';
 })
 
 export class PopupComponent implements OnInit, OnDestroy {
-  @Input() id: string;
+  @Input() id: '';
   @Input() sharePhoto: any = [];
   @Input() userImages: any = []; // Related Images of current image
   @Input() imageDetail: boolean;
@@ -36,10 +37,10 @@ export class PopupComponent implements OnInit, OnDestroy {
     'responsive': [{
       'breakpoint': 768,
       'settings': {
-          'slidesToShow': 2,
-          'slidesToScroll': 1
-        }
-      }]
+        'slidesToShow': 2,
+        'slidesToScroll': 1
+      }
+    }]
   };
 
   constructor(private popupService: PopupService, private el: ElementRef) {
@@ -91,7 +92,7 @@ export class PopupComponent implements OnInit, OnDestroy {
     this.element.remove();
   }
 
-  changeimage(userImage){
+  changeimage(userImage) {
     this.sharePhoto = userImage;
   }
 
@@ -112,6 +113,7 @@ export class PopupComponent implements OnInit, OnDestroy {
       this.element.classList.add('hide');
       this.element.remove();
       this.userImages = [];
+      this.sharePhoto = '';
     }, 500);
     window.history.replaceState(null, null, window.location.pathname + '');
   }
