@@ -6,11 +6,9 @@ import { DetailpageComponent } from './collection/detailpage/detailpage.componen
 import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 import { TrendingComponent } from './trending/trending.component';
-import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'edit/:id', component: EditComponent },
   { path: 'favorite', component: FavoriteComponent },
   { path: 'trending', component: TrendingComponent },
   {

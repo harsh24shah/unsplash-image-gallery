@@ -9,6 +9,7 @@ import {
   HostListener,
   OnDestroy
 } from '@angular/core';
+import { Generalparameters } from '../common/constants';
 import { PopupService } from './popup.service';
 
 @Component({
@@ -28,20 +29,7 @@ export class PopupComponent implements OnInit, OnDestroy {
   private ImageUrl: string;
   private showloader = false;
   private isShareActive = false;
-  private slideConfig = {
-    'slidesToShow': 3,
-    'slidesToScroll': 1,
-    'nextArrow': '<div class="nav-btn next-slide material-icons">arrow_forward</div>',
-    'prevArrow': '<div class="nav-btn prev-slide material-icons">arrow_back</div>',
-    'infinite': false,
-    'responsive': [{
-      'breakpoint': 768,
-      'settings': {
-        'slidesToShow': 2,
-        'slidesToScroll': 1
-      }
-    }]
-  };
+  slideConfig = Generalparameters.SliderConfig.SLIDERPARAMS;
 
   constructor(private popupService: PopupService, private el: ElementRef) {
     this.element = el.nativeElement;

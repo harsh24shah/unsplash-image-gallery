@@ -4,7 +4,7 @@
     <i class="material-icons">arrow_back</i>
   </a>
   <span id="editedImage">
-    <img [src]="downloadURL" id="canvasImageElement" crossorigin="anonymous" />
+    <img *ngIf="downloadURL" [src]="downloadURL" id="canvasImageElement" crossorigin="anonymous" />
     <div id="canvas-wrap" style="display: none;">
       <canvas #editCanvas crossorigin="anonymous"></canvas>
     </div>
@@ -14,9 +14,9 @@
 <div class="modal-description image-popup-description">
   <div class="uparrow text-center">arrow</div>
   <div class="buttons-wrapper flex">
-    <!-- <div class="button text-center">
-      <a href="javascript:void(0);" (click)="resetImageFilter();">Reset</a>
-    </div> -->
+    <div class="button text-center">
+      <a href="javascript:void(0);" (click)="getPhotoFromId(id);">Reset</a>
+    </div>
     <div class="button text-center">
       <a [href]="downloadURL" [download]="textTitle">Download</a>
     </div>
@@ -24,7 +24,7 @@
   <div class="search">
     <form autocomplete="off">
       <div class="form-field flex flex-column">
-        <div class="filter-form-textediting" style="display: none;">
+        <div class="filter-form-textediting" >
           <div class="search-input">
             <label for="quote-text">Your Quote:</label>
             <input id="quote-text" type="text" id="text" autocomplete="off" placeholder='Add text'
@@ -50,161 +50,21 @@
             <input id="font-color" type="color" name="fontcolor" [(ngModel)]="textFontColor"
               (input)="updateColor($event)" />
           </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('greyscale')">Greyscale</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('invert')">Invert</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('sepia')">Sepia</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('brightness')">Brightness</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('hueSaturation')">HueSaturation</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('saturation')">Saturation</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('contrast')">Contrast</button>
-          </div>
-        </div>
-
-        <div class="filter-form-sliders">
-          <div class="button text-center">
-            <button (click)="updateImageFilter('clarendon')">Instagram - Clarendon</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('gingham')">Instagram - gingham</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('moon')">Instagram - moon</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('lark')">Instagram - lark</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('reyes')">Instagram - reyes</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('juno')">Instagram - juno</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('slumber')">Instagram - slumber</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('crema')">Instagram - crema</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('ludwig')">Instagram - ludwig</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('aden')">Instagram - aden</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('perpetua')">Instagram - perpetua</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('amaro')">Instagram - amaro</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('mayfair')">Instagram - mayfair</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('rise')">Instagram - rise</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('hudson')">Instagram - hudson</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('valencia')">Instagram - valencia</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('xpro2')">Instagram - xpro2</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('sierra')">Instagram - sierra</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('willow')">Instagram - willow</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('lofi')">Instagram - lofi</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('inkwell')">Instagram - inkwell</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('hefe')">Instagram - hefe</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('nashville')">Instagram - nashville</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('stinson')">Instagram - stinson</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('vesper')">Instagram - vesper</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('earlybird')">Instagram - earlybird</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('brannan')">Instagram - brannan</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('sutro')">Instagram - sutro</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('toaster')">Instagram - toaster</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('walden')">Instagram - walden</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('1977')">Instagram - 1977</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('kelvin')">Instagram - kelvin</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('maven')">Instagram - maven</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('ginza')">Instagram - ginza</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('skyline')">Instagram - skyline</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('dogpatch')">Instagram - dogpatch</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('brooklyn')">Instagram - brooklyn</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('helena')">Instagram - helena</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('ashby')">Instagram - ashby</button>
-          </div>
-          <div class="button text-center">
-            <button (click)="updateImageFilter('charmes')">Instagram - charmes</button>
-          </div>
         </div>
       </div>
     </form>
+
+    <div *ngIf="filters" class="popup-slider">
+      <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let filter of filters" class="slide">
+          <a href="javascript:void(0);" class="filter-overlay" [ngClass]="filter?.text"
+            (click)="updateImageFilter(filter?.text)">
+            <img *ngIf="imageThumbSrc" [src]="imageThumbSrc" [alt]="filter?.text" width="100%" />
+          </a>
+          <span>{{filter.text | titlecase }}</span>
+        </div>
+      </ngx-slick-carousel>
+    </div>
   </div>
-  <!-- <div class="loader relative" *ngIf="!userImages"></div> 
-      <div *ngIf="userImages" class="popup-slider">
-        <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
-            <div ngxSlickItem *ngFor="let userImage of userImages" class="slide">
-                <a href="javascript:void(0);" (click)="changeimage(userImage)"><img [src]="userImage?.urls?.thumb"
-                        [alt]="userImage?.description" width="100%" /></a>
-            </div>
-        </ngx-slick-carousel>
-    </div> -->
+
 </div>
