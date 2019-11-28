@@ -37,6 +37,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   positionX: number;
   positionY: number;
   filters = Generalparameters.EditInitparameters.FILTERS;
+  solidFilters = Generalparameters.EditInitparameters.SOLIDFILTERS;
   slideConfig = Generalparameters.SliderConfig.SLIDERPARAMS;
   filterBrightness: number;
   filterContrast = .5;
@@ -57,7 +58,8 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
     this.canvas = this.myCanvas.nativeElement as HTMLCanvasElement;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    console.log(this.id);
     this.getPhotoFromId(this.id);
     this.baseImage.crossOrigin = 'Anonymous';
   }
@@ -330,8 +332,9 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.baseImage = null;
-    this.imageSrc = '';
+   // this.baseImage = null;
+   // this.imageSrc = '';
+   // this.id = '';
   }
 
 }

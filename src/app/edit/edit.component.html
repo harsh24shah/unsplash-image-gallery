@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="search">
-    <form autocomplete="off">
+    <form autocomplete="off" style="display: none;">
       <div class="form-field flex flex-column">
         <div class="filter-form-textediting" >
           <div class="search-input">
@@ -31,7 +31,7 @@
               [(ngModel)]="textTitle" (keyup)="writeText()" name="searchQuery" autofocus>
           </div>
           <div class="font-family">
-            <label for="font-family">Font Style:</label>
+            <label for="font-family">Font Style: ({{font}})</label>
             <div class="chips w100" *ngIf="fontsFamily">
               <ul id="font-family" class="flex">
                 <li *ngFor="let font of fontsFamily" role="checkbox">
@@ -53,9 +53,9 @@
         </div>
       </div>
     </form>
-
+ 
     <div *ngIf="filters" class="popup-slider">
-      <ngx-slick-carousel class="user-images" #slickModal="slick-carousel" [config]="slideConfig">
+      <ngx-slick-carousel class="user-images"  #slickEditModal="slick-carousel" [config]="slideConfig">
         <div ngxSlickItem *ngFor="let filter of filters" class="slide">
           <a href="javascript:void(0);" class="filter-overlay" [ngClass]="filter?.text"
             (click)="updateImageFilter(filter?.text)">
@@ -65,6 +65,7 @@
         </div>
       </ngx-slick-carousel>
     </div>
+    <div class="loader" *ngIf="!filters"></div>
   </div>
 
 </div>

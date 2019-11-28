@@ -35,7 +35,7 @@ export class GalleryComponent implements OnInit {
   loading = false;
   sharePhoto: Observable<any>;
   userImages: Observable<any>;
-  imageDetail = true;
+  imageDetail = false;
   pos: number;
   max: number;
 
@@ -76,9 +76,13 @@ export class GalleryComponent implements OnInit {
 
   openShareModal(id: string, imageDetail: boolean, image: any) {
     this.sharePhoto = image;
-    this.imageDetail = imageDetail;
-    this.imageDetail ? this.isEditEnabled = false : this.isEditEnabled = true;
-    this.getUsersPhotos(image);
+    if (imageDetail) {
+      this.imageDetail = imageDetail;
+      this.isEditEnabled = false;
+      this.getUsersPhotos(image);
+    } else {
+      this.isEditEnabled = true;
+    }
     this.openedPopupId = id;
     this.popupService.open(id);
   }

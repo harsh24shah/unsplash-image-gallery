@@ -35,13 +35,16 @@
         <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
           [ngStyle]="{background: 'url(' + photo?.urls?.thumb + ') center no-repeat / cover'}">
           <div class="image-wrapper">
-            <div (click)="openShareModal('sharePopup',true,photo)">
-              <img [alt]="photo?.alt_description" [src]="photo?.urls?.small" (load)="loading = true;" />
+            <div (click)="openShareModal('sharePopup', true, photo)">
+              <img [alt]="photo?.alt_description" *ngIf="photo?.urls?.small" [src]="photo?.urls?.small"
+                (load)="loading = true;" />
             </div>
             <div class="user-info flex align-items-center justify-content-between">
               <a [href]="photo?.user?.links?.html" target="_blank" rel="noreferrer">
-                <span class="user-profile-image"><img [alt]="photo?.user?.first_name"
-                    [src]="photo?.user?.profile_image?.small" /></span>
+                <span class="user-profile-image">
+                  <img *ngIf="photo?.user?.profile_image?.small" [alt]="photo?.user?.first_name"
+                    [src]="photo?.user?.profile_image?.small" />
+                </span>
                 <span class="user-name">{{photo?.user.first_name}}</span>
               </a>
               <span><span class="trash" (click)="openShareModal('editPopup', false, photo)">
@@ -67,5 +70,9 @@
   </div>
 </div>
 
-<app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" [imageDetail]="true" class="hide"></app-popup>
-<app-popup id="editPopup" [sharePhoto]="sharePhoto" [imageDetail]="false" class="hide"></app-popup>
+
+<app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" [imageDetail]="true" class="hide">
+</app-popup>
+<ng-container *ngIf="isEditEnabled">
+  <app-popup id="editPopup" [sharePhoto]="sharePhoto" [imageDetail]="false" class="hide"></app-popup>
+</ng-container>

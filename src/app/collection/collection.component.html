@@ -6,7 +6,7 @@
         [ngStyle]="{background: 'url(' + collection?.cover_photo?.urls.thumb + ') center no-repeat / cover'}">
         <a [routerLink]="['./', collection?.id]">
           <span>
-            <img [src]="collection?.cover_photo?.urls?.small" />
+            <img *ngIf="collection?.cover_photo?.urls?.small" [src]="collection?.cover_photo?.urls?.small" />
             <span class="collection-text flex">
               <span>{{collection?.title}}</span>
               <span class="small">{{collection?.total_photos}} Photos</span>

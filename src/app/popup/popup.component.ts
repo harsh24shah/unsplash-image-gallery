@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { Generalparameters } from '../common/constants';
 import { PopupService } from './popup.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-popup',
@@ -22,7 +23,7 @@ import { PopupService } from './popup.service';
 export class PopupComponent implements OnInit, OnDestroy {
   @Input() id: '';
   @Input() sharePhoto: any = [];
-  @Input() userImages: any = []; // Related Images of current image
+  @Input() userImages: Observable<any>; // Related Images of current image
   @Input() imageDetail: boolean;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   private element: any;
@@ -75,11 +76,6 @@ export class PopupComponent implements OnInit, OnDestroy {
     this.closeModal(this.id);
   }
 
-  ngOnDestroy(): void {
-    this.popupService.remove(this.id);
-    this.element.remove();
-  }
-
   changeimage(userImage) {
     this.sharePhoto = userImage;
   }
@@ -100,10 +96,14 @@ export class PopupComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.element.classList.add('hide');
       this.element.remove();
-      this.userImages = [];
-      this.sharePhoto = '';
+      this.userImages = null;
     }, 500);
     window.history.replaceState(null, null, window.location.pathname + '');
+  }
+
+  ngOnDestroy(): void {
+    this.popupService.remove(this.id);
+    this.element.remove();
   }
 
 }
