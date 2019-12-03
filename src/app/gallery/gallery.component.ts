@@ -35,6 +35,7 @@ export class GalleryComponent implements OnInit {
   loading = false;
   sharePhoto: Observable<any>;
   userImages: Observable<any>;
+  isPopupActive = false;
   imageDetail = false;
   pos: number;
   max: number;
@@ -80,11 +81,13 @@ export class GalleryComponent implements OnInit {
       this.imageDetail = imageDetail;
       this.isEditEnabled = false;
       this.getUsersPhotos(image);
+      this.openedPopupId = id;
+      this.popupService.open(id);
     } else {
       this.isEditEnabled = true;
+      this.openedPopupId = id;
+      this.popupService.open(id);
     }
-    this.openedPopupId = id;
-    this.popupService.open(id);
   }
 
   getUsersPhotos(sharePhoto: any) {

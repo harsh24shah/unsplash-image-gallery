@@ -10,15 +10,17 @@
             </div>
             <div class="user-info flex align-items-center justify-content-between" rel="noreferrer">
               <span>
-                <span class="user-profile-image"><img *ngIf="photoset?.imageOwnerProfile" [alt]="photoset?.imageOwnerName" [src]="photoset?.imageOwnerProfile" /></span>
+                <span class="user-profile-image">
+                  <img *ngIf="photoset?.imageOwnerProfile" [alt]="photoset?.imageOwnerName"
+                    [src]="photoset?.imageOwnerProfile" /></span>
                 <span class="user-name">{{photoset?.imageOwnerName}}</span>
               </span>
-              <span><span class="trash" (click)="addFavorite(photoset)"><i
-                    class="material-icons">delete</i></span></span>
+              <span><span class="trash" (click)="addFavorite(photoset)">
+                  <i class="icon icon-delete"></i></span></span>
             </div>
             <div class="image-info">
               <a class="image-like" [href]="photoset?.imageDownloadPath" download rel="nofollow">
-                <i class="material-icons">arrow_downward</i>
+                <i class="icon icon-download"></i>
               </a>
             </div>
           </div>

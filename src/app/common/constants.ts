@@ -58,7 +58,7 @@ export module Generalparameters {
             { text: 'sutro' },
             { text: 'toaster' },
             { text: 'walden' },
-            { text: '1977' },
+            { text: 'vintage' },
             { text: 'kelvin' },
             { text: 'maven' },
             { text: 'ginza' },
@@ -73,9 +73,9 @@ export module Generalparameters {
     export class SliderConfig {
         public static readonly SLIDERPARAMS = {
             'slidesToShow': 3,
-            'slidesToScroll': 1,
-            'nextArrow': '<div class="nav-btn next-slide material-icons">arrow_forward</div>',
-            'prevArrow': '<div class="nav-btn prev-slide material-icons">arrow_back</div>',
+            'slidesToScroll': 3,
+            'nextArrow': '<div class="nav-btn next-slide icon icon-next"></div>',
+            'prevArrow': '<div class="nav-btn prev-slide icon icon-prev"></div>',
             'infinite': false,
             'responsive': [{
                 'breakpoint': 768,

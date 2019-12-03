@@ -127,7 +127,7 @@ section {
 
 body {
   line-height: 1;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Roboto Mono', monospace, sans-serif;
 }
 ol,
 ul {
@@ -149,8 +149,9 @@ table {
   border-spacing: 0;
 }
 
-.material-icons {
-  font-size: 1.3rem;
+.icon {
+  display: flex;
+  font-size: 1rem;
 }
 .modal-open {
   overflow: hidden;

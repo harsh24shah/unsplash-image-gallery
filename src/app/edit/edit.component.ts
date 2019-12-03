@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Generalparameters } from '../common/constants';
 import { GalleryServices } from '../gallery/gallery.service';
 import { Util } from '../common/util';
 import { PopupService } from '../popup/popup.service';
+import { SlickCarouselComponent } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-edit',
@@ -11,13 +12,15 @@ import { PopupService } from '../popup/popup.service';
   styleUrls: ['../../app/app.component.scss']
 })
 
-export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EditComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @ViewChild('editCanvas', { static: true }) myCanvas: ElementRef;
+  @ViewChild('slickEditModal', { static: true }) slickEdits: SlickCarouselComponent;
   @Input() id: string;
-  private sub: any;
+
   context: CanvasRenderingContext2D;
   baseImage = new Image();
   canvas;
+
   textTitle = Generalparameters.EditInitparameters.TEXTTITLE;
   textColor: string;
   textBaseline: CanvasTextBaseline;
@@ -27,6 +30,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedText = -1;
   fontsFamily = Generalparameters.EditInitparameters.FONTFAMILY.split(',');
   selectedFont = 'Open Sans';
+
   imageSrc: string;
   imageThumbSrc: string;
   imageWidth: number;
@@ -36,6 +40,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   photo: [];
   positionX: number;
   positionY: number;
+
   filters = Generalparameters.EditInitparameters.FILTERS;
   solidFilters = Generalparameters.EditInitparameters.SOLIDFILTERS;
   slideConfig = Generalparameters.SliderConfig.SLIDERPARAMS;
@@ -44,6 +49,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   filterHuerotate: number;
   filterSaturate: number;
   filterSepia: number;
+  showSlider: boolean;
 
   constructor(
     private galleryServices: GalleryServices,
@@ -59,13 +65,19 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this.id);
-    this.getPhotoFromId(this.id);
     this.baseImage.crossOrigin = 'Anonymous';
+  }
+
+  ngOnChanges() {
+    this.showSlider = true;
+    if (this.id) {
+      this.getPhotoFromId(this.id);
+    }
   }
 
   closeModal(id: string) {
     this.popupService.close(id);
+    this.showSlider = false;
     this.ngOnDestroy();
   }
 
@@ -332,9 +344,9 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-   // this.baseImage = null;
-   // this.imageSrc = '';
-   // this.id = '';
+    // this.baseImage = null;
+    // this.imageSrc = '';
+    // this.id = '';
   }
 
 }

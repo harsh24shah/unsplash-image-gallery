@@ -24,13 +24,14 @@ export class PopupComponent implements OnInit, OnDestroy {
   @Input() id: '';
   @Input() sharePhoto: any = [];
   @Input() userImages: Observable<any>; // Related Images of current image
-  @Input() imageDetail: boolean;
+  @Input() imageDetail: false;
   @Output() notify: EventEmitter<any> = new EventEmitter<any>();
   private element: any;
   private ImageUrl: string;
   private showloader = false;
   private isShareActive = false;
   slideConfig = Generalparameters.SliderConfig.SLIDERPARAMS;
+  isPopupOpen = false;
 
   constructor(private popupService: PopupService, private el: ElementRef) {
     this.element = el.nativeElement;
@@ -82,6 +83,7 @@ export class PopupComponent implements OnInit, OnDestroy {
 
   // to open modal
   open(): void {
+    this.isPopupOpen = true;
     document.getElementById('popup-wrap').appendChild(this.element);
     document.getElementById('popup-wrap').classList.add('active');
     this.element.classList.remove('hide');
@@ -99,11 +101,11 @@ export class PopupComponent implements OnInit, OnDestroy {
       this.userImages = null;
     }, 500);
     window.history.replaceState(null, null, window.location.pathname + '');
+    this.isPopupOpen = false;
   }
 
   ngOnDestroy(): void {
     this.popupService.remove(this.id);
-    this.element.remove();
   }
 
 }

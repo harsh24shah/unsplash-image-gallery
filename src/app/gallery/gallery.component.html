@@ -13,7 +13,7 @@
     </form>
     <div class="sorting flex">
       <div class="sort" [ngClass]="isSortActive? 'active':''" (click)="setSort('popuplar')" [hidden]="searchQuery">
-        <i class="material-icons">sort</i>
+        <i class="icon icon-sort-down"></i>
       </div>
     </div>
   </div>
@@ -24,6 +24,7 @@
         <h1 class="text-center text-uppercase"><strong>{{pageTitle}}</strong></h1>
       </div>
       <div class="chips w100" *ngIf="collection?.tags">
+        <label>Related Tags:&nbsp;</label>
         <ul class="flex">
           <li *ngFor="let tag of collection?.tags"><a (click)="getSearchResult(tag?.title)">#{{tag?.title}}</a></li>
         </ul>
@@ -48,13 +49,13 @@
                 <span class="user-name">{{photo?.user.first_name}}</span>
               </a>
               <span><span class="trash" (click)="openShareModal('editPopup', false, photo)">
-                  <i class="material-icons">edit</i></span>
+                  <i class="icon icon-edit"></i></span>
               </span>
             </div>
             <div class="image-info flex align-items-center">
               <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
                 [hidden]="hidebutton[photo?.id]">
-                <i class="material-icons-outlined">thumb_up</i>
+                <i class="icon icon-bookmark-outline"></i>
               </a>
             </div>
           </div>
@@ -70,9 +71,7 @@
   </div>
 </div>
 
-
 <app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" [imageDetail]="true" class="hide">
 </app-popup>
-<ng-container *ngIf="isEditEnabled">
-  <app-popup id="editPopup" [sharePhoto]="sharePhoto" [imageDetail]="false" class="hide"></app-popup>
-</ng-container>
+<app-popup id="editPopup" [sharePhoto]="sharePhoto" [imageDetail]="false" class="hide">
+</app-popup>

@@ -12,6 +12,7 @@
 
   body {
     background: $secondary;
+    transition: all 0.2s ease;
   }
 
   @include chips-theme($primary, $secondary);
@@ -21,4 +22,3 @@
   @include popup-theme($primary, $secondary, $common);
   @include form-theme($primary, $secondary);
 }
- 
