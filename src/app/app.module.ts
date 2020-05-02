@@ -20,7 +20,6 @@ import { EditComponent } from './edit/edit.component';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,6 @@ import { AngularFireModule } from '@angular/fire';
     SlickCarouselModule,
     FormsModule,
     RouterModule,
-    AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [ImageDetails, PopupService, GalleryServices],
