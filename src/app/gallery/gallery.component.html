@@ -1,40 +1,39 @@
 <div class="gallery-wrapper main-container">
-  <div class="search flex" *ngIf="showSearch">
-    <form class="search-form" (keydown)="triggerEnter($event)">
-      <div class="form-field">
-        <label for="search-images" class="hidethis">Search</label>
-        <div class="search-input"><input id="search-images" type='text' placeholder='Search' [(ngModel)]='searchQuery'
-            name='searchQuery'>
+    <div class="search flex" *ngIf="showSearch">
+        <form class="search-form" (keydown)="triggerEnter($event)">
+            <div class="form-field">
+                <label for="search-images" class="hidethis">Search</label>
+                <div class="search-input">
+                    <input id="search-images" type='text' placeholder='Search' [(ngModel)]='searchQuery' name='searchQuery'>
+                    <button aria-label="searchimage" name="search" type="button" [disabled]="!searchQuery" (focus)="getSearchResult(searchQuery)">
+                        <i class="icon icon-searches"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="sorting flex">
+            <div class="sort" [ngClass]="isSortActive? 'active':''" (click)="setSort('popuplar')" [hidden]="searchQuery">
+                <i class="icon icon-sort-down"></i>
+            </div>
         </div>
-        <button aria-label="searchimage" name="search" type="button" [disabled]="!searchQuery"
-          (focus)="getSearchResult(searchQuery)">
-          <i class="icon icon-search"></i></button>
-      </div>
-    </form>
-    <div class="sorting flex">
-      <div class="sort" [ngClass]="isSortActive? 'active':''" (click)="setSort('popuplar')" [hidden]="searchQuery">
-        <i class="icon icon-sort-down"></i>
-      </div>
-    </div>
-  </div>
-
-  <div class="gallery-component">
-    <div class="search flex" *ngIf="showCollectionTitle">
-      <div class="w100 collection-banner">
-        <h1 class="text-center text-uppercase"><strong>{{pageTitle}}</strong></h1>
-      </div>
-      <div class="chips w100" *ngIf="collection?.tags">
-        <label>Related Tags:&nbsp;</label>
-        <ul class="flex">
-          <li *ngFor="let tag of collection?.tags"><a (click)="getSearchResult(tag?.title)">#{{tag?.title}}</a></li>
-        </ul>
-      </div>
     </div>
 
-    <div class="main-content">
-      <div class="masonry flex masonry--h" id="masonry">
-        <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
-          [ngStyle]="{background: 'url(' + photo?.urls?.thumb + ') center no-repeat / cover'}">
+    <div class="gallery-component">
+        <div class="search flex" *ngIf="showCollectionTitle">
+            <div class="w100 collection-banner">
+                <h1 class="text-center text-uppercase"><strong>{{pageTitle}}</strong></h1>
+            </div>
+            <div class="chips w100" *ngIf="collection?.tags">
+                <label>Related Tags:&nbsp;</label>
+                <ul class="flex">
+                    <li *ngFor="let tag of collection?.tags"><a (click)="getSearchResult(tag?.title)">#{{tag?.title}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="masonry flex masonry--h" id="masonry">
+                <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index" [ngStyle]="{background: 'url(' + photo?.urls?.thumb + ') center no-repeat / cover'}">
           <div class="image-wrapper">
             <div (click)="openShareModal('sharePopup', true, photo)">
               <img [alt]="photo?.alt_description" *ngIf="photo?.urls?.small" [src]="photo?.urls?.small"
@@ -47,28 +46,27 @@
                     [src]="photo?.user?.profile_image?.small" />
                 </span>
                 <span class="user-name">{{photo?.user.first_name}}</span>
-              </a>
-              <span><span class="trash" (click)="openShareModal('editPopup', false, photo)">
+                </a>
+                <span><span class="trash" (click)="openShareModal('editPopup', false, photo)">
                   <i class="icon icon-edit"></i></span>
-              </span>
+                </span>
             </div>
             <div class="image-info flex align-items-center">
-              <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)"
-                [hidden]="hidebutton[photo?.id]">
-                <i class="icon icon-bookmark-outline"></i>
-              </a>
+                <a href="javascript:void(0);" class="image-like text-left" (click)="addFavorite(photo)" [hidden]="hidebutton[photo?.id]">
+                    <i class="icon icon-bookmark-outline"></i>
+                </a>
             </div>
-          </div>
+        </div>
         </span>
-      </div>
-      <div class="loader relative" *ngIf="photos"></div>
-      <span class="chips loadmore gallery-loadmore" *ngIf="photos.length">
+    </div>
+    <div class="loader relative" *ngIf="photos"></div>
+    <span class="chips loadmore gallery-loadmore" *ngIf="photos.length">
         <ul class="text-center">
           <li><a href="javascript:void(0);" (click)="loadmoreContent()">Load more</a></li>
         </ul>
       </span>
-    </div>
-  </div>
+</div>
+</div>
 </div>
 
 <app-popup id="sharePopup" [sharePhoto]="sharePhoto" [userImages]="userImages" [imageDetail]="true" class="hide">

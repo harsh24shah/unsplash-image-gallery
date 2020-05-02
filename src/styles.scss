@@ -1,77 +1,69 @@
 @mixin loader-theme() {
-  $gray: #ddd;
-
-  .loader {
-    margin: 60px auto;
-    font-size: 10px;
-    position: absolute;
-    text-indent: -9999em;
-    border-top: 0.3em solid $gray;
-    border-right: 0.3em solid $gray;
-    border-bottom: 0.3em solid $gray;
-    border-left: 0.3em solid black;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-animation: load8 1.1s infinite cubic-bezier(0.19, 1, 0.22, 1);
-    animation: load8 1.1s infinite cubic-bezier(0.19, 1, 0.22, 1);
-    left: 50%;
-    top: 50%;
-    z-index: 2;
-
-    &,
-    &:after {
-      border-radius: 50%;
-      width: 5em;
-      height: 5em;
+    $gray: #ddd;
+    .loader {
+        margin: 60px auto;
+        font-size: 10px;
+        position: absolute;
+        text-indent: -9999em;
+        border-top: 0.3em solid $gray;
+        border-right: 0.3em solid $gray;
+        border-bottom: 0.3em solid $gray;
+        border-left: 0.3em solid black;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation: load8 1.1s infinite cubic-bezier(0.19, 1, 0.22, 1);
+        animation: load8 1.1s infinite cubic-bezier(0.19, 1, 0.22, 1);
+        left: 50%;
+        top: 50%;
+        z-index: 2;
+        &,
+        &:after {
+            border-radius: 50%;
+            width: 5em;
+            height: 5em;
+        }
+        &.relative {
+            position: relative;
+            left: auto;
+            top: auto;
+            transform: translateZ(0);
+        }
+        @media (max-width: 767px) {
+            left: 45%;
+        }
+        @media (max-width: 520px) {
+            left: 40%;
+        }
     }
-
-    &.relative {
-      position: relative;
-      left: auto;
-      top: auto;
-      transform: translateZ(0);
+    @-webkit-keyframes load8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
     }
-
-    @media (max-width: 767px) {
-      left: 45%;
+    @keyframes load8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
     }
-
-    @media (max-width: 520px) {
-      left: 40%;
-    }
-  }
-
-  @-webkit-keyframes load8 {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes load8 {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
 }
 
 @include loader-theme();
-
 @import "../external-assets/scss/scss-components/_utilities";
-@import "../external-assets/scss/scss-components/_chips";
-@import "../external-assets/scss/scss-components/_navigation";
 @import "../external-assets/scss/scss-components/_gallery";
 @import "../external-assets/scss/scss-components/_collection";
 @import "../external-assets/scss/scss-components/_popup";
+@import "../external-assets/scss/scss-components/_navigation";
+@import "../external-assets/scss/scss-components/_chips";
 @import "../external-assets/scss/scss-components/_form";
 @import "../external-assets/scss/scss-components/_slick-sliders";

@@ -84,24 +84,27 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
 *,
 ::before,
 ::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  font-size: 16px;
+    font-size: 16px;
 }
+
+
 /* HTML5 display-role reset for older browsers */
+
 article,
 aside,
 details,
@@ -113,165 +116,196 @@ hgroup,
 menu,
 nav,
 section {
-  display: block;
+    display: block;
 }
 
 .main-container {
-  padding: 0 1.5em;
-  margin: 0 auto;
-
-  @media (min-width: 767px) {
-    max-width: 90%;
-  }
+    padding: 0 1.5em;
+    margin: 0 auto;
+    @media (min-width: 767px) {
+        max-width: 90%;
+    }
 }
 
 body {
-  line-height: 1;
-  font-family: 'Roboto Mono', monospace, sans-serif;
+    line-height: 1;
+    font-family: 'Noto Sans JP', sans-serif;
 }
+
 ol,
 ul {
-  list-style: none;
+    list-style: none;
 }
+
 blockquote,
 q {
-  quotes: none;
+    quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
-  content: none;
+    content: "";
+    content: none;
 }
+
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 .icon {
-  display: flex;
-  font-size: 1rem;
+    display: flex;
+    font-size: 1rem;
 }
+
 .modal-open {
-  overflow: hidden;
+    overflow: hidden;
 }
+
 .pull-right {
-  float: right;
+    float: right;
 }
+
 .pull-left {
-  float: left;
+    float: left;
 }
+
 // Alignment
 .text-left {
-  text-align: left;
+    text-align: left;
 }
+
 .text-right {
-  text-align: right;
+    text-align: right;
 }
+
 .text-center {
-  text-align: center;
+    text-align: center;
 }
+
 .text-justify {
-  text-align: justify;
+    text-align: justify;
 }
+
 .text-nowrap {
-  white-space: nowrap;
+    white-space: nowrap;
 }
+
 // Transformation
 .text-lowercase {
-  text-transform: lowercase;
+    text-transform: lowercase;
 }
+
 .text-uppercase {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
+
 .text-capitalize {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
+
 .hidethis {
-  height: 0;
-  width: 0;
-  opacity: 0;
-  transform: scale(0);
-  margin: 0;
-  padding: 0;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    transform: scale(0);
+    margin: 0;
+    padding: 0;
 }
+
 .hide {
-  display: none;
+    display: none;
 }
+
 .flex {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
+
 .flex-nowrap {
-  flex-wrap: nowrap;
+    flex-wrap: nowrap;
 }
+
 .flex-column {
-  flex-direction: column;
+    flex-direction: column;
 }
+
 .justify-content-between {
-  justify-content: space-between;
+    justify-content: space-between;
 }
+
 .align-items-center {
-  align-items: center;
+    align-items: center;
 }
+
 .w100 {
-  width: 100%;
+    width: 100%;
 }
+
 .hidden {
-  display: none;
+    display: none;
 }
+
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
+
 .small {
-  font-size: 10px;
-  font-weight: lighter;
-  line-height: 2;
+    font-size: 10px;
+    font-weight: lighter;
+    line-height: 2;
 }
+
 strong {
-  font-weight: 600;
+    font-weight: 600;
 }
+
 h1,
 h2,
 h3,
 h4 {
-  font-weight: 600;
-  margin-bottom: 10px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
+
 h1,
 .h1 {
-  font-size: 3rem;
+    font-size: 3rem;
 }
+
 h2,
 .h2 {
-  font-size: 2.6rem;
+    font-size: 2.6rem;
 }
+
 h3,
 .h3 {
-  font-size: 2rem;
+    font-size: 2rem;
 }
+
 h4,
 .h4 {
-  font-size: 1.6rem;
-  line-height: normal;
+    font-size: 1.6rem;
+    line-height: normal;
 }
 
 @media (max-width: 768px) {
-  h1,
-  .h1 {
-    font-size: 2rem;
-  }
-  h2,
-  .h2 {
-    font-size: 2rem;
-  }
-  h3,
-  .h3 {
-    font-size: 1.8rem;
-  }
-  h4,
-  .h4 {
-    font-size: 1.6rem;
-  }
+    h1,
+    .h1 {
+        font-size: 2rem;
+    }
+    h2,
+    .h2 {
+        font-size: 2rem;
+    }
+    h3,
+    .h3 {
+        font-size: 1.8rem;
+    }
+    h4,
+    .h4 {
+        font-size: 1.6rem;
+    }
 }
