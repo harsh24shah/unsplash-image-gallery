@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Generalparameters } from '../common/constants';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Generalparameters } from '../common/constants';
 
 @Injectable()
 export class GalleryServices {
-  unsplashUrl = Generalparameters.ApiConstants.BASEURL;
+  unsplashUrl = environment.apiUrl;
   apiKey = Generalparameters.ApiConstants.APIKEY;
   photos = Generalparameters.ApiConstants.PHOTOS;
   collections = Generalparameters.ApiConstants.COLLECTIONS;

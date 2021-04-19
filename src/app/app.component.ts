@@ -7,7 +7,7 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router';
-import { GalleryServices } from './gallery/gallery.service';
+import { GalleryServices } from './services/gallery.service';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

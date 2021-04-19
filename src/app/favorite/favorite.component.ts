@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GalleryServices } from '../gallery/gallery.service';
+import { GalleryServices } from '../services/gallery.service';
 import { Router } from '@angular/router';
 
 @Component({

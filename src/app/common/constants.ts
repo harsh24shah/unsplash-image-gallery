@@ -1,6 +1,5 @@
 export module Generalparameters {
     export class ApiConstants {
-        public static readonly BASEURL: string = 'https://api.unsplash.com';
         public static readonly APIKEY: string = '?client_id=061c51148e8b602c992064482ba158499083625ae7139aee5d6bda6e2c895c96';
         // 80c4c536403e65bc0651d0b3b116904ff9da875406e68a509c2d65346b418d65
         public static readonly PHOTOS: string = '/photos';

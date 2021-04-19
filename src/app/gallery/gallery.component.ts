@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ViewEncapsulation, Input } from '@angular/core';
-import { GalleryServices } from './gallery.service';
+import { GalleryServices } from '../services/gallery.service';
 import { ActivatedRoute } from '@angular/router';
 import { ImageDetails } from '../models/image-detail.model';
 import { PopupService } from '../popup/popup.service';
@@ -81,13 +81,11 @@ export class GalleryComponent implements OnInit {
       this.imageDetail = imageDetail;
       this.isEditEnabled = false;
       this.getUsersPhotos(image);
-      this.openedPopupId = id;
-      this.popupService.open(id);
     } else {
       this.isEditEnabled = true;
-      this.openedPopupId = id;
-      this.popupService.open(id);
     }
+    this.openedPopupId = id;
+    this.popupService.open(id);
   }
 
   getUsersPhotos(sharePhoto: any) {

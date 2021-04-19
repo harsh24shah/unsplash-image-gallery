@@ -13,7 +13,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { DummydetailComponent } from './collection/dummydetail/dummydetail.component';
 import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './popup/popup.service';
-import { GalleryServices } from './gallery/gallery.service';
+import { GalleryServices } from './services/gallery.service';
 import { TrendingComponent } from './trending/trending.component';
 import { HomeComponent } from './home/home.component';
 import { EditComponent } from './edit/edit.component';
