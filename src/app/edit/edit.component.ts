@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Generalparameters } from '../common/constants';
-import { GalleryServices } from '../services/gallery.service';
-import { Util } from '../common/util';
+import { Generalparameters } from '../shared/constants/constants';
+import { GalleryServices } from '../shared/services/gallery.service';
+import { Util } from '../shared/utilities/util';
 import { PopupService } from '../popup/popup.service';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 

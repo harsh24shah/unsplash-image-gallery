@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { GalleryServices } from '../services/gallery.service';
+import { GalleryServices } from '../shared/services/gallery.service';
 
 @Component({
   selector: 'app-collection',

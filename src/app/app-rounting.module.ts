@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { CollectionComponent } from './collection/collection.component';
 import { DetailpageComponent } from './collection/detailpage/detailpage.component';
 import { FavoriteComponent } from './favorite/favorite.component';
@@ -8,7 +7,7 @@ import { DummydetailComponent } from './collection/dummydetail/dummydetail.compo
 import { TrendingComponent } from './trending/trending.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', loadChildren: () => import('./landing-page/landing-page-routing.module').then(m => m.LandingPageRoutingModule) },
   { path: 'favorite', component: FavoriteComponent },
   { path: 'trending', component: TrendingComponent },
   {

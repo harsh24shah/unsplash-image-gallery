@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Generalparameters } from '../common/constants';
-import { environment } from '../../environments/environment';
+import { Generalparameters } from '../constants/constants';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -9,7 +9,7 @@ import {
   HostListener,
   OnDestroy
 } from '@angular/core';
-import { Generalparameters } from '../common/constants';
+import { Generalparameters } from '../shared/constants/constants';
 import { PopupService } from './popup.service';
 import { Observable } from 'rxjs';
 

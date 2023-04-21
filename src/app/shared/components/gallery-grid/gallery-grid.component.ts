@@ -1,18 +1,16 @@
-import { Component, OnInit, HostListener, ViewEncapsulation, Input } from '@angular/core';
-import { GalleryServices } from '../shared/services/gallery.service';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ImageDetails } from '../shared/models/image-detail.model';
-import { PopupService } from '../popup/popup.service';
 import { Observable } from 'rxjs';
+import { ImageDetails } from 'src/app/shared/models/image-detail.model';
+import { PopupService } from 'src/app/popup/popup.service';
+import { GalleryServices } from 'src/app/shared/services/gallery.service';
 
 @Component({
-  selector: 'app-gallery-grid',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['../../app/app.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  selector: 'gallery-grid',
+  templateUrl: './gallery-grid.component.html',
+  styleUrls: ['./gallery-grid.component.scss']
 })
-
-export class GalleryComponent implements OnInit {
+export class GalleryGridComponent implements OnInit {
   @Input() orderBy = '';
   @Input() id: number;
   @Input() showCollectionTitle = false;
@@ -39,12 +37,12 @@ export class GalleryComponent implements OnInit {
   imageDetail = false;
   pos: number;
   max: number;
-
+  
   constructor(
     private route: ActivatedRoute,
     private galleryServices: GalleryServices,
-    private popupService: PopupService) {
-  }
+    private popupService: PopupService
+  ) { }
 
   ngOnInit() {
     if (this.isHomePage || this.isTrendingPage) {
