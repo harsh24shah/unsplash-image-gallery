@@ -1,9 +1,10 @@
 import { Component, OnInit, HostListener, ViewEncapsulation, Input } from '@angular/core';
 import { GalleryServices } from '../services/gallery.service';
 import { ActivatedRoute } from '@angular/router';
-import { ImageDetails } from '../models/image-detail.model';
+
 import { PopupService } from '../popup/popup.service';
 import { Observable } from 'rxjs';
+import { ImageDetails } from '../models/image-detail.model';
 
 @Component({
   selector: 'app-gallery-grid',

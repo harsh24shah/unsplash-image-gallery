@@ -1,0 +1,21 @@
+<div class="main-content" *ngIf="photos?.length > 0">
+  <div class="masonry flex masonry--h" id="masonry">
+    <span class="masonry-brick masonry-brick--h" *ngFor="let photo of photos, let i = index"
+      [ngStyle]="{background: 'url(' + photo?.urls?.thumb + ') center no-repeat / cover'}">
+      <div class="image-wrapper">
+        <div (click)="openShareModal('popup', photo)">
+          <img [alt]="photo?.alt_description" *ngIf="photo?.urls?.small" [src]="photo?.urls?.small"
+            (load)="loading = true;" />
+        </div>
+        <div class="user-info flex align-items-center justify-content-between">
+          <a [href]="photo?.user?.links?.html" target="_blank" rel="noreferrer">
+            <span class="user-profile-image" *ngIf="photo?.user?.profile_image?.small">
+              <img [alt]="photo?.user?.first_name" [src]="photo?.user?.profile_image?.small" />
+            </span>
+            <span class="user-name">{{photo?.user.first_name}}</span>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>

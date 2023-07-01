@@ -8,7 +8,7 @@ import { DummydetailComponent } from './collection/dummydetail/dummydetail.compo
 import { TrendingComponent } from './trending/trending.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'old-home', component: HomeComponent },
   { path: 'favorite', component: FavoriteComponent },
   { path: 'trending', component: TrendingComponent },
   {
@@ -17,7 +17,8 @@ const routes: Routes = [
       { path: '', component: CollectionComponent },
       { path: ':id', component: DetailpageComponent }
     ]
-  }
+  },
+  { path: '', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) }
 ];
 
 @NgModule({

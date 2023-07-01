@@ -1,0 +1,7 @@
+<ng-container *ngIf="!isEdit;else imageEditSection">
+  <app-view-detail></app-view-detail>
+</ng-container>
+
+<ng-template #imageEditSection>
+  <app-edit-detail></app-edit-detail>
+</ng-template>
