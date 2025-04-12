@@ -1,0 +1,26 @@
+<div class="colelction-grid-wrapper">
+  <div class="user-info">
+    <span class="user-avatar">
+      <h1>{{collection.title}}</h1>
+    </span>
+    <button mat-icon-button aria-label="Clear" (click)="close()">
+      <mat-icon fontIcon="close"></mat-icon>
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  @defer  {
+      <div class="grid-wrapper">
+        @for (image of collectionImages; track $index) {
+        <div class="grid-item">
+          <app-image-tile [image]="image"></app-image-tile>
+        </div>
+        }
+      </div>
+      <div class="center-button">
+        <button mat-stroked-button color="accent" (click)="loadMoreImages()">More</button>
+      </div>
+  } @placeholder {
+    <app-skeleton-loader></app-skeleton-loader>
+  }
+
+</div>

@@ -1,0 +1,9 @@
+@if(collection){
+  <div class="image-wrapper" (click)="openCollectionDetails(collection.id)">
+    <img [alt]="collection.title" [src]="collection.cover_photo.urls.thumb" />
+    <span class="collection-info">
+      <span class="collection-title">{{collection.title}}</span>
+      <span class="colection-subtitle">{{collection.total_photos}} Photos</span>
+    </span>
+  </div>
+}

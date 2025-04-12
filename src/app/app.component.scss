@@ -1,0 +1,17 @@
+.container {
+  padding: 16px 16px;
+}
+
+.header {
+  padding: 16px 16px 1px 16px;
+  box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.2);
+  position: static;
+  width: 100%;
+  box-sizing: border-box;
+
+   > small {
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+}

@@ -1,0 +1,18 @@
+@import url(/src/assets/custom-style/_grid.scss);
+
+.tab-content {
+  margin: 16px 0;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .search {
+    width: calc(100% - 40px);
+  }
+}
+
+
+

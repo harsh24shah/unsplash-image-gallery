@@ -1,0 +1,12 @@
+@if(image){
+  <div class="image-wrapper" (click)="openViewDialog(image)">
+    <img [alt]="image.alt_description" [src]="image.urls.small" />
+    <span class="user-info">
+      <span class="user-avatar">
+        <img loading="lazy" [alt]="image.user.first_name" [src]="image.user.profile_image.small" />
+        <span class="user-name">{{image.user.first_name}}</span>
+      </span>
+      <mat-icon fontIcon="edit" (click)="openEditDialog($event, image)"></mat-icon>
+    </span>
+  </div>
+}

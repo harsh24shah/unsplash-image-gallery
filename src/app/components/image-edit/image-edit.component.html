@@ -1,0 +1,72 @@
+<div class="dailog-wrapper">
+
+  <div class="dailog-left">
+    <div class="image-detail-wrapper">
+      <div class="canvas-wrap">
+        <canvas #editCanvas crossorigin="anonymous"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="dailog-right">
+    <div class="user-info">
+      <span class="user-avatar">
+        <mat-icon fontIcon="edit"></mat-icon>
+        <span class="user-name">Edit</span>
+      </span>
+      <button mat-icon-button aria-label="Clear" (click)="close()">
+        <mat-icon fontIcon="close"></mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="dialog-filters">
+      <small>Edited image will be downloaded</small>
+      <div class="download-button-section">
+        <button mat-flat-button color="accent" (click)="downloadImage()">Download</button>
+        <button mat-stroked-button color="secondary" (click)="resetBaseImage()">Reset</button>
+      </div>
+      <h3>Apply Filters</h3>
+        <div class="filter-gallery">
+          @for (filter of filters; track $index) {
+            <div class="filter-item" (click)="updateImageFilter(filter)">
+              <span class="filter-overlay" [ngClass]="filter">
+                <img [src]="image.urls.small" [alt]="filter" />
+                <span>{{filter | titlecase }}</span>
+              </span>
+            </div>
+          }
+        </div>
+        <div class="filter-form">
+
+          <mat-form-field class="control" appearance="outline">
+            <mat-label>Write Something</mat-label>
+            <input [(ngModel)]="textTitle" (input)="writeText()" matInput>
+          </mat-form-field>
+
+          <mat-form-field class="control" appearance="outline">
+            <mat-label>Choose Fonts</mat-label>
+            <mat-select [(ngModel)]="selectedFont" (ngModelChange)="writeText()">
+              @for (font of fontsFamily; track $index) {
+                <mat-option [value]="font">{{font}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <div class="control custom-control">
+            <mat-label>Font size</mat-label>
+            <mat-slider min="10" max="100" step="1" class="control">
+              <input [(ngModel)]="textFontSize" (input)="writeText()" matSliderThumb>
+            </mat-slider>
+          </div>
+
+          <mat-form-field class="control" appearance="outline">
+            <mat-label>Font color</mat-label>
+            <input (input)="writeText()" [(ngModel)]="textFontColor" type="color" matInput>
+          </mat-form-field>
+
+          <small>Based on <a href="https://unsplash.com/" target="_blank">Unsplash</a></small>
+        </div>
+    </div>
+  </div>
+
+</div>

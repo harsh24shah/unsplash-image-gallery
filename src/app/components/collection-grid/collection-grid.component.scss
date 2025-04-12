@@ -1,0 +1,28 @@
+@import url(/src/assets/custom-style/_grid.scss);
+
+.user-info,
+.user-avatar {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  justify-content: space-between;
+  z-index: 1;
+  position: relative;
+  font-size: 12px;
+  margin-bottom: 8px;
+  margin-left: 16px;
+
+  .user-name{
+    margin-left: 8px;
+  }
+}
+
+.colelction-grid-wrapper{
+  margin: 16px;
+}
+
+.grid-wrapper{
+  margin-top: 16px;
+}

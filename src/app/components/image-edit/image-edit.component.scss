@@ -1,0 +1,138 @@
+@import url(/src/assets/custom-style/_filters.scss);
+@import url(/src/assets/custom-style/_grid.scss);
+
+.image-detail-wrapper {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+  >img {
+    display: inline-block;
+    min-height: 200px;
+    margin: 0 auto;
+    float: none;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .canvas-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.dailog-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .dailog-left {
+    flex-basis: 70%;
+    overflow: hidden;
+  }
+
+  .dailog-right {
+    flex-basis: 30%;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    padding: 0 16px;
+  }
+
+  .dialog-filters {
+    margin-top: 8px;
+
+    .download-button-section {
+      margin: 16px 0;
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  .filter-gallery {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: auto;
+    max-height: 200px;
+    gap: 16px;
+
+
+    .filter-item {
+      width: calc(33% - 10px);
+      overflow: hidden;
+      height: 100px;
+      max-height: 100px;
+      border-radius: 5px;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 3px 3px 4px 1px rgba(black, 0.15);
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      .filter-overlay {
+        position: relative;
+        width: 100%;
+        height: inherit;
+        display: flex;
+        align-items: center;
+
+        >span {
+          position: absolute;
+          z-index: 1;
+          color: white;
+          bottom: 8px;
+          left: 8px;
+        }
+      }
+    }
+
+
+  }
+
+  .filter-form {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;
+
+    .control {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .custom-control {
+      margin-bottom: 22px;
+    }
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+  position: relative;
+  font-size: 12px;
+  margin-bottom: 8px;
+  margin-left: 16px;
+
+  .user-avatar {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-name{
+    margin-left: 8px;
+  }
+}

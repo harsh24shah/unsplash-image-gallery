@@ -1,0 +1,74 @@
+<div class="dailog-wrapper">
+
+  <div class="dailog-left">
+    <div class="image-detail-wrapper">
+      <img [alt]="image.alt_description" [src]="image.urls.regular" />
+    </div>
+  </div>
+
+  <div class="dailog-right">
+    <div class="user-info">
+      <span class="user-avatar">
+        <img [alt]="image.user.first_name" [src]="image.user.profile_image.small" />
+        <span class="user-name">{{image.user.first_name}}</span>
+      </span>
+      <button mat-icon-button aria-label="Clear" (click)="close()">
+        <mat-icon fontIcon="close"></mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="dialog-filters">
+      <mat-list>
+        @if(image.description){
+          <mat-list-item>
+            <div class="list">
+              <mat-icon fontIcon="description"></mat-icon>
+              <p>{{image.description}}</p>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        }
+        <mat-list-item>
+          <div class="list">
+            <mat-icon fontIcon="event"></mat-icon>{{image.created_at | date}}
+          </div>
+          </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item> <div class="list">
+          <mat-icon fontIcon="fullscreen"></mat-icon>{{image.width}} x {{image.height}}
+        </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item> <div class="list">
+          <mat-icon fontIcon="thumb_up"></mat-icon>{{image.likes}}
+        </div>
+       </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item> <div class="list">
+          <mat-icon fontIcon="format_paint"></mat-icon><span class="bg-color" [style.background]="image.color"></span>
+        </div>
+        </mat-list-item>
+      </mat-list>
+
+      <h4>More images from {{image.user.username}}</h4>
+      @defer {
+
+          <div class="filter-gallery">
+            @for (item of userImages; track $index) {
+              <div class="filter-item" (click)="changeImage(item)">
+                <span class="filter-overlay" >
+                  <img [src]="item.urls.small" loading="lazy" [alt]="image.alt_description" />
+                </span>
+              </div>
+            }
+          </div>
+
+      } @placeholder {
+        <app-skeleton-loader></app-skeleton-loader>
+      }
+
+      <small>Based on <a href="https://unsplash.com/" target="_blank">Unsplash</a></small>
+    </div>
+  </div>
+
+</div>

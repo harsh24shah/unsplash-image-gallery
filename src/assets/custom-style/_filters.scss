@@ -1,0 +1,330 @@
+.greyscale,
+.willow,
+.moon,
+.inkwell {
+  img {
+    filter: grayscale(100%);
+  }
+}
+
+.sepia {
+  img {
+    filter: sepia(100%);
+  }
+}
+
+.invert {
+  img {
+    filter: invert(100%);
+  }
+}
+
+.brightness {
+  img {
+    filter: brightness(130%);
+  }
+}
+
+.hueSaturation {
+  img {
+    filter: hue-rotate(-200deg);
+  }
+}
+
+.saturation {
+  img {
+    filter: saturate(2);
+  }
+}
+
+.contrast {
+  img {
+    filter: contrast(2);
+  }
+}
+
+.clarendon {
+  img {
+    filter: brightness(1.1) contrast(1.1) saturate(1.15);
+  }
+}
+
+.gingham {
+  img {
+    filter: sepia(0.04) contrast(0.95);
+  }
+}
+
+.lark {
+  img {
+    filter: brightness(1.2) saturate(1.5);
+  }
+}
+
+.reyes {
+  img {
+    filter: sepia(.4) brightness(1.3) contrast(0.95);;
+  }
+}
+
+.juno {
+  img {
+    filter: saturate(1.9);
+  }
+}
+
+.slumber {
+  img {
+    filter: brightness(1.1) saturate(.95);
+  }
+}
+
+.crema {
+  img {
+    filter: saturate(2.5);
+  }
+}
+
+.ludwig {
+  img {
+    filter: brightness(1.5) saturate(1.7);
+  }
+}
+
+.aden {
+  &::before {
+    content: "";
+    background-color: rgba(228, 130, 225, 0.13);
+  }
+  img {
+    filter: saturate(1);
+  }
+}
+
+.perpetua {
+  img {
+    filter: sepia(0.4);
+  }
+}
+
+.amaro {
+  img {
+    filter: saturate(1.3) brightness(150%);
+  }
+}
+
+.mayfair {
+  &::before {
+    content: "";
+    background-color: rgba(230, 115, 108, 0.05);
+  }
+  img {
+    filter: saturate(1.5);
+  }
+}
+
+.rise {
+  &::before {
+    content: "";
+    background-color: rgba(255, 170, 0, 0.1);
+  }
+  img {
+    filter: brightness(1.9) saturate(2.1);
+  }
+}
+
+.hudson {
+  img {
+    filter: brightness(1.15) contrast(1);
+  }
+}
+
+.valencia {
+  &::before {
+    content: "";
+    background-color: rgba(255, 225, 80, 0.08);
+  }
+  img {
+    filter: brightness(1.1) contrast(1.6);
+  }
+}
+
+.xpro2 {
+  &::before {
+    content: "";
+    background-color: rgba(255, 255, 0, 0.07);
+  }
+  img {
+    filter: brightness(1) contrast(2);
+  }
+}
+
+.sierra {
+  img {
+    filter: contrast(0.5) saturate(1.1);
+  }
+}
+
+.lofi {
+  img {
+    filter: contrast(1.15) saturate(2.5);
+  }
+}
+
+.hefe {
+  img {
+    filter: contrast(1.3) saturate(1.55);
+  }
+}
+
+.nashville {
+  &::before {
+    content: "";
+    background-color: rgba(220, 115, 188, 0.12);
+  }
+  img {
+    filter: contrast(0.9);
+  }
+}
+
+.stinson {
+  img {
+    filter: brightness(1.1) sepia(1.3);
+  }
+}
+
+.vesper {
+  &::before {
+    content: "";
+    background-color: rgba(255, 225, 0, 0.05);
+  }
+  img {
+    filter: brightness(1.5) sepia(0.06);
+  }
+}
+
+.earlybird {
+  &::before {
+    content: "";
+    background-color: rgba(255, 165, 40, 0.2);
+  }
+}
+
+.brannan {
+  &::before {
+    content: "";
+    background-color: rgba(140, 10, 185, 0.1);
+  }
+  img {
+    filter: contrast(1.2);
+  }
+}
+
+.sutro {
+  img {
+    filter: saturate(2) brightness(0.9);
+  }
+}
+
+.toaster {
+  img {
+    filter: saturate(0.9) brightness(0.9);
+  }
+}
+
+.walden {
+  &::before {
+    content: "";
+    background-color: rgba(255, 255, 0, 0.2);
+  }
+  img {
+    filter: brightness(0.9);
+  }
+}
+
+.vintage {
+  &::before {
+    content: "";
+    background-color: rgba(255, 25, 0, 0.15);
+  }
+  img {
+    filter: brightness(0.9);
+  }
+}
+
+.kelvin {
+  &::before {
+    content: "";
+    background-color: rgba(255, 140, 0, 0.1);
+  }
+  img {
+    filter: brightness(1.35);
+  }
+}
+.maven {
+  &::before {
+    content: "";
+    background-color: rgba(225, 240, 0, 0.1);
+  }
+  img {
+    filter: saturate(1.25) contrast(1.05);
+  }
+}
+
+.ginza {
+  img {
+    filter: sepia(1.06) brightness(1.1);
+  }
+}
+
+.skyline {
+  img {
+    filter: saturate(1.35) brightness(1.1);
+  }
+}
+
+.dogpatch {
+  img {
+    filter: contrast(1.15) brightness(1.1);
+  }
+}
+
+.brooklyn {
+  &::before {
+    content: "";
+    background-color: rgba(25, 240, 252, 0.05);
+  }
+  img {
+    filter: sepia(1.3);
+  }
+}
+
+.helena {
+  &::before {
+    content: "";
+    background-color: rgba(208, 208, 86, 0.2);
+  }
+  img {
+    filter: contrast(1.15);
+  }
+}
+
+.ashby {
+  &::before {
+    content: "";
+    background-color: rgba(255, 160, 25, 0.1);
+  }
+  img {
+    filter: brightness(1.1);
+  }
+}
+
+.charmes {
+  &::before {
+    content: "";
+    background-color: rgba(255, 50, 80, 0.12);
+  }
+  img {
+    filter: contrast(1.05);
+  }
+}

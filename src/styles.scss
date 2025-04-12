@@ -1,69 +1,42 @@
-@mixin loader-theme() {
-    $gray: #ddd;
-    .loader {
-        margin: 60px auto;
-        font-size: 10px;
-        position: absolute;
-        text-indent: -9999em;
-        border-top: 0.3em solid $gray;
-        border-right: 0.3em solid $gray;
-        border-bottom: 0.3em solid $gray;
-        border-left: 0.3em solid black;
-        -webkit-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-animation: load8 1.1s infinite cubic-bezier(0.19, 1, 0.22, 1);
-        animation: load8 1.1s infinite cubic-bezier(0.19, 1, 0.22, 1);
-        left: 50%;
-        top: 50%;
-        z-index: 2;
-        &,
-        &:after {
-            border-radius: 50%;
-            width: 5em;
-            height: 5em;
-        }
-        &.relative {
-            position: relative;
-            left: auto;
-            top: auto;
-            transform: translateZ(0);
-        }
-        @media (max-width: 767px) {
-            left: 45%;
-        }
-        @media (max-width: 520px) {
-            left: 40%;
-        }
-    }
-    @-webkit-keyframes load8 {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @keyframes load8 {
-        0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-}
 
-@include loader-theme();
-@import "../external-assets/scss/scss-components/_utilities";
-@import "../external-assets/scss/scss-components/_gallery";
-@import "../external-assets/scss/scss-components/_collection";
-@import "../external-assets/scss/scss-components/_popup";
-@import "../external-assets/scss/scss-components/_navigation";
-@import "../external-assets/scss/scss-components/_chips";
-@import "../external-assets/scss/scss-components/_form";
-@import "../external-assets/scss/scss-components/_slick-sliders";
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$image-gallery-v2-primary: mat.define-palette(mat.$indigo-palette);
+$image-gallery-v2-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$image-gallery-v2-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$image-gallery-v2-theme: mat.define-light-theme((
+  color: (
+    primary: $image-gallery-v2-primary,
+    accent: $image-gallery-v2-accent,
+    warn: $image-gallery-v2-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($image-gallery-v2-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

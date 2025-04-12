@@ -1,0 +1,33 @@
+.grid-wrapper {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .grid-item {
+    flex-basis: calc(25% - 12px);
+  }
+
+  .collection-grid-item {
+    flex-basis: calc(20% - 13px);
+    cursor: pointer;
+  }
+
+  .grid-item, .collection-grid-item {
+    &:hover {
+      .image-wrapper {
+          transition: all .2s ease;
+          box-shadow: 4px 3px 6px rgba(black, 0.4);
+      }
+    }
+  }
+
+}
+
+.center-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin: 32px 0;
+}

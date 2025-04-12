@@ -1,0 +1,61 @@
+<mat-tab-group>
+  <mat-tab label="Home">
+    <div class="tab-content">
+      <div class="search-box">
+        <mat-form-field class="search" appearance="outline">
+          <mat-label>Search</mat-label>
+          <button matPrefix mat-icon-button  (click)="value=''">
+            <mat-icon fontIcon="search"></mat-icon>
+          </button>
+          <input matInput type="text" [(ngModel)]="value" (keyup.enter)="search(1)">
+          @if (value) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+              <mat-icon fontIcon="close"></mat-icon>
+            </button>
+          }
+        </mat-form-field>
+        <button mat-icon-button >
+          <mat-icon fontIcon="swap_vert" ></mat-icon>
+        </button>
+
+      </div>
+      @defer (on viewport) {
+
+          <div class="grid-wrapper">
+            @for (image of images; track $index) {
+            <div class="grid-item">
+              <app-image-tile [image]="image"></app-image-tile>
+            </div>
+            }
+          </div>
+          <div class="center-button">
+            <button mat-stroked-button color="accent" (click)="loadMoreImages('')">More</button>
+          </div>
+
+      } @placeholder {
+        <app-skeleton-loader></app-skeleton-loader>
+      }
+
+    </div>
+
+  </mat-tab>
+
+  <mat-tab label="Collection">
+    <div class="tab-content">
+      <div class="grid-wrapper">
+        @for (collection of collections; track $index) {
+        <div class="collection-grid-item">
+          <app-collection-tile [collection]="collection"></app-collection-tile>
+        </div>
+        }
+      </div>
+      <div class="center-button">
+        <button mat-stroked-button color="accent" (click)="getMoreCollections('')">More</button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Trending">
+    Coming soon...
+  </mat-tab>
+</mat-tab-group>
