@@ -31,10 +31,19 @@ export class CollectionGridComponent implements OnInit {
       this.collection = data;
   }
 
+  /**
+   * Angular lifecycle hook - called after component initialization
+   * Calls getCollectionData() to load initial collection data
+   */
   ngOnInit(): void {
     this.getCollectionData();
   }
 
+  /**
+   * Fetches collection data from the shared service
+   * Updates collectionImages array with new data
+   * Shows snackbar and closes dialog if no data is found
+   */
   private getCollectionData(){
     this.sharedService.getCollectionById(this.collection.id, this.currentPage.toString()).subscribe(res => {
       if (res?.length > 0) {
@@ -46,14 +55,26 @@ export class CollectionGridComponent implements OnInit {
     });
   }
 
+  /**
+   * Closes all open dialogs
+   */
   public close() {
     this.dialog.closeAll();
   }
 
+  /**
+   * Displays a snackbar notification
+   * @param message - The message to display
+   * @param action - The action text for the snackbar
+   */
   private openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action);
   }
 
+  /**
+   * Loads more images by incrementing current page
+   * and fetching additional collection data
+   */
   public loadMoreImages() {
      ++this.currentPage;
      this.getCollectionData();

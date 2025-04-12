@@ -22,14 +22,27 @@ export class HomeComponent implements OnInit {
     private sharedService: SharedService
   ) {}
 
+  /**
+   * Angular lifecycle hook - called after component initialization
+   * Initializes the page by calling initializePage()
+   */
   ngOnInit() {
     this.initializePage();
   }
 
+  /**
+   * Initializes the page by fetching initial data
+   * Calls fetchInitialData() to load images and collections
+   */
   private initializePage() {
     this.fetchInitialData();
   }
 
+  /**
+   * Loads more images with pagination
+   * @param orderBy - Sorting criteria for images
+   * Handles both regular loading and search results
+   */
   public loadMoreImages(orderBy: string) {
     this.isLoading = true;
     ++this.imagePageNumber;
@@ -40,6 +53,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Fetches additional images from the API
+   * @param orderBy - Sorting criteria for images
+   * Updates the images array with new results
+   */
   public getMoreImages(orderBy: string) {
     this.sharedService.getImages(this.imagePageNumber.toString(), orderBy)
     .subscribe((data) => {
@@ -49,6 +67,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches additional collections from the API
+   * @param orderBy - Sorting criteria for collections
+   * Updates the collections array with new results
+   */
   public getMoreCollections(orderBy: string) {
     this.isLoading = true;
     ++this.collectionPageNumber;
@@ -60,6 +83,12 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  /**
+   * Performs search for images based on user input
+   * @param imagePageNumber - Page number for paginated results
+   * Only triggers if search term is longer than 3 characters
+   * Updates images array and remaining counts
+   */
   public search(imagePageNumber: number) {
     if(this.value.length > 3) {
 
@@ -77,6 +106,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Clears current search results
+   * Resets search term, page number and images array
+   * Loads default images after clearing
+   */
   public clearSearch() {
     this.value = '';
     this.imagePageNumber = 1;
@@ -84,6 +118,11 @@ export class HomeComponent implements OnInit {
     this.getMoreImages('');
   }
 
+  /**
+   * Fetches initial data for the page
+   * Uses forkJoin to load images and collections simultaneously
+   * Updates both images and collections arrays
+   */
   private fetchInitialData() {
     this.isLoading = true;
     forkJoin([
