@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-image-edit',
@@ -39,7 +40,8 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     MatInputModule,
     MatSliderModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
 })
 export class ImageEditComponent implements OnInit {

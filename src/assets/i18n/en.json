@@ -1,0 +1,19 @@
+{
+  "LBL_HOME": "Home",
+  "LBL_COLLECTIONS": "Collections",
+  "LBL_BOOKMARKS": "Bookmarks",
+  "LBL_SEARCH": "Search",
+  "LBL_EDIT": "Edit",
+  "LBL_APPLY_FILTER": "Apply filter",
+  "LBL_MORE_IMAGES": "More images from",
+  "LBL_MORE": "More",
+  "LBL_BASED_ON": "Based on",
+  "LBL_COMING_SOON": "Coming soon...",
+  "LBL_DOWNLOAD_NOTE": "Edited image will be downloaded",
+  "LBL_DOWNLOAD": "Download",
+  "LBL_RESET" : "Reset",
+  "LBL_WRITE_SOMETING": "Write Something",
+  "LBL_CHOOSE_FONT": "Choose font",
+  "LBL_FONT_SIZE": "Font size",
+  "LBL_COLOR": "Color"
+}

@@ -1,5 +1,5 @@
 {
-  "name": "image-gallery-v2",
+  "name": "wallperex",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -15,11 +15,15 @@
     "@angular/common": "^17.3.12",
     "@angular/compiler": "^17.3.12",
     "@angular/core": "^17.3.12",
+    "@angular/fire": "^17.1.0",
     "@angular/forms": "^17.3.12",
     "@angular/material": "^17.3.10",
     "@angular/platform-browser": "^17.3.12",
     "@angular/platform-browser-dynamic": "^17.3.12",
     "@angular/router": "^17.3.12",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
+    "firebase": "^11.6.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"

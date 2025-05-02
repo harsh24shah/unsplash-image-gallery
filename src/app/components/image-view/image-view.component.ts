@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DailogData, ImageVM } from 'src/app/models/image.model';
 import { SharedService } from '../../services/shared.service';
 import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-image-view',
@@ -21,7 +22,8 @@ import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.comp
       CommonModule,
       MatDividerModule,
       MatListModule,
-      SkeletonLoaderComponent
+      SkeletonLoaderComponent,
+      TranslateModule
   ]
 })
 export class ImageViewComponent implements OnInit {

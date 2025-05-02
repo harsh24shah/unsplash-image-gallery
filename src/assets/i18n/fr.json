@@ -1,0 +1,19 @@
+{
+  "LBL_HOME": "Maison",
+  "LBL_COLLECTIONS": "Collections",
+  "LBL_BOOKMARKS": "Signets",
+  "LBL_SEARCH": "Recherche",
+  "LBL_EDIT": "Modifier",
+  "LBL_APPLY_FILTER": "Appliquer le filtre",
+  "LBL_MORE_IMAGES": "Plus d'images de",
+  "LBL_MORE": "Plus",
+  "LBL_BASED_ON": "Basé sur",
+  "LBL_COMING_SOON": "À venir...",
+  "LBL_DOWNLOAD_NOTE": "L'image modifiée sera téléchargée",
+  "LBL_DOWNLOAD": "Télécharger",
+  "LBL_RESET" : "Réinitialiser",
+  "LBL_WRITE_SOMETING": "Écrire quelque chose",
+  "LBL_CHOOSE_FONT": "Choisir la police",
+  "LBL_FONT_SIZE": "Taille de la police",
+  "LBL_COLOR": "Couleur"
+}

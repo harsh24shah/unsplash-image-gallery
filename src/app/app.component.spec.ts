@@ -14,7 +14,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'image-gallery-v2'`, () => {
+  it(`should have as title 'wallperex'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
   });
@@ -23,6 +23,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('image-gallery-v2 app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('wallperex app is running!');
   });
 });

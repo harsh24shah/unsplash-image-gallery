@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "image-gallery-v2": {
+    "wallperex": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/image-gallery-v2",
+            "outputPath": "dist/wallperex",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -40,13 +40,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "700kb",
                   "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "6kb"
                 }
               ],
               "outputHashing": "all"
@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "image-gallery-v2:build:production"
+              "browserTarget": "wallperex:build:production"
             },
             "development": {
-              "browserTarget": "image-gallery-v2:build:development"
+              "browserTarget": "wallperex:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "image-gallery-v2:build"
+            "browserTarget": "wallperex:build"
           }
         },
         "test": {

@@ -12,6 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CollectionTileComponent } from 'src/app/components/tiles/collection-tile/collection-tile.component';
 import { FormsModule } from '@angular/forms';
 import { SkeletonLoaderComponent } from 'src/app/components/skeleton-loader/skeleton-loader.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { SkeletonLoaderComponent } from 'src/app/components/skeleton-loader/skel
     MatInputModule,
     FormsModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    TranslateModule
   ],
   declarations: [HomeComponent],
 })

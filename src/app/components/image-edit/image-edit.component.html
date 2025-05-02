@@ -12,7 +12,7 @@
     <div class="user-info">
       <span class="user-avatar">
         <mat-icon fontIcon="edit"></mat-icon>
-        <span class="user-name">Edit</span>
+        <span class="user-name">{{'LBL_EDIT' | translate}}</span>
       </span>
       <button mat-icon-button aria-label="Clear" (click)="close()">
         <mat-icon fontIcon="close"></mat-icon>
@@ -20,12 +20,12 @@
     </div>
     <mat-divider></mat-divider>
     <div class="dialog-filters">
-      <small>Edited image will be downloaded</small>
+      <small>{{'LBL_DOWNLOAD_NOTE' | translate}}</small>
       <div class="download-button-section">
-        <button mat-flat-button color="accent" (click)="downloadImage()">Download</button>
-        <button mat-stroked-button color="secondary" (click)="resetBaseImage()">Reset</button>
+        <button mat-flat-button color="accent" (click)="downloadImage()">{{'LBL_DOWNLOAD' | translate}}</button>
+        <button mat-stroked-button color="secondary" (click)="resetBaseImage()">{{'LBL_RESET' | translate}}</button>
       </div>
-      <h3>Apply Filters</h3>
+      <h3>{{'LBL_APPLY_FILTER' | translate}}</h3>
         <div class="filter-gallery">
           @for (filter of filters; track $index) {
             <div class="filter-item" (click)="updateImageFilter(filter)">
@@ -39,12 +39,12 @@
         <div class="filter-form">
 
           <mat-form-field class="control" appearance="outline">
-            <mat-label>Write Something</mat-label>
+            <mat-label>{{'LBL_WRITE_SOMETING' | translate }}</mat-label>
             <input [(ngModel)]="textTitle" (input)="writeText()" matInput>
           </mat-form-field>
 
           <mat-form-field class="control" appearance="outline">
-            <mat-label>Choose Fonts</mat-label>
+            <mat-label>{{'LBL_CHOOSE_FONT' | translate }}</mat-label>
             <mat-select [(ngModel)]="selectedFont" (ngModelChange)="writeText()">
               @for (font of fontsFamily; track $index) {
                 <mat-option [value]="font">{{font}}</mat-option>
@@ -53,18 +53,18 @@
           </mat-form-field>
 
           <div class="control custom-control">
-            <mat-label>Font size</mat-label>
+            <mat-label>{{'LBL_FONT_SIZE' | translate }}</mat-label>
             <mat-slider min="10" max="100" step="1" class="control">
               <input [(ngModel)]="textFontSize" (input)="writeText()" matSliderThumb>
             </mat-slider>
           </div>
 
           <mat-form-field class="control" appearance="outline">
-            <mat-label>Font color</mat-label>
+            <mat-label>{{'LBL_COLOR' | translate }}</mat-label>
             <input (input)="writeText()" [(ngModel)]="textFontColor" type="color" matInput>
           </mat-form-field>
 
-          <small>Based on <a href="https://unsplash.com/" target="_blank">Unsplash</a></small>
+          <small>{{'LBL_BASED_ON' | translate}} <a href="https://unsplash.com/" target="_blank">Unsplash</a></small>
         </div>
     </div>
   </div>

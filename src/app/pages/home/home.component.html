@@ -1,9 +1,9 @@
 <mat-tab-group>
-  <mat-tab label="Home">
+  <mat-tab [label]="'LBL_HOME' | translate">
     <div class="tab-content">
       <div class="search-box">
         <mat-form-field class="search" appearance="outline">
-          <mat-label>Search</mat-label>
+          <mat-label>{{'LBL_SEARCH' | translate}}</mat-label>
           <button matPrefix mat-icon-button  (click)="value=''">
             <mat-icon fontIcon="search"></mat-icon>
           </button>
@@ -29,7 +29,7 @@
             }
           </div>
           <div class="center-button">
-            <button mat-stroked-button color="accent" (click)="loadMoreImages('')">More</button>
+            <button mat-stroked-button color="accent" (click)="loadMoreImages('')">{{'LBL_MORE' | translate}}</button>
           </div>
 
       } @placeholder {
@@ -40,7 +40,7 @@
 
   </mat-tab>
 
-  <mat-tab label="Collection">
+  <mat-tab [label]="'LBL_COLLECTIONS' | translate">
     <div class="tab-content">
       <div class="grid-wrapper">
         @for (collection of collections; track $index) {
@@ -50,12 +50,12 @@
         }
       </div>
       <div class="center-button">
-        <button mat-stroked-button color="accent" (click)="getMoreCollections('')">More</button>
+        <button mat-stroked-button color="accent" (click)="getMoreCollections('')">{{'LBL_MORE' | translate}}</button>
       </div>
     </div>
   </mat-tab>
 
-  <mat-tab label="Trending">
-    Coming soon...
+  <mat-tab [label]="'LBL_BOOKMARKS' | translate">
+    {{'LBL_COMING_SOON' | translate}}
   </mat-tab>
 </mat-tab-group>

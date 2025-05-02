@@ -1,15 +1,82 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MK2DFSH');
+  </script>
+  <!-- End Google Tag Manager -->
   <meta charset="utf-8">
-  <title>ImageGalleryV2</title>
+  <title>Wallperex &ndash; Unsplash Gallery</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:title" content="Wallperex - Gallery of unsplash images" />
+  <meta property="og:type" content="Wallpaper" />
+  <meta property="og:image" content="./assets/favicons/android-chrome-512x512.png" />
+  <meta name="robots" content="nosnippet">
+  <meta property="og:description"
+    content="A rich wallpaper gallery with mesonry layout having collections of HD wallpapers of unsplash images" />
+  <meta name="description" content="A rich wallpaper gallery having collections of wallpapers of unsplash images." />
+  <meta name="msapplication-TileColor" content="black">
+  <meta name="theme-color" content="black">
+  <meta name="application-name" content="Wallperex">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-navbutton-color" content="black">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Wallperex">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link id="cssTheme" href="" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="./assets/favicons/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="favicon-new.ico?v=3">
+  <link rel="preconnect" href="https://ajax.googleapis.com/" crossorigin>
+  <link rel="preconnect" href="https://api.unsplash.com" crossorigin>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142295261-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-142295261-1');
+  </script>
+
 </head>
+
 <body class="mat-typography">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MK2DFSH" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
   <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
+
 </html>

@@ -8,10 +8,13 @@
   position: static;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-   > small {
-    position: absolute;
-    top: 0;
-    right: 20px;
+  .header-details{
+    display: flex;
+    flex-direction: column;
   }
+
 }

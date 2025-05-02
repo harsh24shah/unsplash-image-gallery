@@ -3,8 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
+
+
 
 @NgModule({
   declarations: [
@@ -14,6 +19,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    LanguageSwitcherComponent,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+
   ],
   providers: [
     provideAnimationsAsync()
@@ -23,3 +37,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}

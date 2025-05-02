@@ -1,0 +1,3 @@
+<mat-button-toggle-group (change)="switchLanguage($event)" >
+    <mat-button-toggle *ngFor="let language of languages" [checked]="currentLanguage === language.code" [value]="language.code">{{language.name}}</mat-button-toggle>
+</mat-button-toggle-group>
