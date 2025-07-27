@@ -17,6 +17,12 @@
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+
+
+  @media (max-width: 767px) {
+    width: 100%;
+    position: static;
+  }
   }
 
   .canvas-wrap {
@@ -31,9 +37,18 @@
   display: flex;
   flex-wrap: nowrap;
 
+  @media (max-width: 767px) {
+   display: block;
+    height: 100vh;
+  }
+
   .dailog-left {
     flex-basis: 70%;
     overflow: hidden;
+
+    @media (max-width: 767px) {
+      flex-basis: 100%;
+    }
   }
 
   .dailog-right {
@@ -42,6 +57,10 @@
     display: flex;
     flex-flow: column;
     padding: 0 16px;
+
+    @media (max-width: 767px) {
+      flex-basis: 100%;
+    }
   }
 
   .dialog-filters {
@@ -126,6 +145,18 @@
   font-size: 12px;
   margin-bottom: 8px;
   margin-left: 16px;
+
+ @media (max-width: 767px) {
+    margin-bottom: 0;
+    margin-left: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 0px 8px;
+  }
 
   .user-avatar {
     display: flex;
