@@ -2,14 +2,14 @@
 
   <div class="dailog-left">
     <div class="image-detail-wrapper">
-      <img [alt]="image.alt_description" [src]="image.urls.regular" />
+      <img [alt]="image.alt_description" loading="lazy" [src]="image.urls.regular" />
     </div>
   </div>
 
   <div class="dailog-right">
     <div class="user-info">
       <span class="user-avatar">
-        <img [alt]="image.user.first_name" [src]="image.user.profile_image.small" />
+        <img [alt]="image.user.first_name" loading="lazy" [src]="image.user.profile_image.small" />
         <span class="user-name">{{image.user.first_name}}</span>
       </span>
       <button mat-icon-button aria-label="Clear" (click)="close()">
@@ -66,6 +66,7 @@
       } @placeholder {
         <app-skeleton-loader></app-skeleton-loader>
       }
+
 
       <small>{{'LBL_BASED_ON' | translate}} <a href="https://unsplash.com/" target="_blank">Unsplash</a></small>
     </div>

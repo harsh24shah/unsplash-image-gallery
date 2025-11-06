@@ -1,6 +1,6 @@
 @if(image){
   <div class="image-wrapper" (click)="openViewDialog(image)">
-    <img [alt]="image.alt_description" [src]="image.urls.small" />
+    <img [alt]="image.alt_description" loading="lazy" [src]="image.urls.small" />
     <span class="user-info">
       <span class="user-avatar">
         <img loading="lazy" [alt]="image.user.first_name" [src]="image.user.profile_image.small" />

@@ -30,7 +30,7 @@
           @for (filter of filters; track $index) {
             <div class="filter-item" (click)="updateImageFilter(filter)">
               <span class="filter-overlay" [ngClass]="filter">
-                <img [src]="image.urls.small" [alt]="filter" />
+                <img [src]="image.urls.small" loading="lazy" [alt]="filter" />
                 <span>{{filter | titlecase }}</span>
               </span>
             </div>
