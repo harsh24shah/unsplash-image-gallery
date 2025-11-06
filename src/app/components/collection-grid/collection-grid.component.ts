@@ -9,11 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
+import { InfiniteScrollDirective } from 'src/app/directives/infinite-scroll.directive';
 
 @Component({
   selector: 'app-collection-grid',
   standalone: true,
-  imports: [ImageTileComponent, MatSnackBarModule, MatDividerModule, MatIconModule, MatButtonModule, MatProgressBarModule, SkeletonLoaderComponent],
+  imports: [ImageTileComponent, MatSnackBarModule, MatDividerModule, MatIconModule, MatButtonModule, MatProgressBarModule, SkeletonLoaderComponent, InfiniteScrollDirective],
   templateUrl: './collection-grid.component.html',
   styleUrl: './collection-grid.component.scss'
 })
@@ -76,7 +77,7 @@ export class CollectionGridComponent implements OnInit {
    * and fetching additional collection data
    */
   public loadMoreImages() {
-     ++this.currentPage;
+     this.currentPage++;
      this.getCollectionData();
   }
 }

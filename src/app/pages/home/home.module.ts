@@ -13,6 +13,7 @@ import { CollectionTileComponent } from 'src/app/components/tiles/collection-til
 import { FormsModule } from '@angular/forms';
 import { SkeletonLoaderComponent } from 'src/app/components/skeleton-loader/skeleton-loader.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollDirective } from 'src/app/directives/infinite-scroll.directive';
 
 @NgModule({
   imports: [
@@ -28,8 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     MatIconModule,
     MatProgressBarModule,
-    TranslateModule
+    TranslateModule,
+    InfiniteScrollDirective
   ],
-  declarations: [HomeComponent],
+  declarations: [HomeComponent]
 })
 export class HomeModule {}

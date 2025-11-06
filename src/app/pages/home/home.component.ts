@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
    */
   public loadMoreImages(orderBy: string) {
     this.isLoading = true;
-    ++this.imagePageNumber;
+    this.imagePageNumber++;
     if(this.value !== '') {
       this.search(this.imagePageNumber);
     } else {
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
    */
   public getMoreCollections(orderBy: string) {
     this.isLoading = true;
-    ++this.collectionPageNumber;
+    this.collectionPageNumber++;
     this.sharedService.getCollections(this.collectionPageNumber.toString(), orderBy)
       .subscribe((data) => {
         const newCollections = data;
@@ -91,12 +91,9 @@ export class HomeComponent implements OnInit {
    */
   public search(imagePageNumber: number) {
     if(this.value.length > 3) {
-
       this.isLoading = true;
       this.imagePageNumber = imagePageNumber;
-
       if(imagePageNumber === 1) this.images = [];
-
       this.sharedService.getSearch(this.value, this.imagePageNumber.toString(), '').subscribe((data) => {
         const newImages = data.results;
         this.images = [...this.images, ...newImages];
@@ -129,8 +126,8 @@ export class HomeComponent implements OnInit {
       this.sharedService.getImages(),
       this.sharedService.getCollections()
     ]).subscribe((res) => {
-      this.images = res[0];
-      this.collections = res[1];
+      if(res[0].length > 0) { this.images = res[0]; }
+      if(res[1].length > 0) { this.collections = res[1]; }
       this.isLoading = false;
     });
   }

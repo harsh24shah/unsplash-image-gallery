@@ -1,6 +1,6 @@
 export class AppConatants{
   public static readonly BASE_URL = 'https://api.unsplash.com';
-  public static readonly API_KEY = '?client_id=061c51148e8b602c992064482ba158499083625ae7139aee5d6bda6e2c895c96';
+  public static readonly API_KEY = '?client_id=061c51148e8b602c992064482ba158499083625ae7139aee5d6bda6e2c895c96'; // TODO: add environment variables
   public static readonly PAGESIZE: string = '&per_page={pageSize}';
   public static readonly PAGENUMBER: string = '&page={page}';
   public static readonly ORDERBY: string = '&order_by={orderBy}';
