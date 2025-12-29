@@ -330,4 +330,13 @@ export class Util {
 
       return contextData;
     }
+
+    public static scrollTop(element: HTMLDivElement) {
+      if (element) {
+        element.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
 }
