@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { DailogData, ImageVM } from 'src/app/models/image.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,19 +9,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { ImageViewComponent } from '../../image-view/image-view.component';
 import { DailogConfig } from 'src/app/constants/constants';
 import { CollectionImageVM } from 'src/app/models/collection.mode';
+import { SkeletonLoaderComponent } from '../../skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'app-image-tile',
   templateUrl: './image-tile.component.html',
   styleUrls: ['./image-tile.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, MatCardModule, MatIconModule],
+  imports: [CommonModule, HttpClientModule, MatCardModule, MatIconModule, SkeletonLoaderComponent],
 })
-export class ImageTileComponent implements OnInit {
-  @Input() image: ImageVM | CollectionImageVM;
+export class ImageTileComponent {
+  public image = input.required<ImageVM | CollectionImageVM>();
+  private loadedUrl = signal<string | null>(null);
+  public imageLoaded = computed(() => this.loadedUrl() === this.image().urls.small);
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {}
+  public markImageLoaded(url: string) {
+    this.loadedUrl.set(url);
+  }
 
 
   public openEditDialog(_event: MouseEvent| PointerEvent, imageData: ImageVM | CollectionImageVM) {

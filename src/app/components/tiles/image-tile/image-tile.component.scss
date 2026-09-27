@@ -18,6 +18,14 @@
     transition: all .2s ease;
   }
 
+  > .tile-image {
+    visibility: hidden;
+  }
+
+  > .tile-image.loaded {
+    visibility: visible;
+  }
+
   .user-info,
   .user-avatar{
     display: flex;

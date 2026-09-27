@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-skeleton-loader',
@@ -6,12 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
   standalone: true,
   styleUrls: ['./skeleton-loader.component.scss']
 })
-export class SkeletonLoaderComponent implements OnInit {
-  @Input() itemHeight: number = 315; // Default height
-  public items = [1, 3, 4, 5, 6, 7, 8, 9, 0];
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class SkeletonLoaderComponent {
+  @Input() itemHeight = 315;
+  @Input() itemWidth = '100%';
+  @Input() itemCount = 9;
+  @Input() singleItem = false;
+  public items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }

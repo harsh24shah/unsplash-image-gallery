@@ -26,3 +26,13 @@
 .grid-wrapper{
   margin-top: 16px;
 }
+
+.skeleton-grid-item {
+  position: relative;
+  height: 315px;
+}
+
+.scroll-sentinel {
+  width: 100%;
+  height: 1px;
+}

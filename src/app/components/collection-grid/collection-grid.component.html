@@ -8,21 +8,20 @@
     </button>
   </div>
   <mat-divider></mat-divider>
-  @defer  {
-    <div class="grid-wrapper">
-      @for (image of collectionImages; track $index) {
+  <div class="grid-wrapper">
+      @for (image of collectionImages(); track image.id) {
       <div class="grid-item">
         <app-image-tile [image]="image"></app-image-tile>
       </div>
       }
-    </div>
-    <div class="center-button" #scrollAnchor appInfiniteScroll (scrolled)="loadMoreImages()">
-      @if(isLoading) {
-        Loading...
+      @if (isLoading()) {
+        @for (placeholder of imagePlaceholders; track $index) {
+          <div class="grid-item skeleton-grid-item" aria-hidden="true">
+            <app-skeleton-loader [singleItem]="true" [itemHeight]="315" />
+          </div>
+        }
       }
     </div>
-  } @placeholder {
-    <app-skeleton-loader></app-skeleton-loader>
-  }
+    <div class="scroll-sentinel" appInfiniteScroll [appInfiniteScrollDisabled]="isLoading() || !hasMoreImages()" (scrolled)="loadMoreImages()" aria-hidden="true"></div>
 
 </div>

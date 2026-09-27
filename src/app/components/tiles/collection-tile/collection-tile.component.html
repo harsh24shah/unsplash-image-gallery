@@ -1,9 +1,12 @@
-@if(collection){
-  <div class="image-wrapper" (click)="openCollectionDetails(collection.id)">
-    <img [alt]="collection.title" loading="lazy" [src]="collection.cover_photo.urls.thumb" />
+@if(collection(); as collectionData){
+  <div class="image-wrapper" (click)="openCollectionDetails(collectionData.id)">
+    @if (!imageLoaded()) {
+      <app-skeleton-loader [singleItem]="true" [itemHeight]="150" [itemWidth]="'100%'" />
+    }
+    <img class="tile-image" [class.loaded]="imageLoaded()" [alt]="collectionData.title" loading="lazy" [src]="collectionData.cover_photo.urls.thumb" (load)="markImageLoaded(collectionData.cover_photo.urls.thumb)" (error)="markImageLoaded(collectionData.cover_photo.urls.thumb)" />
     <span class="collection-info">
-      <span class="collection-title">{{collection.title}}</span>
-      <span class="colection-subtitle">{{collection.total_photos}} Photos</span>
+      <span class="collection-title">{{collectionData.title}}</span>
+      <span class="colection-subtitle">{{collectionData.total_photos}} Photos</span>
     </span>
   </div>
 }

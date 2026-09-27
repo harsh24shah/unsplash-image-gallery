@@ -1,4 +1,4 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SharedService } from '../../services/shared.service';
 import { CollectionImageVM, CollectionVM } from 'src/app/models/collection.mode';
@@ -8,22 +8,25 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollDirective } from 'src/app/directives/infinite-scroll.directive';
+import { finalize } from 'rxjs/operators';
+import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'app-collection-grid',
   standalone: true,
-  imports: [ImageTileComponent, MatSnackBarModule, MatDividerModule, MatIconModule, MatButtonModule, MatProgressBarModule, SkeletonLoaderComponent, InfiniteScrollDirective],
+  imports: [ImageTileComponent, SkeletonLoaderComponent, MatSnackBarModule, MatDividerModule, MatIconModule, MatButtonModule, MatProgressBarModule, InfiniteScrollDirective],
   templateUrl: './collection-grid.component.html',
   styleUrl: './collection-grid.component.scss'
 })
 export class CollectionGridComponent implements OnInit {
   public collection: CollectionVM;
   private currentPage = 1;
-  public collectionImages: CollectionImageVM[] = [];
+  public collectionImages = signal<CollectionImageVM[]>([]);
+  public imagePlaceholders = Array.from({ length: 8 });
   private snackBar = inject(MatSnackBar);
-  public isLoading = false;
+  public isLoading = signal(false);
+  public hasMoreImages = signal(true);
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CollectionVM,
       private dialog: MatDialog,
@@ -46,12 +49,19 @@ export class CollectionGridComponent implements OnInit {
    * Shows snackbar and closes dialog if no data is found
    */
   private getCollectionData(){
-    this.sharedService.getCollectionById(this.collection.id, this.currentPage.toString()).subscribe(res => {
+    if (this.isLoading() || !this.hasMoreImages()) return;
+    this.isLoading.set(true);
+    this.sharedService.getCollectionById(this.collection.id, this.currentPage.toString())
+      .pipe(finalize(() => this.isLoading.set(false)))
+      .subscribe(res => {
       if (res?.length > 0) {
-        this.collectionImages = [...this.collectionImages, ...res];
+        this.collectionImages.update(images => [...images, ...res]);
       } else {
-        this.openSnackBar("No Data found!", "ok");
-        this.close();
+        this.hasMoreImages.set(false);
+        if (this.currentPage === 1) {
+          this.openSnackBar("No Data found!", "ok");
+          this.close();
+        }
       }
     });
   }
@@ -77,6 +87,7 @@ export class CollectionGridComponent implements OnInit {
    * and fetching additional collection data
    */
   public loadMoreImages() {
+      if (this.isLoading() || !this.hasMoreImages()) return;
      this.currentPage++;
      this.getCollectionData();
   }

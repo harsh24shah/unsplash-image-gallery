@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { ImageVM } from 'src/app/models/image.model';
 import { CollectionVM } from 'src/app/models/collection.mode';
 import { forkJoin } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +11,18 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public images: ImageVM[] = [];
-  public collections: CollectionVM[] = [];
+  public images = signal<ImageVM[]>([]);
+  public collections = signal<CollectionVM[]>([]);
+  public imagePlaceholders = Array.from({ length: 8 });
+  public collectionPlaceholders = Array.from({ length: 10 });
   public imagePageNumber = 1;
   public collectionPageNumber = 1;
   public value = '';
   public remainigCounts = 0;
-  public isLoading = false;
+  public isLoadingImages = signal(false);
+  public isLoadingCollections = signal(false);
+  public hasMoreImages = signal(true);
+  public hasMoreCollections = signal(true);
 
   constructor(
     private sharedService: SharedService
@@ -44,7 +50,7 @@ export class HomeComponent implements OnInit {
    * Handles both regular loading and search results
    */
   public loadMoreImages(orderBy: string) {
-    this.isLoading = true;
+    if (this.isLoadingImages() || !this.hasMoreImages() || (this.value !== '' && this.value.length <= 3)) return;
     this.imagePageNumber++;
     if(this.value !== '') {
       this.search(this.imagePageNumber);
@@ -59,11 +65,14 @@ export class HomeComponent implements OnInit {
    * Updates the images array with new results
    */
   public getMoreImages(orderBy: string) {
+    if (this.isLoadingImages() || !this.hasMoreImages()) return;
+    this.isLoadingImages.set(true);
     this.sharedService.getImages(this.imagePageNumber.toString(), orderBy)
+    .pipe(finalize(() => this.isLoadingImages.set(false)))
     .subscribe((data) => {
       const newImages = data;
-      this.images = [...this.images, ...newImages];
-      this.isLoading = false;
+      this.images.update(images => [...images, ...newImages]);
+      this.hasMoreImages.set(newImages.length > 0);
     });
   }
 
@@ -73,13 +82,15 @@ export class HomeComponent implements OnInit {
    * Updates the collections array with new results
    */
   public getMoreCollections(orderBy: string) {
-    this.isLoading = true;
+    if (this.isLoadingCollections() || !this.hasMoreCollections()) return;
+    this.isLoadingCollections.set(true);
     this.collectionPageNumber++;
     this.sharedService.getCollections(this.collectionPageNumber.toString(), orderBy)
+      .pipe(finalize(() => this.isLoadingCollections.set(false)))
       .subscribe((data) => {
         const newCollections = data;
-        this.collections = [...this.collections, ...newCollections];
-        this.isLoading = false;
+        this.collections.update(collections => [...collections, ...newCollections]);
+        this.hasMoreCollections.set(newCollections.length > 0);
       });
   }
 
@@ -91,14 +102,20 @@ export class HomeComponent implements OnInit {
    */
   public search(imagePageNumber: number) {
     if(this.value.length > 3) {
-      this.isLoading = true;
+      if (this.isLoadingImages()) return;
+      this.isLoadingImages.set(true);
       this.imagePageNumber = imagePageNumber;
-      if(imagePageNumber === 1) this.images = [];
-      this.sharedService.getSearch(this.value, this.imagePageNumber.toString(), '').subscribe((data) => {
+      if(imagePageNumber === 1) {
+        this.images.set([]);
+        this.hasMoreImages.set(true);
+      }
+      this.sharedService.getSearch(this.value, this.imagePageNumber.toString(), '')
+        .pipe(finalize(() => this.isLoadingImages.set(false)))
+        .subscribe((data) => {
         const newImages = data.results;
-        this.images = [...this.images, ...newImages];
+        this.images.update(images => [...images, ...newImages]);
         this.remainigCounts = data.total === 0 ? 0 : (data.total - newImages.length);
-        this.isLoading = false;
+        this.hasMoreImages.set(this.imagePageNumber < data.total_pages && newImages.length > 0);
       });
     }
   }
@@ -111,7 +128,8 @@ export class HomeComponent implements OnInit {
   public clearSearch() {
     this.value = '';
     this.imagePageNumber = 1;
-    this.images = [];
+    this.images.set([]);
+    this.hasMoreImages.set(true);
     this.getMoreImages('');
   }
 
@@ -121,14 +139,19 @@ export class HomeComponent implements OnInit {
    * Updates both images and collections arrays
    */
   private fetchInitialData() {
-    this.isLoading = true;
+    this.isLoadingImages.set(true);
+    this.isLoadingCollections.set(true);
     forkJoin([
       this.sharedService.getImages(),
       this.sharedService.getCollections()
-    ]).subscribe((res) => {
-      if(res[0].length > 0) { this.images = res[0]; }
-      if(res[1].length > 0) { this.collections = res[1]; }
-      this.isLoading = false;
+    ]).pipe(finalize(() => {
+      this.isLoadingImages.set(false);
+      this.isLoadingCollections.set(false);
+    })).subscribe((res) => {
+      if(res[0].length > 0) { this.images.set(res[0]); }
+      if(res[1].length > 0) { this.collections.set(res[1]); }
+      this.hasMoreImages.set(res[0].length > 0);
+      this.hasMoreCollections.set(res[1].length > 0);
     });
   }
 }

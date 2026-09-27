@@ -31,7 +31,7 @@ import { InfiniteScrollDirective } from 'src/app/directives/infinite-scroll.dire
     MatProgressBarModule,
     TranslateModule,
     InfiniteScrollDirective
-  ],
+],
   declarations: [HomeComponent]
 })
 export class HomeModule {}

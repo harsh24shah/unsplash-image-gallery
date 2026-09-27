@@ -1,5 +1,5 @@
-<div class="item-wrapper">
-  @for (item of items; track $index) {
-    <div class="item" [style.height.px]="itemHeight"></div>
+<div class="item-wrapper" [class.single-item]="singleItem">
+  @for (item of items.slice(0, singleItem ? 1 : itemCount); track item) {
+    <div class="item" [style.height]="singleItem ? '100%' : itemHeight + 'px'" [style.width]="itemWidth"></div>
   }
 </div>

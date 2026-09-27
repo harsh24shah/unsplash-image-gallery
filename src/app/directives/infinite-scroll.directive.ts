@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Output, EventEmitter, OnInit, OnDestroy, effect, input } from '@angular/core';
 
 @Directive({
   selector: '[appInfiniteScroll]',
@@ -6,29 +6,49 @@ import { Directive, ElementRef, Output, EventEmitter, OnInit, OnDestroy } from '
 })
 export class InfiniteScrollDirective implements OnInit, OnDestroy {
   @Output() scrolled = new EventEmitter<void>();
-  private observer!: IntersectionObserver;
+  public readonly appInfiniteScrollDisabled = input(false);
+  private observer?: IntersectionObserver;
+  private isIntersecting = false;
+  private hasEmitted = false;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) {
+    effect(() => {
+      if (this.appInfiniteScrollDisabled()) {
+        this.hasEmitted = false;
+      } else {
+        this.emitIfReady();
+      }
+    });
+  }
 
   ngOnInit() {
-    const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: '0px',
-      threshold: 0.8 // Trigger when 80% of the target is visible
-    };
+    if (typeof IntersectionObserver === 'undefined') {
+      this.isIntersecting = true;
+      this.emitIfReady();
+      return;
+    }
 
     this.observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        this.scrolled.emit();
+      if (!entry) return;
+      this.isIntersecting = entry.isIntersecting;
+      if (!this.isIntersecting) {
+        this.hasEmitted = false;
+      } else {
+        this.emitIfReady();
       }
-    }, options);
+    }, { rootMargin: '0px 0px 200px 0px', threshold: 0 });
 
     this.observer.observe(this.el.nativeElement);
   }
 
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
+  private emitIfReady() {
+    if (this.isIntersecting && !this.appInfiniteScrollDisabled() && !this.hasEmitted) {
+      this.hasEmitted = true;
+      this.scrolled.emit();
     }
+  }
+
+  ngOnDestroy() {
+    this.observer?.disconnect();
   }
 }

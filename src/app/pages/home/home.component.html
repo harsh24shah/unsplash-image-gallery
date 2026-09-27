@@ -19,22 +19,21 @@
         </button>
 
       </div>
-      @defer (on viewport) {
-        <div class="grid-wrapper">
-          @for (image of images; track $index) {
-          <div class="grid-item">
-            <app-image-tile [image]="image"></app-image-tile>
-          </div>
-          }
+      <div class="grid-wrapper">
+        @for (image of images(); track image.id) {
+        <div class="grid-item">
+          <app-image-tile [image]="image"></app-image-tile>
         </div>
-        <div class="center-button" #scrollAnchor appInfiniteScroll (scrolled)="loadMoreImages('')">
-          @if(isLoading) {
-            Loading...
+        }
+        @if (isLoadingImages()) {
+          @for (placeholder of imagePlaceholders; track $index) {
+            <div class="grid-item skeleton-grid-item" aria-hidden="true">
+              <app-skeleton-loader [singleItem]="true" [itemHeight]="315" />
+            </div>
           }
-        </div>
-      } @placeholder {
-        <app-skeleton-loader></app-skeleton-loader>
-      }
+        }
+      </div>
+      <div class="scroll-sentinel" appInfiniteScroll [appInfiniteScrollDisabled]="isLoadingImages() || !hasMoreImages()" (scrolled)="loadMoreImages('')" aria-hidden="true"></div>
 
     </div>
 
@@ -43,21 +42,24 @@
   <mat-tab [label]="'LBL_COLLECTIONS' | translate">
     <div class="tab-content">
       <div class="grid-wrapper">
-        @for (collection of collections; track $index) {
+        @for (collection of collections(); track collection.id) {
           <div class="collection-grid-item">
             <app-collection-tile [collection]="collection"></app-collection-tile>
           </div>
         }
-      </div>
-      <div class="center-button" #scrollAnchor appInfiniteScroll (scrolled)="getMoreCollections('')">
-        @if(isLoading) {
-          Loading...
+        @if (isLoadingCollections()) {
+          @for (placeholder of collectionPlaceholders; track $index) {
+            <div class="collection-grid-item collection-skeleton-grid-item" aria-hidden="true">
+              <app-skeleton-loader [singleItem]="true" [itemHeight]="150" />
+            </div>
+          }
         }
       </div>
+      <div class="scroll-sentinel" appInfiniteScroll [appInfiniteScrollDisabled]="isLoadingCollections() || !hasMoreCollections()" (scrolled)="getMoreCollections('')" aria-hidden="true"></div>
     </div>
   </mat-tab>
 
   <mat-tab [label]="'LBL_BOOKMARKS' | translate">
-    {{'LBL_COMING_SOON' | translate}}
+    Coming soon...
   </mat-tab>
 </mat-tab-group>

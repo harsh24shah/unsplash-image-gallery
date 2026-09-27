@@ -1,12 +1,15 @@
-@if(image){
-  <div class="image-wrapper" (click)="openViewDialog(image)">
-    <img [alt]="image.alt_description" loading="lazy" [src]="image.urls.small" />
+@if(image(); as imageData){
+  <div class="image-wrapper" (click)="openViewDialog(imageData)">
+    @if (!imageLoaded()) {
+      <app-skeleton-loader [singleItem]="true" [itemHeight]="315" [itemWidth]="'100%'" />
+    }
+    <img class="tile-image" [class.loaded]="imageLoaded()" [alt]="imageData.alt_description" loading="lazy" [src]="imageData.urls.small" (load)="markImageLoaded(imageData.urls.small)" (error)="markImageLoaded(imageData.urls.small)" />
     <span class="user-info">
       <span class="user-avatar">
-        <img loading="lazy" [alt]="image.user.first_name" [src]="image.user.profile_image.small" />
-        <span class="user-name">{{image.user.first_name}}</span>
+        <img loading="lazy" [alt]="imageData.user.first_name" [src]="imageData.user.profile_image.small" />
+        <span class="user-name">{{imageData.user.first_name}}</span>
       </span>
-      <mat-icon fontIcon="edit" (click)="openEditDialog($event, image)"></mat-icon>
+      <mat-icon fontIcon="edit" (click)="openEditDialog($event, imageData)"></mat-icon>
     </span>
   </div>
 }
